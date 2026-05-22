@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GRID — A Modular Typography Showcase</title>
+<meta name="description" content="A showcase of Modular Typography — a rigorous Swiss/International-Typographic system. Strict baseline grid, massive expressive type, monospace data labels, monochrome with one bold accent." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MODULAR TYPOGRAPHY — Swiss / International Typographic Style.
+   A strict visible column grid, type-as-system, dramatic scale
+   contrast, monospace data labels, monochrome + one accent.
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --paper:      #f3f1ea;   /* warm off-white stock */
+  --ink:        #16140f;   /* near-black ink */
+  --ink-soft:   #6c6859;   /* muted grey ink */
+  --rule:       #16140f;   /* hairline / structural rules */
+  --rule-soft:  #c9c5b6;   /* faint grid lines */
+  --panel:      #faf8f2;   /* lifted panel */
+  --accent:     #e63916;   /* signal red — the one bold accent */
+  --accent-ink: #f3f1ea;
+  --grid-line:  rgba(22,20,15,.07);
+}
+[data-theme="dark"]{
+  --paper:      #15140f;
+  --ink:        #f0ede2;
+  --ink-soft:   #8d8979;
+  --rule:       #f0ede2;
+  --rule-soft:  #38362d;
+  --panel:      #1d1c15;
+  --accent:     #ff4a25;
+  --accent-ink: #15140f;
+  --grid-line:  rgba(240,237,226,.06);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Archivo', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.42;
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s ease, color .4s ease;
+  overflow-x:hidden;
+  /* the structural baseline + column grid, always visible */
+  background-image:
+    repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 100%);
+  background-size:calc(100% / 12) 100%;
+}
+
+::selection{ background:var(--accent); color:var(--accent-ink); }
+
+.wrap{ max-width:1280px; margin:0 auto; padding:0 32px; position:relative; }
+
+/* monospace data-label utility ------------------------------- */
+.mono{
+  font-family:'Space Mono', monospace; font-size:.7rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+}
+
+/* ============================================================ NAV */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  border-bottom:2px solid var(--rule);
+}
+.nav-inner{
+  display:flex; align-items:stretch; gap:0;
+  min-height:64px;
+}
+.brand{
+  display:flex; align-items:center; gap:14px; margin-right:auto;
+  padding-right:28px; border-right:1px solid var(--rule-soft);
+}
+.brand-mark{
+  width:38px; height:38px; flex:none; display:grid; place-items:center;
+  background:var(--accent); color:var(--accent-ink);
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.5rem;
+  line-height:1;
+}
+.brand-name{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.25rem;
+  letter-spacing:-.03em; text-transform:uppercase;
+}
+.nav-links{ display:flex; align-items:stretch; }
+.nav-links a{
+  display:flex; align-items:center;
+  color:var(--ink); text-decoration:none;
+  font-family:'Space Mono',monospace; font-size:.72rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  padding:0 20px; border-left:1px solid var(--rule-soft);
+  transition:background .15s, color .15s;
+}
+.nav-links a:hover{ background:var(--accent); color:var(--accent-ink); }
+.nav-links a.allstyles{ color:var(--accent); }
+.nav-links a.allstyles:hover{ color:var(--accent-ink); }
+
+.icon-btn{
+  width:64px; flex:none; border:0; cursor:pointer;
+  border-left:1px solid var(--rule-soft);
+  background:var(--paper); color:var(--ink);
+  display:grid; place-items:center;
+  transition:background .15s, color .15s;
+}
+.icon-btn:hover{ background:var(--accent); color:var(--accent-ink); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{
+  padding:48px 0 0;
+  border-bottom:2px solid var(--rule);
+}
+.eyebrow{
+  display:flex; align-items:center; gap:14px;
+  padding-bottom:20px; margin-bottom:36px;
+  border-bottom:1px solid var(--rule-soft);
+  color:var(--ink-soft);
+}
+.eyebrow .idx{ color:var(--accent); }
+.eyebrow .bar{ flex:1; height:1px; background:var(--rule-soft); }
+.hero h1{
+  font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:clamp(3.4rem, 12vw, 10.5rem);
+  line-height:.92; letter-spacing:-.05em; text-transform:uppercase;
+}
+.hero h1 .em{
+  display:inline-block; color:var(--accent);
+}
+.hero h1 .out{
+  -webkit-text-stroke:2px var(--ink); color:transparent;
+}
+.hero-grid{
+  display:grid; grid-template-columns:repeat(12,1fr);
+  gap:0; margin-top:44px;
+  border-top:1px solid var(--rule-soft);
+}
+.hero-sub{
+  grid-column:1 / 7; padding:30px 30px 30px 0;
+  border-right:1px solid var(--rule-soft);
+  font-size:1.12rem; color:var(--ink-soft);
+}
+.hero-sub .lead{ color:var(--ink); font-weight:600; }
+.hero-cta{
+  grid-column:7 / 13; padding:30px 0 30px 30px;
+  display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;
+}
+.hero-stats{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:2px solid var(--rule);
+}
+.stat-pill{
+  padding:26px 24px;
+  border-right:1px solid var(--rule-soft);
+  display:flex; flex-direction:column;
+}
+.stat-pill:last-child{ border-right:0; }
+.stat-pill b{
+  font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:3.4rem; line-height:.9; letter-spacing:-.04em;
+}
+.stat-pill .accent-num{ color:var(--accent); }
+.stat-pill small{
+  font-family:'Space Mono',monospace; font-size:.68rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);
+  margin-top:12px;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Space Mono',monospace; font-size:.74rem; font-weight:700;
+  letter-spacing:.13em; text-transform:uppercase; cursor:pointer;
+  background:var(--paper); color:var(--ink);
+  border:2px solid var(--rule);
+  padding:15px 24px;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:background .14s ease, color .14s ease, transform .1s ease;
+}
+.btn:hover{ background:var(--ink); color:var(--paper); }
+.btn:active{ transform:translate(2px,2px); }
+.btn svg{ width:16px; height:16px; }
+.btn--accent{
+  background:var(--accent); color:var(--accent-ink); border-color:var(--accent);
+}
+.btn--accent:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-soft); border-color:var(--rule-soft);
+  background:transparent;
+}
+.btn:disabled:hover{ background:transparent; color:var(--ink-soft); transform:none; }
+.btn:focus-visible, .icon-btn:focus-visible{
+  outline:3px solid var(--accent); outline-offset:2px;
+}
+
+/* ============================================================ SECTIONS */
+.section{ border-bottom:2px solid var(--rule); }
+.section-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:24px; flex-wrap:wrap;
+  padding:40px 0 28px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.section-head h2{
+  font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:clamp(2.2rem,5.5vw,4.4rem);
+  line-height:.92; letter-spacing:-.045em; text-transform:uppercase;
+  max-width:14ch;
+}
+.section-head .meta{
+  text-align:right; color:var(--ink-soft);
+}
+.section-head .meta .num{
+  font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:2.6rem; line-height:1; letter-spacing:-.04em;
+  color:var(--accent);
+}
+.section-head .meta p{ max-width:34ch; margin-top:8px; font-size:.92rem; }
+
+/* ============================================================ BENTO GRID */
+.bento{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  /* the grid IS the structure — hairline rules between cells */
+  gap:1px; background:var(--rule-soft);
+  border-bottom:1px solid var(--rule-soft);
+}
+.card{
+  background:var(--paper); padding:30px;
+  position:relative;
+  opacity:0; transform:translateY(20px);
+  transition:opacity .55s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+}
+.card.in{ opacity:1; transform:none; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card--wide{ grid-column:span 2; }
+
+.card-label{
+  display:flex; align-items:baseline; gap:10px;
+  font-family:'Space Mono',monospace; font-size:.68rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);
+  padding-bottom:14px; margin-bottom:22px;
+  border-bottom:1px solid var(--rule);
+}
+.card-label .tag{ color:var(--accent); }
+.card-label .fill{ flex:1; }
+.card-title{
+  font-family:'Archivo',sans-serif; font-weight:800;
+  font-size:1.5rem; letter-spacing:-.03em; line-height:1.04;
+  text-transform:uppercase;
+}
+.card-body{ color:var(--ink-soft); font-size:.92rem; margin-top:8px; }
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1;
+  background:var(--ink); color:var(--accent-ink);
+  display:grid; place-items:center; margin-bottom:22px;
+  overflow:hidden;
+}
+.player-art::before{
+  content:"A1"; position:absolute; top:12px; left:14px;
+  font-family:'Space Mono',monospace; font-size:.66rem; font-weight:700;
+  letter-spacing:.14em; color:var(--ink-soft);
+}
+.player-art::after{
+  content:"33⅓"; position:absolute; bottom:12px; right:14px;
+  font-family:'Space Mono',monospace; font-size:.66rem; font-weight:700;
+  letter-spacing:.14em; color:var(--ink-soft);
+}
+/* oversized cropped letterform as structural block */
+.art-glyph{
+  position:absolute; font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:22rem; line-height:.7; letter-spacing:-.07em;
+  color:var(--accent); top:50%; left:50%;
+  transform:translate(-50%,-46%);
+  user-select:none; pointer-events:none;
+}
+.eq{
+  position:relative; z-index:1;
+  display:flex; align-items:flex-end; gap:6px; height:60px;
+}
+.eq span{
+  width:9px; height:14px; background:var(--accent-ink);
+  animation:eq 850ms steps(6,end) infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:12px; } 50%{ height:52px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Archivo',sans-serif; font-size:1.5rem; font-weight:900;
+  line-height:1; letter-spacing:-.03em; text-transform:uppercase;
+}
+.player-meta p{
+  font-family:'Space Mono',monospace; color:var(--ink-soft);
+  font-size:.74rem; letter-spacing:.08em; margin-top:6px;
+}
+.heart{
+  margin-left:auto; width:42px; height:42px; flex:none; border:2px solid var(--rule);
+  background:var(--paper); color:var(--ink); cursor:pointer;
+  display:grid; place-items:center; transition:background .14s, color .14s;
+}
+.heart:hover{ background:var(--ink); color:var(--paper); }
+.heart svg{ width:18px; height:18px; }
+.heart.on{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.heart.on svg{ fill:var(--accent-ink); }
+.heart:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+
+.player-progress{ margin:20px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:8px; background:var(--rule-soft); position:relative;
+  border:1px solid var(--rule);
+}
+.track-fill{
+  position:absolute; top:0; left:0; bottom:0; width:34%;
+  background:var(--accent);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-2px; top:-5px;
+  width:4px; height:16px; background:var(--ink);
+}
+.player-time{
+  display:flex; justify-content:space-between;
+  font-family:'Space Mono',monospace; font-size:.72rem; font-weight:700;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums;
+}
+.player-controls{
+  display:flex; align-items:stretch; margin-top:18px;
+  border:2px solid var(--rule);
+}
+.player-controls .icon-btn{
+  flex:1; width:auto; height:54px; background:var(--paper);
+  border-left:0; border-right:1px solid var(--rule);
+}
+.player-controls .icon-btn:last-child{ border-right:0; }
+.play-btn{
+  flex:2; height:54px; border:0; cursor:pointer;
+  border-right:1px solid var(--rule);
+  background:var(--accent); color:var(--accent-ink);
+  display:grid; place-items:center;
+  transition:background .14s, color .14s;
+}
+.play-btn:hover{ background:var(--ink); color:var(--paper); }
+.play-btn svg{ width:22px; height:22px; }
+.play-btn.playing{ background:var(--ink); color:var(--paper); }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+.play-btn:focus-visible{ outline:3px solid var(--accent); outline-offset:-5px; }
+
+/* ---- Switches ---- */
+.switch-row{
+  display:flex; align-items:center; gap:16px; padding:16px 0;
+  border-bottom:1px solid var(--rule-soft);
+}
+.switch-row:last-child{ border-bottom:0; }
+.switch-row .lbl{
+  font-family:'Archivo',sans-serif; font-weight:700; font-size:1rem;
+  letter-spacing:-.01em;
+}
+.switch-row .sub{
+  font-family:'Space Mono',monospace; font-size:.68rem;
+  letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;
+}
+.switch{
+  position:relative; width:62px; height:32px; flex:none; margin-left:auto;
+}
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border:2px solid var(--rule);
+  background:var(--paper); transition:background .2s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:24px; height:24px;
+  background:var(--ink);
+  transition:transform .22s cubic-bezier(.5,0,.2,1), background .2s;
+}
+.switch input:checked ~ .s-track{ background:var(--accent); border-color:var(--accent); }
+.switch input:checked ~ .s-thumb{ transform:translateX(30px); background:var(--accent-ink); }
+.switch input:focus-visible ~ .s-track{ outline:3px solid var(--accent); outline-offset:2px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:184px; height:184px; border-radius:50%;
+  border:2px solid var(--rule);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab; background:var(--paper);
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:-2px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      var(--rule-soft) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 86%, #000 87%);
+          mask:radial-gradient(closest-side, transparent 86%, #000 87%);
+}
+.dial-knob{
+  position:relative; width:118px; height:118px; border-radius:50%;
+  background:var(--ink); pointer-events:none;
+}
+.dial-knob::before{
+  content:""; position:absolute; top:10px; left:50%;
+  transform:translateX(-50%);
+  width:4px; height:22px; background:var(--accent);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none; color:var(--accent-ink);
+}
+.dial-readout b{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:2.4rem;
+  line-height:1; letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+}
+.dial-readout small{
+  display:block; font-family:'Space Mono',monospace; font-size:.62rem;
+  font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:4px;
+}
+.dial-hint{
+  font-family:'Space Mono',monospace; font-size:.68rem;
+  letter-spacing:.08em; color:var(--ink-soft); text-align:center;
+}
+.dial:focus-visible{ outline:3px solid var(--accent); outline-offset:4px; }
+
+/* ---- Slider ---- */
+.slider-head{
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:14px; padding-bottom:12px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.slider-head .v{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:3.2rem;
+  line-height:.85; letter-spacing:-.05em; color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:30px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:10px; border:2px solid var(--rule);
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--paper) var(--val,55%) 100%);
+}
+.range::-moz-range-track{
+  height:10px; border:2px solid var(--rule); background:var(--paper);
+}
+.range::-moz-range-progress{ height:10px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:14px; height:28px;
+  background:var(--ink); margin-top:-11px; border:0;
+}
+.range::-moz-range-thumb{
+  width:14px; height:28px; border:0; border-radius:0; background:var(--ink);
+}
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ outline:3px solid var(--accent); outline-offset:2px; }
+.range:focus-visible::-moz-range-thumb{ outline:3px solid var(--accent); outline-offset:2px; }
+.slider-scale{
+  display:flex; justify-content:space-between; margin-top:8px;
+  font-family:'Space Mono',monospace; font-size:.64rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 16px;
+  border:2px solid var(--rule); background:var(--paper);
+  margin-bottom:24px;
+}
+.search svg{ width:18px; height:18px; color:var(--ink-soft); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0;
+  font-family:'Space Mono',monospace; font-size:.84rem;
+  color:var(--ink); width:100%;
+}
+.search input::placeholder{ color:var(--ink-soft); }
+.search:focus-within{ outline:3px solid var(--accent); outline-offset:1px; }
+
+.seg-label{
+  font-family:'Space Mono',monospace; font-size:.66rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.segmented{
+  position:relative; display:flex; border:2px solid var(--rule);
+}
+.seg-thumb{
+  position:absolute; top:0; left:0; bottom:0;
+  background:var(--accent);
+  transition:transform .26s cubic-bezier(.5,0,.2,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent;
+  cursor:pointer; font-family:'Space Mono',monospace; font-weight:700;
+  font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft); padding:13px 6px;
+  border-right:1px solid var(--rule); transition:color .22s;
+}
+.seg-opt:last-child{ border-right:0; }
+.seg-opt.active{ color:var(--accent-ink); }
+.seg-opt:focus-visible{ outline:3px solid var(--accent); outline-offset:-3px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:0;
+  align-items:stretch;
+}
+.activity-cell{
+  padding:6px 32px; display:flex; flex-direction:column; justify-content:center;
+  border-right:1px solid var(--rule-soft);
+}
+.activity-cell:first-child{ padding-left:0; }
+.activity-cell:last-child{ border-right:0; padding-right:0; }
+.ring{
+  --p:0; position:relative; width:158px; height:158px; border-radius:50%;
+  border:2px solid var(--rule); display:grid; place-items:center;
+  flex:none; background:var(--paper);
+}
+.ring::before{
+  content:""; position:absolute; inset:-2px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--rule-soft) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 84%, #000 85%);
+          mask:radial-gradient(closest-side, transparent 84%, #000 85%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:2.4rem;
+  line-height:.9; letter-spacing:-.04em;
+}
+.ring-core small{
+  display:block; font-family:'Space Mono',monospace; font-size:.6rem;
+  font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:5px;
+}
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:14px 16px; border:2px solid var(--rule);
+  display:flex; align-items:center; gap:14px;
+}
+.chip .ci{
+  width:40px; height:40px; flex:none; display:grid; place-items:center;
+  background:var(--ink); color:var(--paper);
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.3rem;
+  letter-spacing:-.03em; line-height:1; text-transform:uppercase;
+}
+.chip small{
+  display:block; font-family:'Space Mono',monospace; font-size:.64rem;
+  letter-spacing:.06em; color:var(--ink-soft); margin-top:5px;
+}
+.btn-stack{ display:flex; flex-direction:column; gap:12px; }
+.btn-stack .btn{ justify-content:center; }
+
+/* ============================================================ MORE */
+.swatches{
+  display:flex; gap:0; margin-top:22px;
+  border:2px solid var(--rule);
+}
+.swatch{
+  flex:1; height:56px; border:0; cursor:pointer;
+  border-right:1px solid var(--rule);
+  background:var(--sw); position:relative;
+  transition:transform .12s;
+}
+.swatch:last-child{ border-right:0; }
+.swatch:hover{ transform:scaleY(1.12); z-index:1; }
+.swatch.is-active::after{
+  content:""; position:absolute; left:50%; bottom:8px;
+  transform:translateX(-50%);
+  width:14px; height:14px; background:var(--paper);
+  border:2px solid var(--ink);
+}
+.swatch:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; z-index:2; }
+
+/* ---- Stepper ---- */
+.stepper{
+  display:flex; align-items:stretch; margin:24px 0 14px;
+  border:2px solid var(--rule);
+}
+.step-btn{
+  width:60px; flex:none; border:0; cursor:pointer;
+  background:var(--paper); color:var(--ink);
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.6rem;
+  display:grid; place-items:center; transition:background .14s, color .14s;
+}
+.step-btn:first-child{ border-right:1px solid var(--rule); }
+.step-btn:last-child{ border-left:1px solid var(--rule); }
+.step-btn:hover{ background:var(--accent); color:var(--accent-ink); }
+.step-btn:focus-visible{ outline:3px solid var(--accent); outline-offset:-4px; }
+.step-val{
+  flex:1; padding:16px 0; text-align:center;
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:2.2rem;
+  line-height:1; letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+  display:grid; place-items:center;
+}
+
+/* ---- Star rating ---- */
+.stars{
+  display:flex; margin:24px 0 14px;
+  border:2px solid var(--rule);
+}
+.star{
+  flex:1; height:54px; border:0; cursor:pointer;
+  border-right:1px solid var(--rule);
+  background:var(--paper); color:var(--ink-soft);
+  display:grid; place-items:center;
+  transition:background .12s, color .12s;
+}
+.star:last-child{ border-right:0; }
+.star svg{ width:22px; height:22px; }
+.star:hover{ background:var(--ink); color:var(--paper); }
+.star.lit{ background:var(--accent); color:var(--accent-ink); }
+.star.lit svg{ fill:var(--accent-ink); }
+.star:focus-visible{ outline:3px solid var(--accent); outline-offset:-4px; z-index:1; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; }
+.acc-item{ border-bottom:1px solid var(--rule-soft); }
+.acc-item:last-child{ border-bottom:0; }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Archivo',sans-serif; font-weight:800; font-size:1.06rem;
+  letter-spacing:-.02em; text-transform:uppercase;
+  color:var(--ink); text-align:left;
+  padding:20px 4px; display:flex; align-items:center; gap:16px;
+}
+.acc-head .qn{
+  font-family:'Space Mono',monospace; font-size:.74rem; font-weight:700;
+  color:var(--accent); flex:none;
+}
+.acc-head .chev{
+  margin-left:auto; flex:none; color:var(--ink);
+  transition:transform .26s;
+}
+.acc-item.open .acc-head .chev{ transform:rotate(45deg); }
+.acc-head:focus-visible{ outline:3px solid var(--accent); outline-offset:-3px; }
+.acc-panel{
+  display:grid; grid-template-rows:0fr;
+  transition:grid-template-rows .3s ease;
+}
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{
+  padding:0 4px 22px 36px; color:var(--ink-soft); font-size:.92rem;
+  max-width:60ch;
+}
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:2px solid var(--rule); cursor:pointer;
+  font-family:'Space Mono',monospace; font-weight:700; font-size:.78rem;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink); background:var(--paper);
+  padding:16px 18px; display:flex; align-items:center; gap:10px;
+  transition:background .14s, color .14s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; transition:transform .22s; }
+.select.open .select-btn{ background:var(--ink); color:var(--paper); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+.select-menu{
+  position:absolute; top:calc(100% - 2px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:0;
+  background:var(--paper); border:2px solid var(--rule);
+  opacity:0; transform:translateY(-6px); pointer-events:none;
+  transition:opacity .16s, transform .16s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:13px 16px; cursor:pointer;
+  font-family:'Space Mono',monospace; font-weight:700; font-size:.76rem;
+  letter-spacing:.06em; text-transform:uppercase;
+  border-bottom:1px solid var(--rule-soft);
+  display:flex; align-items:center; gap:10px;
+  transition:background .12s, color .12s;
+}
+.select-menu li:last-child{ border-bottom:0; }
+.select-menu li:hover{ background:var(--accent); color:var(--accent-ink); }
+.select-menu li[aria-selected="true"]{ color:var(--accent); }
+.select-menu li[aria-selected="true"]:hover{ color:var(--accent-ink); }
+.select-menu .tick{ margin-left:auto; width:15px; height:15px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; margin:24px 0 14px; border:2px solid var(--rule); }
+.pin input{
+  flex:1; width:0; height:78px; border:0; outline:0; text-align:center;
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:2.2rem;
+  color:var(--ink); background:var(--paper);
+  border-right:1px solid var(--rule);
+  transition:background .14s, color .14s;
+}
+.pin input:last-child{ border-right:0; }
+.pin input.filled{ background:var(--ink); color:var(--paper); }
+.pin input:focus{ outline:3px solid var(--accent); outline-offset:-3px; z-index:1; }
+.pin.done input{ background:var(--accent); color:var(--accent-ink); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; margin:24px 0 14px; border:2px solid var(--rule); }
+.tg-btn{
+  position:relative; flex:1; height:58px; border:0; cursor:pointer;
+  border-right:1px solid var(--rule);
+  background:var(--paper); color:var(--ink);
+  font-family:'Archivo',sans-serif; font-size:1.4rem;
+  display:grid; place-items:center;
+  transition:background .12s, color .12s;
+}
+.tg-btn:last-child{ border-right:0; }
+.tg-btn:hover{ background:var(--ink); color:var(--paper); }
+.tg-btn.on{ background:var(--accent); color:var(--accent-ink); }
+.tg-btn:focus-visible{ outline:3px solid var(--accent); outline-offset:-4px; z-index:1; }
+.tg-btn::after{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 8px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:var(--paper);
+  font-family:'Space Mono',monospace; font-size:.62rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 9px; opacity:0; pointer-events:none; transition:.16s;
+}
+.tg-btn:hover::after{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center;
+  padding:24px; background:rgba(22,20,15,.62);
+  opacity:0; transition:opacity .2s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:460px; width:100%;
+  background:var(--paper); border:2px solid var(--rule);
+  transform:translateY(16px); transition:transform .28s cubic-bezier(.2,.9,.3,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px; border-bottom:2px solid var(--rule);
+  background:var(--accent); color:var(--accent-ink);
+  font-family:'Space Mono',monospace; font-size:.68rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.modal-body{ padding:32px 30px; }
+.modal-icon{
+  width:56px; height:56px; margin-bottom:20px; display:grid; place-items:center;
+  background:var(--ink); color:var(--paper);
+}
+.modal-icon svg{ width:26px; height:26px; }
+.modal h3{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.9rem;
+  letter-spacing:-.04em; line-height:.95; text-transform:uppercase;
+}
+.modal p{ color:var(--ink-soft); margin:12px 0 26px; font-size:.94rem; }
+.modal-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:stretch; gap:0; min-width:300px;
+  background:var(--paper); border:2px solid var(--rule);
+  transform:translateX(140%); transition:transform .4s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:48px; flex:none; display:grid; place-items:center;
+  background:var(--accent); color:var(--accent-ink);
+  border-right:2px solid var(--rule);
+}
+.toast .t-ico svg{ width:20px; height:20px; }
+.toast .t-body{ padding:12px 16px; }
+.toast b{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:.96rem;
+  letter-spacing:-.02em; text-transform:uppercase;
+}
+.toast small{
+  display:block; font-family:'Space Mono',monospace; font-size:.66rem;
+  letter-spacing:.05em; color:var(--ink-soft); margin-top:3px;
+}
+
+/* ============================================================ ABOUT */
+.principles{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--rule-soft);
+}
+.principle{
+  background:var(--paper); padding:32px 30px 38px;
+}
+.principle .pnum{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:5rem;
+  line-height:.8; letter-spacing:-.06em; color:var(--accent);
+  -webkit-text-stroke:0; margin-bottom:20px;
+}
+.principle h3{
+  font-family:'Archivo',sans-serif; font-weight:900; font-size:1.4rem;
+  letter-spacing:-.03em; line-height:1; text-transform:uppercase;
+  padding-bottom:12px; border-bottom:2px solid var(--rule); margin-bottom:14px;
+}
+.principle p{ color:var(--ink-soft); font-size:.92rem; }
+
+/* ============================================================ FOOTER */
+.foot{ padding:0; }
+.foot-top{
+  display:flex; align-items:center; gap:18px;
+  padding:36px 0; border-bottom:1px solid var(--rule-soft);
+}
+.foot-top .brand-mark{ width:46px; height:46px; font-size:1.9rem; }
+.foot-wordmark{
+  font-family:'Archivo',sans-serif; font-weight:900;
+  font-size:clamp(2rem,7vw,5rem); line-height:.85; letter-spacing:-.05em;
+  text-transform:uppercase;
+  -webkit-text-stroke:2px var(--ink); color:transparent;
+  margin-left:auto;
+}
+.foot-bottom{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px; flex-wrap:wrap; padding:24px 0 56px;
+  font-family:'Space Mono',monospace; font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
+}
+.foot-bottom a{ color:var(--accent); text-decoration:none; }
+.foot-bottom a:hover{ text-decoration:underline; }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(24px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.14s; }
+.d3{ animation-delay:.22s; } .d4{ animation-delay:.3s; } .d5{ animation-delay:.38s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:960px){
+  body{ background-size:calc(100% / 6) 100%; }
+  .bento, .principles{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .hero-sub{ grid-column:1 / -1; border-right:0; padding-right:0;
+    border-bottom:1px solid var(--rule-soft); }
+  .hero-cta{ grid-column:1 / -1; padding-left:0; }
+  .activity-grid{ grid-template-columns:1fr; }
+  .activity-cell{ border-right:0; border-bottom:1px solid var(--rule-soft);
+    padding:24px 0; align-items:center; text-align:center; }
+  .activity-cell:last-child{ border-bottom:0; }
+  .ring{ margin:0 auto; }
+  .nav-links a:nth-child(n+2){ display:none; }
+}
+@media (max-width:600px){
+  body{ background-size:calc(100% / 3) 100%; }
+  .wrap{ padding:0 20px; }
+  .bento, .principles{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero-stats{ grid-template-columns:1fr; }
+  .stat-pill{ border-right:0; border-bottom:1px solid var(--rule-soft); }
+  .stat-pill:last-child{ border-bottom:0; }
+  .card{ padding:24px; }
+  .section-head{ flex-direction:column; align-items:flex-start; }
+  .section-head .meta{ text-align:left; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <div class="brand-name">Grid</div>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html" class="allstyles">&larr; All Styles</a>
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">System</a>
+      </div>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow mono rise d1">
+      <span class="idx">01 / 51</span>
+      <span>Modular Typography</span>
+      <span class="bar"></span>
+      <span>Swiss · International Style</span>
+    </div>
+    <h1 class="rise d2">
+      Type<br/>
+      <span class="out">Is The</span><br/>
+      <span class="em">System.</span>
+    </h1>
+    <div class="hero-grid rise d3">
+      <div class="hero-sub">
+        <span class="lead">A showcase of Modular Typography.</span> A rigorous,
+        grid-driven interface built on a strict baseline and twelve columns —
+        where letterforms are structure, scale carries hierarchy, and one
+        signal red does all the talking.
+      </div>
+      <div class="hero-cta">
+        <a href="#showcase" class="btn btn--accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Explore Components
+        </a>
+        <a href="#about" class="btn">The System</a>
+      </div>
+    </div>
+    <div class="hero-stats rise d4">
+      <div class="stat-pill"><b class="accent-num">12</b><small>Column Grid</small></div>
+      <div class="stat-pill"><b>2</b><small>Typefaces Only</small></div>
+      <div class="stat-pill"><b>1</b><small>Signal Accent</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="section" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A Component Set</h2>
+      <div class="meta">
+        <div class="num mono">SEC.02</div>
+        <p>Every control below is live. Drag, toggle, slide and press — each one set on the grid.</p>
+      </div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label"><span class="tag">[A]</span><span>Now Playing</span><span class="fill"></span><span>MP-01</span></div>
+        <div class="player-art" id="playerArt">
+          <div class="art-glyph" aria-hidden="true">M</div>
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Baseline Drift</h3>
+            <p>Helvetica &middot; Set Solid</p>
+          </div>
+          <button class="heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label"><span class="tag">[B]</span><span>Preferences</span><span class="fill"></span><span>SW-03</span></div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Push Alerts</div>
+            <div class="sub">Notify on new releases</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Push alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-Sync</div>
+            <div class="sub">Across all devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Lossless Audio</div>
+            <div class="sub">Higher data usage</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Lossless audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label"><span class="tag">[C]</span><span>Volume</span><span class="fill"></span><span>DL-01</span></div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>Level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Drag the knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label"><span class="tag">[D]</span><span>Brightness</span><span class="fill"></span><span>RG-01</span></div>
+        <div class="slider-head">
+          <span class="card-title">Display</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Dim</span><span>Bright</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label"><span class="tag">[E]</span><span>Inputs</span><span class="fill"></span><span>IN-02</span></div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the catalogue&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View As</div>
+        <div class="segmented" id="segmented" role="tablist" aria-label="View mode">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Grid</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label"><span class="tag">[F]</span><span>This Week</span><span class="fill"></span><span>ACT-01</span></div>
+        <div class="activity-grid">
+          <div class="activity-cell">
+            <div class="ring" id="ring">
+              <div class="ring-core"><b id="ringVal">0%</b><small>Goal</small></div>
+            </div>
+          </div>
+          <div class="activity-cell">
+            <div class="chips">
+              <div class="chip">
+                <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+                <div><b>14 Days</b><small>Current listening streak</small></div>
+              </div>
+              <div class="chip">
+                <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+                <div><b>38 Tracks</b><small>Saved to your collection</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="activity-cell">
+            <div class="btn-stack">
+              <button class="btn btn--accent">Share Recap</button>
+              <button class="btn">Export Data</button>
+              <button class="btn" disabled>Sync Paused</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="section" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>More Ways To Interact</h2>
+      <div class="meta">
+        <div class="num mono">SEC.03</div>
+        <p>Steppers, ratings, menus and dialogs — each one aligned to the same modular system.</p>
+      </div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label"><span class="tag">[G]</span><span>Live Theme</span><span class="fill"></span><span>AC-06</span></div>
+        <h3 class="card-title">Signal Accent</h3>
+        <p class="card-body">Select a swatch to repaint every control on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#e63916" data-accent="#e63916" aria-label="Signal red"></button>
+          <button class="swatch" style="--sw:#1d4ed8" data-accent="#1d4ed8" aria-label="Ultramarine"></button>
+          <button class="swatch" style="--sw:#0f9d58" data-accent="#0f9d58" aria-label="Emerald"></button>
+          <button class="swatch" style="--sw:#f0a500" data-accent="#f0a500" aria-label="Amber"></button>
+          <button class="swatch" style="--sw:#7c3aed" data-accent="#7c3aed" aria-label="Violet"></button>
+          <button class="swatch" style="--sw:#16140f" data-accent="#16140f" aria-label="Ink"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card" aria-label="Quantity stepper">
+        <div class="card-label"><span class="tag">[H]</span><span>Stepper</span><span class="fill"></span><span>QT-01</span></div>
+        <h3 class="card-title">Print Run</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="card-body">Copies of &ldquo;Set Solid&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card" aria-label="Star rating">
+        <div class="card-label"><span class="tag">[I]</span><span>Feedback</span><span class="fill"></span><span>RT-05</span></div>
+        <h3 class="card-title">Rate The Kit</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="card-body" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label"><span class="tag">[J]</span><span>Dropdown</span><span class="fill"></span><span>SL-01</span></div>
+        <h3 class="card-title" style="margin-bottom:18px">Sort Order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest First</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest First" aria-selected="true">Newest First<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest First" aria-selected="false">Oldest First<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A &rarr; Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most Played" aria-selected="false">Most Played<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card" aria-label="PIN code input">
+        <div class="card-label"><span class="tag">[K]</span><span>Verification</span><span class="fill"></span><span>PN-04</span></div>
+        <h3 class="card-title">Access Code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="card-body" id="pinMsg">Enter your 4-digit code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card" aria-label="Text style toggles">
+        <div class="card-label"><span class="tag">[L]</span><span>Toggle Group</span><span class="fill"></span><span>TG-04</span></div>
+        <h3 class="card-title">Text Style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strike" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="card-body">Each button toggles independently</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label"><span class="tag">[M]</span><span>FAQ</span><span class="fill"></span><span>AccordioN</span></div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              <span class="qn">Q1</span>
+              What exactly is modular typography?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A design discipline rooted in the Swiss / International Typographic Style — every element snaps to a strict baseline and column grid, hierarchy comes from dramatic scale contrast, and typography itself does the structural work.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <span class="qn">Q2</span>
+              Why only one accent colour?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Restraint is the point. A monochrome base with a single signal colour keeps attention precise — the accent marks what matters, never decorates. Add a second colour and the system loses its voice.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <span class="qn">Q3</span>
+              Where does the grid work best?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Editorial interfaces, data-dense dashboards, posters and reference systems — anywhere clarity, order and a confident type voice outrank decoration.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label"><span class="tag">[N]</span><span>Overlays</span><span class="fill"></span><span>OV-02</span></div>
+        <h3 class="card-title">Dialogs &amp; Toasts</h3>
+        <p class="card-body">Layered surfaces that print over the page.</p>
+        <div class="btn-stack" style="margin-top:20px">
+          <button class="btn btn--accent" id="toastBtn">Show Toast</button>
+          <button class="btn" id="modalBtn">Open Dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three Rules, One System</h2>
+      <div class="meta">
+        <div class="num mono">SEC.04</div>
+        <p>Modular typography is restraint — order from grid, voice from scale.</p>
+      </div>
+    </div>
+    <div class="principles">
+      <article class="principle">
+        <div class="pnum">01</div>
+        <h3>The Grid Is Visible</h3>
+        <p>Columns and baselines are not hidden scaffolding — they are the page. Every edge aligns; structure is honestly on display.</p>
+      </article>
+      <article class="principle">
+        <div class="pnum">02</div>
+        <h3>Scale Carries Hierarchy</h3>
+        <p>No ornament, no shadow — only dramatic contrast in type size. The biggest thing is the most important thing, every time.</p>
+      </article>
+      <article class="principle">
+        <div class="pnum">03</div>
+        <h3>Two Faces, One Accent</h3>
+        <p>A powerful grotesk for display, a monospace for data labels, and one signal colour. The system stays disciplined and legible.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="section foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="brand-mark">G</div>
+      <div class="brand-name">Grid</div>
+      <div class="foot-wordmark">Set&nbsp;Solid</div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Grid — Modular Typography Showcase</span>
+      <span>Try the <a href="#" id="footTheme">theme toggle</a> &middot; Built on a 12-column grid</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-bar"><span>Dialog / Confirm</span><span>MD-01</span></div>
+    <div class="modal-body">
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+      </div>
+      <h3 id="modalTitle">Apply These Changes?</h3>
+      <p>Your tweaks to the modular typography kit will sync across every device on your account.</p>
+      <div class="modal-actions">
+        <button class="btn" id="modalCancel">Not Now</button>
+        <button class="btn btn--accent" id="modalConfirm">Apply Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('grid-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('grid-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div class="t-body"><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 460);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-ink', lum > 0.55 ? '#16140f' : '#f3f1ea');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Poor','Fair','Good','Great','Superb'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Code accepted ✓';
+        showToast('Access Granted', 'Welcome back to Grid.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 240);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Changes Saved', 'Your modular kit is up to date.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+  /* focus trap inside modal */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab' || overlay.hidden) return;
+    var f = overlay.querySelectorAll('button');
+    if(!f.length) return;
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){
+      e.preventDefault(); lastEl.focus();
+    } else if(!e.shiftKey && document.activeElement === lastEl){
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Saved To Catalogue', 'Baseline Drift added to Set Solid.');
+  });
+})();
+</script>
+</body>
+</html>

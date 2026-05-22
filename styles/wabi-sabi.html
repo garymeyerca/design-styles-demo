@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kintsugi — A Wabi-Sabi Showcase</title>
+<meta name="description" content="A showcase of wabi-sabi design — beauty in imperfection, impermanence and incompleteness. Earthen tones, hand-thrown edges, gold-mended cracks and quiet negative space." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   WABI-SABI — beauty in imperfection, impermanence, incompleteness.
+   Earthen palette, hand-thrown irregular edges, kintsugi gold seams,
+   quiet negative space, uneven grain. Restraint over decoration.
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --paper:      #e7e0d2;   /* oatmeal ground */
+  --paper-2:    #ddd4c2;   /* shadowed clay */
+  --surface:    #f0ece0;   /* raw porcelain */
+  --surface-2:  #e3dccb;   /* recessed bowl */
+  --ink:        #3d3730;   /* charcoal sumi */
+  --ink-soft:   #756c5d;   /* ash */
+  --ink-faint:  #9a8f7c;   /* faded umber */
+  --line:       #c6bba4;   /* dry-brushed edge */
+  --accent:     #8a6f4b;   /* raw umber clay */
+  --accent-d:   #5f4b30;
+  --accent-l:   #b39a72;
+  --gold:       #b08d4c;   /* kintsugi seam */
+  --gold-l:     #d6b878;
+  --moss:       #6f7a59;
+  --on-accent:  #f3eee1;
+  --grain:      rgba(61,55,48,.04);
+}
+[data-theme="dark"]{
+  --paper:      #26221d;
+  --paper-2:    #1f1c18;
+  --surface:    #2f2a24;
+  --surface-2:  #29241f;
+  --ink:        #ddd3c0;
+  --ink-soft:   #a59a85;
+  --ink-faint:  #7d7363;
+  --line:       #463f35;
+  --accent:     #b89770;
+  --accent-d:   #8a6f4b;
+  --accent-l:   #d2b88e;
+  --gold:       #c7a560;
+  --gold-l:     #e1c485;
+  --moss:       #8f9a73;
+  --on-accent:  #221f1a;
+  --grain:      rgba(0,0,0,.16);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Spline Sans', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  transition:background .6s ease, color .6s ease;
+  overflow-x:hidden;
+}
+/* uneven hand-made grain + faint clay wash */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(40rem 30rem at 12% -6%, var(--accent), transparent 62%),
+    radial-gradient(46rem 32rem at 96% 108%, var(--moss), transparent 60%);
+  opacity:.07;
+}
+body::after{ /* subtle paper grain via repeating soft speckle */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image:
+    radial-gradient(var(--grain) 1px, transparent 1.4px),
+    radial-gradient(var(--grain) 1px, transparent 1.4px);
+  background-size:7px 7px, 13px 13px;
+  background-position:0 0, 4px 6px;
+  mix-blend-mode:multiply;
+}
+
+.wrap{ max-width:1140px; margin:0 auto; padding:0 30px; position:relative; z-index:1; }
+::selection{ background:var(--gold); color:var(--on-accent); }
+
+/* hand-thrown irregular edge — used widely */
+.organic{ border-radius:42% 58% 56% 44% / 56% 44% 60% 40%; }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:20px; }
+.nav-inner{
+  display:flex; align-items:center; gap:24px;
+  padding:13px 16px 13px 22px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:30px 30px 28px 30px;
+  box-shadow:0 12px 26px -18px rgba(40,34,26,.5);
+}
+[data-theme="dark"] .nav-inner{ box-shadow:0 12px 30px -16px rgba(0,0,0,.7); }
+.all-styles{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:.82rem; font-weight:500; letter-spacing:.02em;
+  color:var(--ink-soft); text-decoration:none;
+  padding:7px 14px; border-radius:999px;
+  border:1px solid var(--line);
+  transition:color .25s, border-color .25s, background .25s;
+}
+.all-styles:hover{ color:var(--ink); border-color:var(--accent); background:var(--surface-2); }
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:42px; height:42px; flex:none; display:grid; place-items:center;
+  background:var(--accent); color:var(--on-accent);
+  border-radius:54% 46% 58% 42% / 50% 60% 40% 50%;
+  position:relative;
+}
+/* kintsugi crack across the mark */
+.brand-mark::after{
+  content:""; position:absolute; inset:0;
+  border-radius:inherit;
+  background:linear-gradient(118deg, transparent 46%, var(--gold-l) 47%, var(--gold) 50%, transparent 53%);
+}
+.brand-mark span{
+  width:14px; height:14px; background:var(--on-accent);
+  border-radius:60% 40% 50% 50% / 50% 50% 60% 40%; z-index:1;
+}
+.brand-name{
+  font-family:'Cormorant Garamond', serif; font-weight:600;
+  font-size:1.5rem; letter-spacing:.01em;
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-weight:500; font-size:.92rem;
+  padding:8px 15px; border-radius:14px; transition:color .25s, background .25s;
+}
+.nav-links a:hover{ color:var(--ink); background:var(--surface-2); }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; border:1px solid var(--line); cursor:pointer;
+  border-radius:52% 48% 46% 54% / 48% 54% 46% 52%;
+  background:var(--surface); color:var(--ink);
+  display:grid; place-items:center;
+  transition:color .25s, border-color .25s, background .25s, transform .3s;
+}
+.icon-btn:hover{ color:var(--accent); border-color:var(--accent); }
+.icon-btn:active{ transform:scale(.94); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ padding:96px 0 70px; position:relative; }
+.hero-inner{ max-width:760px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:11px;
+  padding:8px 17px 8px 13px; margin-bottom:34px;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:999px;
+  font-size:.74rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.eyebrow .dot{
+  width:10px; height:10px; background:var(--gold);
+  border-radius:58% 42% 50% 50% / 50% 50% 55% 45%;
+}
+.hero h1{
+  font-family:'Cormorant Garamond', serif; font-weight:500;
+  font-size:clamp(2.9rem, 7.5vw, 5.6rem); line-height:1.06; letter-spacing:0;
+}
+.hero h1 em{ font-style:italic; color:var(--accent); }
+/* gold underline seam, irregular */
+.hero h1 .seam{ position:relative; white-space:nowrap; }
+.hero h1 .seam::after{
+  content:""; position:absolute; left:-2%; right:-2%; bottom:.04em; height:3px;
+  background:linear-gradient(90deg,
+    transparent, var(--gold) 12%, var(--gold-l) 38%, var(--gold) 60%, var(--gold-l) 84%, transparent);
+  border-radius:2px;
+}
+.hero p{
+  max-width:520px; margin:30px 0 0; font-size:1.14rem; color:var(--ink-soft);
+}
+.hero-cta{ display:flex; gap:16px; flex-wrap:wrap; margin-top:42px; }
+.hero-stats{
+  display:flex; gap:0; flex-wrap:wrap; margin-top:62px;
+}
+.stat-pill{
+  padding:6px 32px 6px 0; margin-right:30px;
+  border-right:1px solid var(--line);
+  display:flex; flex-direction:column;
+}
+.stat-pill:last-child{ border-right:0; }
+.stat-pill b{
+  font-family:'Cormorant Garamond', serif; font-size:2.4rem; color:var(--accent);
+  line-height:1; font-weight:600;
+}
+.stat-pill small{
+  font-size:.74rem; color:var(--ink-faint); margin-top:8px;
+  letter-spacing:.13em; text-transform:uppercase;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:inherit; font-size:.95rem; font-weight:500; cursor:pointer;
+  background:var(--surface); color:var(--ink);
+  border:1px solid var(--line);
+  padding:14px 26px; border-radius:24px 22px 26px 22px;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:transform .3s ease, border-color .3s, background .3s, color .3s;
+}
+.btn:hover{ transform:translateY(-2px); border-color:var(--accent); }
+.btn:active{ transform:translateY(0); }
+.btn svg{ width:16px; height:16px; }
+.btn--accent{
+  background:var(--accent); color:var(--on-accent); border-color:var(--accent-d);
+}
+.btn--accent:hover{ background:var(--accent-d); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-faint); background:var(--surface-2);
+  border-style:dashed; transform:none;
+}
+.btn:disabled:hover{ transform:none; border-color:var(--line); }
+.btn:focus-visible, .icon-btn:focus-visible, .all-styles:focus-visible{
+  outline:2px solid var(--gold); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:60px 0 36px; }
+.section-head{ margin-bottom:44px; max-width:620px; }
+.section-head .ko{
+  font-size:.72rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.section-head .ko::before{ content:""; width:26px; height:1px; background:var(--gold); }
+.section-head h2{
+  font-family:'Cormorant Garamond', serif; font-weight:500;
+  font-size:clamp(2rem,4.2vw,3rem); line-height:1.12;
+}
+.section-head p{ color:var(--ink-soft); margin-top:10px; font-size:1.04rem; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:34px 30px 36px 28px;
+  padding:32px;
+  position:relative;
+  box-shadow:0 16px 34px -26px rgba(40,34,26,.55);
+  opacity:0; transform:translateY(30px);
+  transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1),
+             background .6s ease, border-color .6s ease;
+}
+[data-theme="dark"] .card{ box-shadow:0 16px 36px -22px rgba(0,0,0,.7); }
+.card.in{ opacity:1; transform:none; }
+/* irregular variation — every card sits a little differently */
+.card:nth-child(2n){ border-radius:30px 36px 28px 34px; }
+.card:nth-child(3n){ border-radius:36px 28px 32px 34px; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card-label{
+  font-size:.7rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-faint); display:flex; align-items:center; gap:10px; margin-bottom:22px;
+}
+.card-label::before{
+  content:""; width:13px; height:13px; flex:none; background:var(--accent);
+  border-radius:58% 42% 50% 50% / 50% 50% 56% 44%;
+}
+.card-title{
+  font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.65rem;
+  line-height:1.2;
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1;
+  border-radius:46% 54% 52% 48% / 54% 48% 52% 46%;
+  background:
+    radial-gradient(68% 58% at 30% 26%, var(--accent-l), transparent 72%),
+    radial-gradient(78% 78% at 78% 88%, var(--accent-d), transparent 76%),
+    var(--accent);
+  display:grid; place-items:center; margin-bottom:26px;
+  overflow:hidden;
+}
+/* kintsugi mended cracks across the album glaze */
+.player-art::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(54deg, transparent 38%, var(--gold-l) 39%, var(--gold) 41%, transparent 42.4%),
+    linear-gradient(132deg, transparent 60%, var(--gold) 61%, var(--gold-l) 62.2%, transparent 63.4%);
+  opacity:.85;
+}
+.eq{ display:flex; align-items:flex-end; gap:7px; height:50px; position:relative; z-index:1; }
+.eq span{
+  width:8px; height:16px; border-radius:5px 5px 2px 2px;
+  background:var(--on-accent);
+  animation:eq 1100ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-760ms; }
+.eq span:nth-child(3){ animation-delay:-340ms; }
+.eq span:nth-child(4){ animation-delay:-560ms; }
+.eq span:nth-child(5){ animation-delay:-180ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:42px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Cormorant Garamond', serif; font-size:1.55rem; font-weight:600;
+  line-height:1.18;
+}
+.player-meta p{ color:var(--ink-soft); font-size:.92rem; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--gold); border-color:var(--gold); }
+.heart.on svg{ fill:var(--gold); }
+
+.player-progress{ margin:24px 0 9px; cursor:pointer; padding:8px 0; }
+.track{
+  height:7px; border-radius:999px; position:relative;
+  background:var(--surface-2); border:1px solid var(--line);
+}
+.track-fill{
+  position:absolute; top:-1px; bottom:-1px; left:-1px; width:34%; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-d), var(--accent), var(--gold));
+}
+.track-fill::after{
+  content:""; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; background:var(--gold);
+  border:1px solid var(--accent-d);
+  border-radius:58% 42% 52% 48% / 50% 54% 46% 50%;
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.78rem;
+  color:var(--ink-faint); font-variant-numeric:tabular-nums;
+}
+
+.player-controls{
+  display:flex; align-items:center; justify-content:center;
+  gap:22px; margin-top:22px;
+}
+.play-btn{
+  width:66px; height:66px; border:1px solid var(--accent-d); cursor:pointer;
+  border-radius:54% 46% 50% 50% / 50% 52% 48% 50%;
+  background:var(--accent); color:var(--on-accent);
+  display:grid; place-items:center; transition:transform .3s, background .3s;
+}
+.play-btn:hover{ transform:translateY(-2px); background:var(--accent-d); }
+.play-btn.playing{ transform:none; }
+.play-btn svg{ width:23px; height:23px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:16px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--line); }
+.switch-row .lbl{ font-weight:500; font-size:1rem; }
+.switch-row .sub{ font-size:.82rem; color:var(--ink-faint); }
+.switch{ position:relative; width:62px; height:34px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--surface-2); border:1px solid var(--line);
+  transition:background .35s, border-color .35s;
+}
+.switch .s-thumb{
+  position:absolute; top:4px; left:4px; width:24px; height:24px;
+  background:var(--ink-faint);
+  border-radius:56% 44% 50% 50% / 50% 52% 48% 50%;
+  transition:transform .4s cubic-bezier(.3,1.2,.5,1), background .35s;
+}
+.switch input:checked ~ .s-track{ background:var(--accent); border-color:var(--accent-d); }
+.switch input:checked ~ .s-thumb{ transform:translateX(28px); background:var(--on-accent); }
+.switch input:focus-visible ~ .s-track{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+.dial{
+  position:relative; width:184px; height:184px;
+  border-radius:50%;
+  background:var(--surface-2); border:1px solid var(--line);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      var(--line) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+}
+.dial-knob{
+  position:relative; width:118px; height:118px;
+  border-radius:53% 47% 50% 50% / 50% 52% 48% 50%;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:0 8px 18px -12px rgba(40,34,26,.6);
+  pointer-events:none;
+}
+.dial-knob::before{
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:10px; height:10px; background:var(--gold);
+  border-radius:58% 42% 50% 50% / 50% 50% 55% 45%;
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Cormorant Garamond', serif; font-size:2.3rem; line-height:1;
+  font-variant-numeric:tabular-nums; font-weight:600;
+}
+.dial-readout small{
+  display:block; font-size:.66rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-faint); margin-top:4px;
+}
+.dial-hint{ font-size:.82rem; color:var(--ink-faint); }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.slider-head .v{
+  font-family:'Cormorant Garamond', serif; font-size:2rem; color:var(--accent);
+  font-variant-numeric:tabular-nums; font-weight:600;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:30px;
+  background:transparent; cursor:pointer; margin:8px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:8px; border-radius:999px; border:1px solid var(--line);
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--surface-2) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:8px; border-radius:999px; border:1px solid var(--line);
+  background:var(--surface-2); }
+.range::-moz-range-progress{ height:8px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:26px; height:26px;
+  border-radius:56% 44% 50% 50% / 50% 52% 48% 50%;
+  background:var(--gold); border:1px solid var(--accent-d); margin-top:-10px;
+}
+.range::-moz-range-thumb{
+  width:26px; height:26px; border:1px solid var(--accent-d);
+  border-radius:56% 44% 50% 50% / 50% 52% 48% 50%; background:var(--gold);
+}
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px var(--gold); }
+.range:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 3px var(--gold); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.72rem;
+  color:var(--ink-faint); margin-top:6px; letter-spacing:.06em;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 18px;
+  border-radius:18px 16px 19px 15px;
+  background:var(--surface-2); border:1px solid var(--line);
+  margin-bottom:26px; transition:border-color .25s;
+}
+.search:focus-within{ border-color:var(--accent); }
+.search svg{ width:17px; height:17px; color:var(--ink-faint); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; font:inherit;
+  color:var(--ink); width:100%;
+}
+.search input::placeholder{ color:var(--ink-faint); }
+
+.seg-label{ font-size:.8rem; color:var(--ink-faint); margin-bottom:10px; letter-spacing:.04em; }
+.segmented{
+  position:relative; display:flex; padding:6px;
+  border-radius:18px; background:var(--surface-2); border:1px solid var(--line);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:14px 12px 14px 12px;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:0 5px 12px -8px rgba(40,34,26,.6);
+  transition:transform .38s cubic-bezier(.3,1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font:inherit; font-weight:500; font-size:.9rem; color:var(--ink-faint);
+  padding:11px 6px; transition:color .3s;
+}
+.seg-opt.active{ color:var(--accent); }
+.seg-opt:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; border-radius:12px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:38px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:152px; height:152px; border-radius:50%;
+  background:var(--surface-2); border:1px solid var(--line);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:12px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--surface-2) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  transition:--p 1.6s cubic-bezier(.2,.8,.2,1);
+}
+/* gold seam tip on the ring */
+.ring::after{
+  content:""; position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(transparent 0 calc(var(--p)*1% - 2deg),
+    var(--gold) calc(var(--p)*1% - 2deg) calc(var(--p)*1%), transparent 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  transition:--p 1.6s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; position:relative; z-index:1; }
+.ring-core b{ font-family:'Cormorant Garamond', serif; font-size:2.3rem; line-height:1; font-weight:600; }
+.ring-core small{
+  font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint);
+}
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:16px 20px; border-radius:20px 17px 21px 16px;
+  background:var(--surface-2); border:1px solid var(--line);
+  display:flex; align-items:center; gap:15px;
+}
+.chip .ci{
+  width:40px; height:40px; flex:none; display:grid; place-items:center;
+  background:var(--accent); color:var(--on-accent);
+  border-radius:56% 44% 52% 48% / 48% 54% 46% 52%;
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Cormorant Garamond', serif; font-size:1.32rem; font-weight:600; }
+.chip small{ display:block; font-size:.8rem; color:var(--ink-faint); }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.92rem; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:15px; flex-wrap:wrap; margin-top:24px; }
+.swatch{
+  width:46px; height:46px; border:1px solid var(--line); cursor:pointer;
+  border-radius:54% 46% 50% 50% / 50% 52% 48% 50%;
+  background:var(--surface); display:grid; place-items:center;
+  transition:transform .3s, border-color .3s;
+}
+.swatch:hover{ transform:translateY(-3px) rotate(-4deg); }
+.swatch::after{
+  content:""; width:24px; height:24px;
+  border-radius:56% 44% 52% 48% / 48% 54% 46% 52%;
+  background:var(--sw); transition:.3s;
+}
+.swatch.is-active{ border-color:var(--gold); }
+.swatch.is-active::after{
+  width:20px; height:20px;
+  box-shadow:0 0 0 3px var(--surface), 0 0 0 5px var(--gold);
+}
+.swatch:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:18px; margin:26px 0 14px; }
+.step-btn{
+  width:52px; height:52px; flex:none; border:1px solid var(--line); cursor:pointer;
+  border-radius:54% 46% 48% 52% / 50% 52% 48% 50%;
+  background:var(--surface); color:var(--ink); font-size:1.5rem;
+  display:grid; place-items:center; transition:color .25s, border-color .25s, transform .25s;
+}
+.step-btn:hover{ color:var(--accent); border-color:var(--accent); }
+.step-btn:active{ transform:scale(.92); }
+.step-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.step-val{
+  min-width:88px; padding:12px 0; border-radius:18px 16px 19px 15px;
+  background:var(--surface-2); border:1px solid var(--line);
+  font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:11px; margin:26px 0 14px; }
+.star{
+  width:46px; height:46px; border:1px solid var(--line); cursor:pointer;
+  border-radius:54% 46% 50% 50% / 48% 54% 46% 52%;
+  background:var(--surface); color:var(--ink-faint);
+  display:grid; place-items:center;
+  transition:color .2s, border-color .2s, transform .2s;
+}
+.star svg{ width:22px; height:22px; transition:fill .2s; }
+.star:hover{ transform:translateY(-3px) rotate(-5deg); }
+.star.lit{ color:var(--gold); border-color:var(--gold); }
+.star.lit svg{ fill:var(--gold); }
+.star:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:14px; }
+.acc-item{
+  border-radius:20px 17px 21px 16px;
+  background:var(--surface-2); border:1px solid var(--line);
+  transition:border-color .3s;
+}
+.acc-item.open{ border-color:var(--accent); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer; font:inherit;
+  font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.18rem;
+  color:var(--ink); text-align:left; padding:17px 20px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--ink-faint); transition:transform .35s, color .35s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); color:var(--accent); }
+.acc-head:focus-visible{ outline:2px solid var(--gold); outline-offset:-3px; border-radius:18px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 20px 18px; color:var(--ink-soft); font-size:.95rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:1px solid var(--line); cursor:pointer; font:inherit;
+  font-weight:500; color:var(--ink);
+  background:var(--surface-2); padding:15px 19px;
+  border-radius:18px 16px 19px 15px;
+  display:flex; align-items:center; gap:10px; transition:border-color .25s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--ink-faint); transition:transform .3s; }
+.select.open .select-btn{ border-color:var(--accent); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:8px;
+  border-radius:20px 17px 21px 16px;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:0 20px 40px -22px rgba(40,34,26,.6);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .25s, transform .25s;
+}
+[data-theme="dark"] .select-menu{ box-shadow:0 20px 44px -20px rgba(0,0,0,.8); }
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:12px 14px; border-radius:13px 11px 13px 11px; cursor:pointer; font-weight:500;
+  display:flex; align-items:center; gap:10px; transition:background .18s, color .18s;
+}
+.select-menu li:hover{ color:var(--accent); background:var(--surface-2); }
+.select-menu li[aria-selected="true"]{ background:var(--surface-2); color:var(--accent); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; color:var(--gold); }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:13px; margin:26px 0 14px; }
+.pin input{
+  width:52px; height:62px; border:1px solid var(--line); outline:0; text-align:center;
+  font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:600; color:var(--ink);
+  background:var(--surface-2);
+  border-radius:18px 15px 19px 14px;
+  transition:border-color .22s, color .22s;
+}
+.pin input:nth-child(2n){ border-radius:15px 19px 14px 18px; }
+.pin input.filled{ color:var(--accent); border-color:var(--accent); }
+.pin input:focus{ border-color:var(--gold); box-shadow:0 0 0 2px var(--gold); }
+.pin.done input{ border-color:var(--gold); color:var(--gold); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:13px; margin:26px 0 14px; }
+.tg-btn{
+  position:relative; width:52px; height:52px; border:1px solid var(--line); cursor:pointer;
+  border-radius:54% 46% 50% 50% / 48% 54% 46% 52%;
+  background:var(--surface); color:var(--ink);
+  font-family:'Cormorant Garamond', serif; font-size:1.3rem;
+  display:grid; place-items:center;
+  transition:color .22s, border-color .22s, background .22s;
+}
+.tg-btn:nth-child(2n){ border-radius:46% 54% 50% 50% / 54% 48% 52% 46%; }
+.tg-btn:hover{ color:var(--accent); }
+.tg-btn.on{ background:var(--accent); color:var(--on-accent); border-color:var(--accent-d); }
+.tg-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:var(--paper);
+  font-family:'Spline Sans', sans-serif; font-size:.72rem; font-weight:500;
+  padding:5px 10px; border-radius:8px; opacity:0; pointer-events:none; transition:.2s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(33,29,24,.55); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  opacity:0; transition:opacity .3s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:430px; width:100%; text-align:center; padding:40px 36px;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:40px 32px 42px 30px;
+  box-shadow:0 36px 70px -22px rgba(28,23,17,.65);
+  transform:scale(.92) translateY(14px);
+  transition:transform .4s cubic-bezier(.2,1.2,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-icon{
+  width:64px; height:64px; margin:0 auto 20px; display:grid; place-items:center;
+  background:var(--accent); color:var(--on-accent);
+  border-radius:56% 44% 52% 48% / 48% 54% 46% 52%;
+  position:relative;
+}
+.modal-icon::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  background:linear-gradient(124deg, transparent 47%, var(--gold-l) 48%, var(--gold) 50.5%, transparent 52%);
+}
+.modal-icon svg{ width:27px; height:27px; position:relative; z-index:1; }
+.modal h3{ font-family:'Cormorant Garamond', serif; font-size:1.75rem; font-weight:600; }
+.modal p{ color:var(--ink-soft); margin:12px 0 28px; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:15px 20px;
+  border-radius:22px 18px 23px 17px;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:0 22px 44px -22px rgba(28,23,17,.6);
+  transform:translateX(150%); transition:transform .5s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:38px; height:38px; flex:none; display:grid; place-items:center;
+  background:var(--gold); color:var(--on-accent);
+  border-radius:56% 44% 52% 48% / 48% 54% 46% 52%;
+}
+.toast .t-ico svg{ width:18px; height:18px; }
+.toast b{ font-family:'Cormorant Garamond', serif; font-size:1.12rem; font-weight:600; }
+.toast small{ display:block; color:var(--ink-faint); font-size:.82rem; }
+
+/* ============================================================ ABOUT */
+.principles{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.principle{
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:32px 28px 34px 26px; padding:34px 30px;
+  position:relative;
+}
+.principle:nth-child(2n){ border-radius:28px 34px 26px 32px; }
+.principle .num{
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size:2.4rem; color:var(--gold); line-height:1; margin-bottom:14px;
+}
+.principle h3{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:600; }
+.principle p{ color:var(--ink-soft); margin-top:10px; font-size:.96rem; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:84px 0 64px; color:var(--ink-soft); font-size:.92rem;
+}
+.foot .brand-mark{ margin:0 auto 20px; }
+.foot a{ color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+.foot .seal{
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size:1.25rem; color:var(--ink); margin-bottom:8px;
+}
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(32px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise 1s cubic-bezier(.2,.7,.2,1) both; }
+.d1{ animation-delay:.08s; } .d2{ animation-delay:.2s; }
+.d3{ animation-delay:.32s; } .d4{ animation-delay:.44s; } .d5{ animation-delay:.56s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:26px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .principles{ grid-template-columns:1fr; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:64px 0 46px; }
+  .card{ padding:26px; }
+  .stat-pill{ padding-right:22px; margin-right:22px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"><span></span></div>
+        <div class="brand-name">Kintsugi</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">Principles</a>
+      </div>
+      <a class="all-styles" href="../index.html" aria-label="Back to all styles">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="eyebrow rise d1"><span class="dot"></span>The Wabi-Sabi Aesthetic</div>
+      <h1 class="rise d2">Beauty in the<br/><span class="seam"><em>imperfect</em></span> and unfinished.</h1>
+      <p class="rise d3">A showcase of wabi-sabi — the quiet acceptance of impermanence
+        and incompleteness. Earthen tones, hand-thrown edges, and cracks mended in gold.</p>
+      <div class="hero-cta rise d4">
+        <a href="#showcase" class="btn btn--accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Explore components
+        </a>
+        <a href="#about" class="btn">The philosophy</a>
+      </div>
+      <div class="hero-stats rise d5">
+        <div class="stat-pill"><b>侘</b><small>Rustic Simplicity</small></div>
+        <div class="stat-pill"><b>寂</b><small>Weathered Grace</small></div>
+        <div class="stat-pill"><b>金</b><small>Mended in Gold</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="ko">Wabi · the components</div>
+      <h2>A set of controls, gently worn</h2>
+      <p>Every control below is alive — drag, toggle, slide and press. Nothing here is perfectly straight.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">Now Playing</div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Rain on Clay Tiles</h3>
+            <p>Asobi &middot; Quiet Seasons</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Gentle alerts</div>
+            <div class="sub">A soft chime, never a jolt</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Gentle alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Quiet sync</div>
+            <div class="sub">Across all your devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Quiet sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Lossless audio</div>
+            <div class="sub">The full, unhurried grain</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Lossless audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">Volume</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Drag the knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">Brightness</div>
+        <div class="slider-head">
+          <span class="card-title">Lantern glow</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Dusk</span><span>Noon</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">Inputs</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the collection&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Grid</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">This season</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Goal</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>An unbroken quiet streak</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 pieces</b><small>Gathered in your collection</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share recap</button>
+            <button class="btn">Export data</button>
+            <button class="btn" disabled>Sync at rest</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="ko">Sabi · further still</div>
+      <h2>More ways to touch the surface</h2>
+      <p>Steppers, ratings, menus and dialogs — each shaped by hand, none twice the same.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">Living Glaze</div>
+        <h3 class="card-title">Accent tone</h3>
+        <p class="muted" style="margin-top:8px">Choose an earthen glaze to wash over every control.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#8a6f4b" data-accent="#8a6f4b" aria-label="Raw umber"></button>
+          <button class="swatch" style="--sw:#6f7a59" data-accent="#6f7a59" aria-label="Moss"></button>
+          <button class="swatch" style="--sw:#9c5c44" data-accent="#9c5c44" aria-label="Terracotta"></button>
+          <button class="swatch" style="--sw:#5d6b73" data-accent="#5d6b73" aria-label="Slate ash"></button>
+          <button class="swatch" style="--sw:#7c5466" data-accent="#7c5466" aria-label="Dried plum"></button>
+          <button class="swatch" style="--sw:#a98742" data-accent="#a98742" aria-label="Aged ochre"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">Stepper</div>
+        <h3 class="card-title">Tea bowl order</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Hand-thrown &ldquo;Quiet Seasons&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">Feedback</div>
+        <h3 class="card-title">Rate this set</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">Dropdown</div>
+        <h3 class="card-title" style="margin-bottom:18px">Sort order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most played" aria-selected="false">Most played<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">Verification</div>
+        <h3 class="card-title">Access code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter your 4-digit code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">Toggle group</div>
+        <h3 class="card-title">Text style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each button toggles independently</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">FAQ</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What exactly is wabi-sabi?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A Japanese worldview centred on the acceptance of transience and imperfection — finding beauty in things modest, weathered, asymmetrical and incomplete, rather than in the flawless and the new.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              What is kintsugi?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>The art of mending broken pottery with lacquer dusted in gold. The repair is not hidden — it is honoured. A history of damage becomes the most luminous part of the piece.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does this aesthetic work best?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Calm, unhurried interfaces — reading apps, journals, slow media — where generous negative space and a muted, natural palette invite the eye to rest rather than race.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">Overlays</div>
+        <h3 class="card-title">Dialogs &amp; toasts</h3>
+        <p class="muted" style="margin-top:8px">Quiet messages that surface, then settle away.</p>
+        <div class="btn-stack" style="margin-top:22px">
+          <button class="btn btn--accent" id="toastBtn">Show toast</button>
+          <button class="btn" id="modalBtn">Open dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="ko">The philosophy</div>
+      <h2>Three quiet principles</h2>
+      <p>Wabi-sabi is not a style applied — it is a posture of restraint and acceptance.</p>
+    </div>
+    <div class="principles">
+      <article class="principle">
+        <div class="num">一</div>
+        <h3>Embrace imperfection</h3>
+        <p>No edge is perfectly true. Asymmetry and the hand-thrown wobble are kept, not corrected — the irregular is what feels alive.</p>
+      </article>
+      <article class="principle">
+        <div class="num">二</div>
+        <h3>Honour impermanence</h3>
+        <p>Surfaces look weathered, worn soft by use. Where something cracks, the seam is filled with gold — the repair becomes the beauty.</p>
+      </article>
+      <article class="principle">
+        <div class="num">三</div>
+        <h3>Welcome the incomplete</h3>
+        <p>Generous, quiet negative space. Muted earthen tone. Nothing shouts; the eye is given room to rest and to wander.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand-mark"><span></span></div>
+    <div class="seal">物の哀れ — the gentle sadness of things</div>
+    <p>Kintsugi — a wabi-sabi design showcase.<br/>
+       Mended by hand, in gold. Try the <a href="#" id="footTheme">theme toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Mend these changes in gold?</h3>
+    <p>Your adjustments to the wabi-sabi kit will settle quietly across every device.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not now</button>
+      <button class="btn btn--accent" id="modalConfirm">Apply changes</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('wabi-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('wabi-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1600);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 520);
+    }, 3600);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.4; }));
+      root.style.setProperty('--on-accent', lum > 0.6 ? '#2c2820' : '#f3eee1');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Spare','Modest','Quiet','Graceful','Serene'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Code accepted ✓';
+        showToast('Welcome back', 'The gate to Kintsugi is open.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 320);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Changes mended', 'Your wabi-sabi kit is at rest.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Modal focus trap ---------- */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab') return;
+    var f = overlay.querySelectorAll('button');
+    if(!f.length) return;
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Saved to collection', 'Rain on Clay Tiles, kept for the season.');
+  });
+})();
+</script>
+</body>
+</html>

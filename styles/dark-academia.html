@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lumen Obscura — A Dark Academia Showcase</title>
+<meta name="description" content="A showcase of Dark Academia design — leather-bound surfaces, candlelight, oxblood and forest green, gilt ornament, and brooding scholarly serif typography." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   DARK ACADEMIA — moody scholarly romanticism.
+   Deep brown leather, oxblood, forest green, charcoal, aged
+   parchment cream. Candlelight, brass, gilt, engraved rules.
+   ============================================================ */
+:root,
+[data-theme="dark"]{
+  --bg:           #1a1410;   /* near-black walnut */
+  --panel:        #241c15;   /* leather-bound surface */
+  --panel-2:      #2c2219;   /* slightly raised leather */
+  --inset:        #15100c;   /* recessed groove */
+  --ink:          #e7dcc4;   /* aged parchment text */
+  --ink-soft:     #a89878;   /* faded ink */
+  --ink-faint:    #6f6450;
+  --rule:         #463725;   /* engraved hairline */
+  --rule-soft:    #36291c;
+  --accent:       #8f2f28;   /* oxblood */
+  --accent-d:     #5e1f1a;
+  --accent-l:     #c25d4f;
+  --accent-ink:   #f4ead2;
+  --gilt:         #c6a35a;   /* brass / gold leaf */
+  --gilt-d:       #8c6f33;
+  --gilt-l:       #e6cd8f;
+  --forest:       #3d5240;   /* deep forest green */
+}
+[data-theme="light"]{
+  --bg:           #ddd2b8;   /* aged parchment */
+  --panel:        #e7ddc4;
+  --panel-2:      #efe6ce;
+  --inset:        #c8bb9a;
+  --ink:          #2e2417;
+  --ink-soft:     #5f513a;
+  --ink-faint:    #8a7c5f;
+  --rule:         #b3a486;
+  --rule-soft:    #c6b794;
+  --accent:       #7a261f;
+  --accent-d:     #561b16;
+  --accent-l:     #9c463c;
+  --accent-ink:   #f4ead2;
+  --gilt:         #97772f;
+  --gilt-d:       #6e561f;
+  --gilt-l:       #b8964c;
+  --forest:       #354a39;
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'EB Garamond', Georgia, serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.68;
+  font-size:1.04rem;
+  -webkit-font-smoothing:antialiased;
+  transition:background .6s ease, color .6s ease;
+  overflow-x:hidden;
+}
+/* candle-lit atmosphere + faint oil-painting / paper grain */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(46rem 34rem at 84% -6%, color-mix(in srgb, var(--gilt) 60%, transparent), transparent 62%),
+    radial-gradient(40rem 38rem at 8% 102%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 64%);
+  opacity:.12;
+}
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/></svg>");
+  mix-blend-mode:overlay;
+}
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 30px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+
+/* gilt ornament rule — used between sections */
+.ornament{
+  display:flex; align-items:center; justify-content:center; gap:18px;
+  color:var(--gilt); margin:6px 0 30px;
+}
+.ornament::before, .ornament::after{
+  content:""; height:1px; flex:1; max-width:200px;
+  background:linear-gradient(90deg, transparent, var(--gilt-d), var(--gilt), var(--gilt-d), transparent);
+}
+.ornament svg{ width:34px; height:18px; }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:20px; }
+.nav-inner{
+  display:flex; align-items:center; gap:22px;
+  padding:13px 16px 13px 22px; border-radius:4px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--rule);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--gilt) 18%,transparent) inset,
+             0 14px 30px -16px #000;
+}
+.allstyles{
+  display:inline-flex; align-items:center; gap:7px;
+  color:var(--gilt); text-decoration:none; font-size:.86rem;
+  font-weight:600; letter-spacing:.04em; padding:7px 12px;
+  border:1px solid var(--gilt-d); border-radius:3px;
+  transition:background .2s, color .2s;
+}
+.allstyles:hover{ background:color-mix(in srgb,var(--gilt) 18%,transparent); color:var(--gilt-l); }
+.allstyles:focus-visible{ outline:2px solid var(--gilt); outline-offset:2px; }
+
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; border-radius:50%;
+  display:grid; place-items:center;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt) 48%, var(--gilt-d));
+  border:1px solid var(--gilt-d);
+  box-shadow:0 0 14px -3px color-mix(in srgb,var(--gilt) 70%,transparent),
+             inset 0 -3px 6px -2px #00000088;
+}
+.brand-mark span{
+  font-family:'Cormorant Garamond',serif; font-weight:700;
+  font-size:1.45rem; color:#241a0c; line-height:1;
+}
+.brand-name{
+  font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:1.5rem; letter-spacing:.02em; color:var(--ink);
+}
+.brand-name em{ display:block; font-size:.62rem; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--ink-faint); font-style:normal; margin-top:-3px; }
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-weight:500; font-size:1rem;
+  padding:8px 14px; border-radius:3px; position:relative;
+  transition:color .2s;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:14px; right:14px; bottom:4px; height:1px;
+  background:var(--gilt); transform:scaleX(0); transform-origin:left;
+  transition:transform .26s ease;
+}
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a:hover::after{ transform:scaleX(1); }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; border:1px solid var(--rule); cursor:pointer;
+  border-radius:3px; background:var(--panel-2); color:var(--ink);
+  display:grid; place-items:center;
+  transition:border-color .2s, color .2s, background .2s;
+}
+.icon-btn:hover{ color:var(--gilt); border-color:var(--gilt-d); }
+.icon-btn:active{ background:var(--inset); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:90px 0 56px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 20px; border-radius:2px; margin-bottom:30px;
+  border:1px solid var(--gilt-d);
+  background:color-mix(in srgb,var(--gilt) 8%,transparent);
+  font-size:.74rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gilt);
+}
+.eyebrow .dot{ width:6px; height:6px; transform:rotate(45deg); background:var(--gilt);
+  box-shadow:0 0 8px 1px color-mix(in srgb,var(--gilt) 70%,transparent); }
+.hero h1{
+  font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:clamp(3rem, 8vw, 6.2rem); line-height:1.02; letter-spacing:.005em;
+  color:var(--ink);
+}
+.hero h1 em{ font-style:italic; color:var(--gilt-l);
+  text-shadow:0 0 26px color-mix(in srgb,var(--gilt) 45%,transparent); }
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.2rem; color:var(--ink-soft);
+  font-style:italic;
+}
+.hero-cta{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:38px; }
+.hero-stats{
+  display:flex; gap:0; justify-content:center; flex-wrap:wrap; margin-top:54px;
+  border:1px solid var(--rule); border-radius:4px; overflow:hidden;
+  width:fit-content; margin-left:auto; margin-right:auto;
+  background:var(--panel);
+}
+.stat-pill{
+  padding:18px 34px;
+  display:flex; flex-direction:column; align-items:center; min-width:150px;
+  border-right:1px solid var(--rule);
+}
+.stat-pill:last-child{ border-right:0; }
+.stat-pill b{ font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:2.4rem; color:var(--gilt-l); line-height:1; }
+.stat-pill small{ font-size:.68rem; color:var(--ink-soft); margin-top:8px;
+  letter-spacing:.18em; text-transform:uppercase; }
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Cormorant Garamond',serif; font-size:1.12rem; font-weight:600;
+  cursor:pointer; border:1px solid var(--rule); letter-spacing:.02em;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  color:var(--ink); padding:13px 28px; border-radius:3px;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:border-color .2s, color .2s, transform .15s, background .2s;
+}
+.btn:hover{ border-color:var(--gilt-d); color:var(--gilt-l); transform:translateY(-2px); }
+.btn:active{ transform:translateY(0); }
+.btn svg{ width:17px; height:17px; }
+.btn--accent{
+  background:linear-gradient(180deg, var(--accent-l), var(--accent) 55%, var(--accent-d));
+  color:var(--accent-ink); border-color:var(--accent-d);
+  text-shadow:0 1px 2px #00000066;
+  box-shadow:0 8px 20px -10px color-mix(in srgb,var(--accent) 80%,transparent);
+}
+.btn--accent:hover{ color:#fff; border-color:var(--gilt-d); }
+.btn--gilt{
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt) 55%, var(--gilt-d));
+  color:#241a0c; border-color:var(--gilt-d); text-shadow:0 1px 0 #ffffff44;
+}
+.btn--gilt:hover{ color:#0f0a04; }
+.btn:disabled{ cursor:not-allowed; color:var(--ink-faint); opacity:.6;
+  background:var(--inset); border-color:var(--rule-soft); }
+.btn:disabled:hover{ transform:none; color:var(--ink-faint); border-color:var(--rule-soft); }
+.btn:focus-visible, .icon-btn:focus-visible, .allstyles:focus-visible{
+  outline:2px solid var(--gilt); outline-offset:3px; }
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:50px 0 30px; }
+.section-head{ margin-bottom:14px; text-align:center; }
+.section-head h2{
+  font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:clamp(2.1rem,4.4vw,3.2rem); letter-spacing:.01em; color:var(--ink);
+}
+.section-head h2 em{ font-style:italic; color:var(--gilt-l); }
+.section-head p{ color:var(--ink-soft); margin-top:4px; font-style:italic; font-size:1.1rem; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.card{
+  position:relative;
+  background:linear-gradient(170deg, var(--panel-2), var(--panel));
+  border:1px solid var(--rule); border-radius:5px; padding:30px;
+  box-shadow:0 22px 44px -26px #000,
+             0 1px 0 color-mix(in srgb,var(--gilt) 14%,transparent) inset;
+  opacity:0; transform:translateY(26px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1),
+             background .6s ease, border-color .6s ease;
+}
+/* gilt corner brackets — engraved bookplate feel */
+.card::before, .card::after{
+  content:""; position:absolute; width:16px; height:16px; pointer-events:none;
+  border:1px solid var(--gilt-d); opacity:.7;
+}
+.card::before{ top:8px; left:8px; border-right:0; border-bottom:0; }
+.card::after{ bottom:8px; right:8px; border-left:0; border-top:0; }
+.card.in{ opacity:1; transform:none; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card-label{
+  font-size:.68rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--gilt); display:flex; align-items:center; gap:10px; margin-bottom:18px;
+}
+.card-label::before{ content:""; width:14px; height:14px; flex:none;
+  transform:rotate(45deg);
+  border:1px solid var(--gilt-d);
+  background:radial-gradient(circle, var(--gilt) 0 38%, transparent 40%); }
+.card-label::after{ content:""; flex:1; height:1px;
+  background:linear-gradient(90deg, var(--gilt-d), transparent); }
+.card-title{
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.7rem;
+  letter-spacing:.01em; color:var(--ink); line-height:1.15;
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:4px;
+  background:
+    radial-gradient(70% 60% at 30% 26%, color-mix(in srgb,var(--gilt) 70%,transparent), transparent 70%),
+    radial-gradient(86% 86% at 82% 92%, var(--accent-d), transparent 78%),
+    linear-gradient(150deg, #3a2c1d, #211711);
+  border:1px solid var(--gilt-d); display:grid; place-items:center; margin-bottom:22px;
+  box-shadow:inset 0 0 40px -8px #000;
+}
+.player-art::before{ /* engraved oval frame */
+  content:""; position:absolute; inset:14px; border-radius:50%/40%;
+  border:1px solid color-mix(in srgb,var(--gilt) 45%,transparent); pointer-events:none;
+}
+.eq{ display:flex; align-items:flex-end; gap:6px; height:54px; }
+.eq span{
+  width:7px; height:16px; border-radius:1px;
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt-d));
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:48px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{ font-family:'Cormorant Garamond',serif; font-size:1.6rem;
+  font-weight:600; line-height:1.15; color:var(--ink); }
+.player-meta p{ color:var(--ink-soft); font-size:1rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--accent-l); border-color:var(--accent-d); }
+.heart.on svg{ fill:var(--accent-l); }
+
+.player-progress{ margin:20px 0 7px; cursor:pointer; padding:8px 0; }
+.track{ height:8px; border-radius:1px; background:var(--inset);
+  border:1px solid var(--rule-soft); position:relative; }
+.track-fill{
+  position:absolute; inset:-1px auto -1px -1px; width:34%; border-radius:1px;
+  background:linear-gradient(90deg, var(--gilt-d), var(--gilt));
+  box-shadow:0 0 10px -2px color-mix(in srgb,var(--gilt) 70%,transparent);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  width:16px; height:16px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt-d));
+  border:1px solid #00000066;
+}
+.player-time{ display:flex; justify-content:space-between; font-size:.84rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums; letter-spacing:.05em; }
+
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:20px; margin-top:18px; }
+.play-btn{
+  width:66px; height:66px; border:1px solid var(--gilt-d); cursor:pointer;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 30%, var(--gilt-l), var(--gilt) 52%, var(--gilt-d));
+  color:#241a0c; display:grid; place-items:center;
+  box-shadow:0 0 18px -4px color-mix(in srgb,var(--gilt) 60%,transparent),
+             inset 0 -3px 7px -2px #00000088;
+  transition:transform .18s;
+}
+.play-btn:hover{ transform:translateY(-2px); }
+.play-btn.playing{ transform:none; }
+.play-btn svg{ width:24px; height:24px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:15px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--rule-soft); }
+.switch-row .lbl{ font-weight:600; font-size:1.12rem;
+  font-family:'Cormorant Garamond',serif; color:var(--ink); }
+.switch-row .sub{ font-size:.9rem; color:var(--ink-soft); font-style:italic; }
+.switch{ position:relative; width:62px; height:32px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{ position:absolute; inset:0; border-radius:2px;
+  background:var(--inset); border:1px solid var(--rule);
+  transition:background .3s, border-color .3s; }
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:2px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--rule);
+  transition:transform .33s cubic-bezier(.34,1.4,.5,1), background .3s, border-color .3s;
+}
+.switch input:checked ~ .s-track{
+  background:color-mix(in srgb,var(--gilt) 22%,transparent); border-color:var(--gilt-d); }
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px);
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt-d));
+  border-color:var(--gilt-d);
+}
+.switch input:focus-visible ~ .s-track{ outline:2px solid var(--gilt); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; }
+.dial{
+  position:relative; width:184px; height:184px; border-radius:50%;
+  background:radial-gradient(circle at 50% 46%, var(--inset), #0c0805);
+  border:1px solid var(--rule);
+  display:grid; place-items:center; touch-action:none; cursor:grab;
+  box-shadow:inset 0 6px 16px -4px #000;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--gilt) 0 calc(var(--v,40) * 2.7deg),
+      var(--rule-soft) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+          mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 40% 32%, var(--panel-2), #1a130d 80%);
+  border:1px solid var(--gilt-d); pointer-events:none;
+  box-shadow:0 6px 14px -6px #000, inset 0 2px 4px #ffffff14;
+}
+.dial-knob::before{ /* gilt rotation notch */
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:7px; height:18px; border-radius:2px;
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt-d));
+  box-shadow:0 0 8px 1px color-mix(in srgb,var(--gilt) 60%,transparent);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{ font-family:'Cormorant Garamond',serif; font-size:2.3rem; line-height:1;
+  font-variant-numeric:tabular-nums; color:var(--gilt-l); }
+.dial-readout small{ display:block; font-size:.62rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.dial-hint{ font-size:.9rem; color:var(--ink-soft); font-style:italic; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.slider-head .v{ font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--gilt-l);
+  font-variant-numeric:tabular-nums; }
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:30px;
+  background:transparent; cursor:pointer; margin:8px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:10px; border-radius:1px; border:1px solid var(--rule);
+  background:linear-gradient(90deg, var(--gilt) 0 var(--val,55%),
+    var(--inset) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:10px; border-radius:1px; border:1px solid var(--rule);
+  background:var(--inset); }
+.range::-moz-range-progress{ height:10px; border-radius:1px; background:var(--gilt); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:24px; height:24px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt-d));
+  border:1px solid #00000088; margin-top:-8px;
+}
+.range::-moz-range-thumb{ width:24px; height:24px; border:1px solid #00000088; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt-d)); }
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px var(--gilt); }
+.range:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 3px var(--gilt); }
+.slider-scale{ display:flex; justify-content:space-between; font-size:.8rem;
+  color:var(--ink-soft); margin-top:4px; font-style:italic; letter-spacing:.04em; }
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:13px 17px; border-radius:3px;
+  background:var(--inset); border:1px solid var(--rule); margin-bottom:22px;
+}
+.search svg{ width:18px; height:18px; color:var(--gilt); flex:none; }
+.search input{ border:0; background:transparent; outline:0;
+  font-family:'EB Garamond',serif; font-size:1.04rem;
+  color:var(--ink); width:100%; }
+.search input::placeholder{ color:var(--ink-faint); font-style:italic; }
+.search:focus-within{ border-color:var(--gilt-d); }
+
+.seg-label{ font-size:.86rem; color:var(--ink-soft); margin-bottom:9px; font-style:italic; }
+.segmented{
+  position:relative; display:flex; padding:5px; border-radius:3px;
+  background:var(--inset); border:1px solid var(--rule);
+}
+.seg-thumb{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px);
+  border-radius:2px;
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt) 55%, var(--gilt-d));
+  border:1px solid var(--gilt-d);
+  transition:transform .32s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.05rem;
+  color:var(--ink-soft); padding:10px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:#241a0c; }
+.seg-opt:focus-visible{ outline:2px solid var(--gilt); outline-offset:2px; border-radius:2px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:34px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:156px; height:156px; border-radius:50%;
+  background:radial-gradient(circle at 50% 46%, var(--inset), #0c0805);
+  border:1px solid var(--rule);
+  display:grid; place-items:center; flex:none;
+  box-shadow:inset 0 6px 16px -4px #000;
+}
+.ring::before{
+  content:""; position:absolute; inset:11px; border-radius:50%;
+  background:conic-gradient(var(--gilt) calc(var(--p)*1%), var(--rule-soft) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 76%, #000 77%);
+          mask:radial-gradient(closest-side, transparent 76%, #000 77%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-family:'Cormorant Garamond',serif; font-size:2.5rem; line-height:1;
+  color:var(--gilt-l); }
+.ring-core small{ font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-soft); }
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{ padding:15px 19px; border-radius:3px; background:var(--inset);
+  border:1px solid var(--rule);
+  display:flex; align-items:center; gap:15px; }
+.chip .ci{ width:40px; height:40px; flex:none; display:grid; place-items:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt-d));
+  color:#241a0c; border:1px solid var(--gilt-d); }
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--ink); }
+.chip small{ display:block; font-size:.9rem; color:var(--ink-soft); font-style:italic; }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.98rem; font-style:italic; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.swatch{
+  width:48px; height:48px; border:1px solid var(--rule); cursor:pointer; border-radius:50%;
+  background:var(--panel); display:grid; place-items:center;
+  transition:transform .18s, border-color .18s;
+}
+.swatch:hover{ transform:translateY(-3px); border-color:var(--gilt-d); }
+.swatch::after{
+  content:""; width:26px; height:26px; border-radius:50%; background:var(--sw);
+  box-shadow:inset 0 -3px 6px -2px #000, inset 0 2px 4px #ffffff22;
+  transition:.2s;
+}
+.swatch.is-active{ border-color:var(--gilt); }
+.swatch.is-active::after{ width:20px; height:20px;
+  box-shadow:inset 0 -2px 4px -1px #000, 0 0 0 3px var(--panel), 0 0 0 4px var(--gilt); }
+.swatch:focus-visible{ outline:2px solid var(--gilt); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px; margin:22px 0 12px; }
+.step-btn{
+  width:52px; height:52px; flex:none; border:1px solid var(--rule); cursor:pointer;
+  border-radius:3px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  color:var(--ink); font-size:1.6rem; font-family:'Cormorant Garamond',serif;
+  display:grid; place-items:center;
+  transition:border-color .15s, color .2s, background .2s;
+}
+.step-btn:hover{ color:var(--gilt-l); border-color:var(--gilt-d); }
+.step-btn:active{ background:var(--inset); }
+.step-btn:focus-visible{ outline:2px solid var(--gilt); outline-offset:3px; }
+.step-val{
+  min-width:90px; padding:11px 0; border-radius:3px;
+  background:var(--inset); border:1px solid var(--rule);
+  font-family:'Cormorant Garamond',serif; font-size:2.1rem;
+  font-variant-numeric:tabular-nums; color:var(--gilt-l);
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:8px; margin:22px 0 12px; }
+.star{
+  width:48px; height:48px; border:1px solid var(--rule); cursor:pointer; border-radius:3px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  color:var(--ink-faint); display:grid; place-items:center;
+  transition:border-color .15s, color .15s, transform .15s, background .2s;
+}
+.star svg{ width:23px; height:23px; transition:fill .15s; }
+.star:hover{ transform:translateY(-3px); border-color:var(--gilt-d); }
+.star.lit{ color:var(--gilt-l); border-color:var(--gilt-d);
+  background:color-mix(in srgb,var(--gilt) 14%,transparent); }
+.star.lit svg{ fill:var(--gilt); }
+.star:focus-visible{ outline:2px solid var(--gilt); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:0; }
+.acc-item{ border-bottom:1px solid var(--rule); }
+.acc-item:first-child{ border-top:1px solid var(--rule); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.3rem;
+  color:var(--ink); text-align:left; padding:18px 6px;
+  display:flex; align-items:center; gap:14px;
+  transition:color .2s;
+}
+.acc-head:hover{ color:var(--gilt-l); }
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--gilt); transition:transform .3s; }
+.acc-item.open .acc-head{ color:var(--gilt-l); }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:2px solid var(--gilt); outline-offset:-3px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 6px 18px; color:var(--ink-soft); font-size:1.02rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:1px solid var(--rule); cursor:pointer;
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.12rem;
+  color:var(--ink);
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  padding:14px 18px; border-radius:3px;
+  display:flex; align-items:center; gap:10px;
+  transition:border-color .15s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--gilt); transition:transform .25s; }
+.select.open .select-btn{ border-color:var(--gilt-d); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2px solid var(--gilt); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:6px; border-radius:3px;
+  background:var(--panel-2); border:1px solid var(--gilt-d);
+  box-shadow:0 24px 44px -20px #000;
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 13px; border-radius:2px; cursor:pointer; font-weight:500;
+  font-size:1.04rem; color:var(--ink);
+  display:flex; align-items:center; gap:10px; transition:background .14s, color .14s;
+}
+.select-menu li:hover{ background:color-mix(in srgb,var(--gilt) 14%,transparent);
+  color:var(--gilt-l); }
+.select-menu li[aria-selected="true"]{ color:var(--gilt-l); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; color:var(--gilt); }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.pin input{
+  width:54px; height:66px; border:1px solid var(--rule); outline:0; text-align:center;
+  font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--ink);
+  background:var(--inset); border-radius:3px;
+  transition:border-color .18s, color .18s;
+}
+.pin input.filled{ color:var(--gilt-l); }
+.pin input:focus{ border-color:var(--gilt); box-shadow:0 0 0 2px color-mix(in srgb,var(--gilt) 40%,transparent); }
+.pin.done input{ border-color:var(--gilt-d); color:var(--gilt-l);
+  background:color-mix(in srgb,var(--gilt) 12%,transparent); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:52px; height:52px; border:1px solid var(--rule); cursor:pointer;
+  border-radius:3px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  color:var(--ink); font-family:'Cormorant Garamond',serif; font-size:1.4rem;
+  display:grid; place-items:center;
+  transition:border-color .15s, color .18s, background .2s;
+}
+.tg-btn:hover{ color:var(--gilt-l); border-color:var(--gilt-d); }
+.tg-btn.on{ color:#241a0c; border-color:var(--gilt-d);
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt) 55%, var(--gilt-d)); }
+.tg-btn:focus-visible{ outline:2px solid var(--gilt); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--panel-2); border:1px solid var(--gilt-d); color:var(--ink-soft);
+  font-family:'EB Garamond',serif; font-size:.78rem; font-style:italic;
+  padding:5px 11px; border-radius:2px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(10,7,4,.74); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:450px; width:100%; text-align:center; padding:40px 36px;
+  background:linear-gradient(170deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d); border-radius:5px;
+  box-shadow:0 34px 70px -16px #000;
+  transform:scale(.9) translateY(12px);
+  transition:transform .33s cubic-bezier(.2,1.25,.4,1);
+}
+.modal::before{ content:""; position:absolute; inset:7px; pointer-events:none;
+  border:1px solid color-mix(in srgb,var(--gilt) 40%,transparent); border-radius:3px; }
+.modal-overlay.show .modal{ transform:none; }
+.modal-icon{
+  width:64px; height:64px; margin:0 auto 16px; border-radius:50%; display:grid;
+  place-items:center;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt) 52%, var(--gilt-d));
+  color:#241a0c; border:1px solid var(--gilt-d);
+}
+.modal-icon svg{ width:28px; height:28px; }
+.modal h3{ font-family:'Cormorant Garamond',serif; font-size:1.9rem;
+  letter-spacing:.01em; color:var(--ink); }
+.modal p{ color:var(--ink-soft); margin:8px 0 24px; font-style:italic; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:15px 20px; border-radius:4px;
+  background:linear-gradient(170deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d);
+  box-shadow:0 22px 44px -18px #000;
+  transform:translateX(150%); transition:transform .44s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:38px; height:38px; flex:none; border-radius:50%; display:grid; place-items:center;
+  background:radial-gradient(circle at 38% 32%, var(--gilt-l), var(--gilt-d));
+  color:#241a0c; border:1px solid var(--gilt-d);
+}
+.toast .t-ico svg{ width:18px; height:18px; }
+.toast b{ font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--ink); }
+.toast small{ display:block; color:var(--ink-soft); font-size:.9rem; font-style:italic; }
+
+/* ============================================================ ABOUT */
+.about-card{ position:relative; }
+.about-card .drop{
+  float:left; font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:4.2rem; line-height:.78; color:var(--gilt-l); margin:6px 12px 0 0;
+}
+.about-card p{ color:var(--ink-soft); margin-top:10px; }
+.roman{ font-variant:small-caps; letter-spacing:.06em; color:var(--gilt);
+  font-weight:600; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:70px 0 56px; color:var(--ink-soft); font-size:.96rem;
+  font-style:italic;
+}
+.foot .brand-mark{ margin:0 auto 18px; }
+.foot a{ color:var(--gilt-l); text-decoration:none; border-bottom:1px solid var(--gilt-d); }
+.foot a:hover{ color:var(--gilt); }
+.foot .latin{ font-variant:small-caps; letter-spacing:.16em; color:var(--gilt);
+  font-style:normal; font-size:.78rem; display:block; margin-top:14px; }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .9s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.18s; }
+.d3{ animation-delay:.3s; } .d4{ animation-delay:.42s; } .d5{ animation-delay:.54s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:56px 0 40px; }
+  .card{ padding:24px; }
+  .stat-pill{ min-width:108px; padding:14px 18px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"><span>L</span></div>
+        <div class="brand-name">Lumen Obscura<em>Collegium</em></div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Apparatus</a>
+        <a href="#more">Instruments</a>
+        <a href="#about">Doctrine</a>
+      </div>
+      <a class="allstyles" href="../index.html" aria-label="Back to all styles">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle candlelight">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rise d1"><span class="dot"></span>A Dark Academia Showcase</div>
+    <h1 class="rise d2">Interfaces lit<br/>by <em>candlelight</em>.</h1>
+    <p class="rise d3">A study in leather, oxblood, and gold leaf — every control bound
+      like a rare volume, set in scholarly serif, and dimmed to the hush of the
+      library after hours.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Enter the collection
+      </a>
+      <a href="#about" class="btn">Read the doctrine</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>MDCCXXI</b><small>Founded</small></div>
+      <div class="stat-pill"><b>IV</b><small>Cardinal Hues</small></div>
+      <div class="stat-pill"><b>&infin;</b><small>Hours Past Midnight</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M30 4c-6 0-9 8-15 8s-9-4-9-4M30 20c-6 0-9-8-15-8M30 4c6 0 9 8 15 8s9-4 9-4M30 20c6 0 9-8 15-8"/>
+        <circle cx="30" cy="12" r="3" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="section-head">
+      <h2>An <em>apparatus</em> of fine controls</h2>
+      <p>Every instrument below is live — drag, toggle, slide, and turn the page.</p>
+    </div>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M6 12h18M36 12h18"/><path d="M30 6l4 6-4 6-4-6z" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Phonograph">
+        <div class="card-label">Now Sounding</div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Nocturne in Umber</h3>
+            <p>Sébastien Vance &middot; Vespers</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Commit to memory" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous movement">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next movement">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Candle dispatches</div>
+            <div class="sub">Word of each new acquisition</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Candle dispatches" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Marginalia sync</div>
+            <div class="sub">Across every desk and study</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Marginalia sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Unabridged audio</div>
+            <div class="sub">The fuller, costlier rendering</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Unabridged audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">Resonance</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the brass knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">Candlepower</div>
+        <div class="slider-head">
+          <span class="card-title">Lamplight</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Gloom</span><span>Blaze</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">The Catalogue</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the stacks&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">Display the shelves as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Folio</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Ledger</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Plates</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">This Term</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Curriculum</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 nights</b><small>Consecutive vigils kept</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 volumes</b><small>Annotated and shelved</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Publish the term</button>
+            <button class="btn">Transcribe records</button>
+            <button class="btn" disabled>Archives sealed</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Further <em>instruments</em></h2>
+      <p>Steppers, ratings, menus and dialogues — each tooled in the same gilt hand.</p>
+    </div>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M6 12h18M36 12h18"/><path d="M30 6l4 6-4 6-4-6z" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">Illumination</div>
+        <h3 class="card-title">Choose the gilt</h3>
+        <p class="muted" style="margin-top:6px">Select a pigment to re-leaf every instrument on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#8f2f28" data-accent="#8f2f28" aria-label="Oxblood"></button>
+          <button class="swatch" style="--sw:#3d5240" data-accent="#3d5240" aria-label="Forest green"></button>
+          <button class="swatch" style="--sw:#2f3f55" data-accent="#2f3f55" aria-label="Ink navy"></button>
+          <button class="swatch" style="--sw:#5a3a52" data-accent="#5a3a52" aria-label="Aubergine"></button>
+          <button class="swatch" style="--sw:#7a5230" data-accent="#7a5230" aria-label="Tobacco"></button>
+          <button class="swatch" style="--sw:#3f4a4d" data-accent="#3f4a4d" aria-label="Slate"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">Acquisition</div>
+        <h3 class="card-title">Order from the press</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Bound copies of &ldquo;Vespers&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">Critique</div>
+        <h3 class="card-title">Rate this volume</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Award your marks</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">Arrangement</div>
+        <h3 class="card-title" style="margin-bottom:16px">Order the index</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most consulted" aria-selected="false">Most consulted<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">Admittance</div>
+        <h3 class="card-title">Cipher of entry</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Inscribe the four-figure cipher</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">The Scribe&rsquo;s Hand</div>
+        <h3 class="card-title">Manner of script</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each toggles by its own accord</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">Disputations</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What, precisely, is Dark Academia?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>An aesthetic of scholarly romanticism — old libraries, leather and lamplight, classical learning and a faint melancholy. Deep browns, oxblood and forest green, gold leaf and serif type, all dimmed to a candle-lit hush.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Can a brooding theme still be legible?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Indeed. Parchment-cream text on near-black walnut carries ample contrast, and gilt accents, visible focus rings and clear labels keep every instrument readable by candle or by day.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where is the style most at home?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Reading rooms and reflective products — libraries, journals, archives, courses — anywhere a slow, intellectual mood serves better than bright commercial cheer.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">Proclamations</div>
+        <h3 class="card-title">Dialogues &amp; notices</h3>
+        <p class="muted" style="margin-top:6px">Layered notices that rise above the page.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--gilt" id="toastBtn">Post a notice</button>
+          <button class="btn" id="modalBtn">Open the dialogue</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three tenets, one <em>mood</em></h2>
+      <p>Dark Academia is romance disciplined by learning.</p>
+    </div>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M30 4c-6 0-9 8-15 8s-9-4-9-4M30 20c-6 0-9-8-15-8M30 4c6 0 9 8 15 8s9-4 9-4M30 20c6 0 9-8 15-8"/>
+        <circle cx="30" cy="12" r="3" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <div class="card-label">Tenet I</div>
+        <h3 class="card-title">Bound in shadow</h3>
+        <p><span class="drop">D</span>eep walnut and charcoal grounds, oxblood and
+          forest green for weight. Light is precious — it falls only where the
+          eye must go. <span class="roman">Lux in tenebris.</span></p>
+      </section>
+      <section class="card about-card">
+        <div class="card-label">Tenet II</div>
+        <h3 class="card-title">Gilt with restraint</h3>
+        <p><span class="drop">G</span>old leaf marks the worthy detail — a rule, a
+          notch, a corner bracket — never the whole page. Brass earns its glow
+          by being rare.</p>
+      </section>
+      <section class="card about-card">
+        <div class="card-label">Tenet III</div>
+        <h3 class="card-title">Set in classical serif</h3>
+        <p><span class="drop">T</span>ype is scholarly and old-style: generous
+          serifs, true italics, small-caps for ceremony. Words carry the romance;
+          ornament merely frames them.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M6 12h18M36 12h18"/><path d="M30 6l4 6-4 6-4-6z" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="brand-mark"><span>L</span></div>
+    <p>Lumen Obscura — a Dark Academia showcase.<br/>
+       Bound by candlelight. Dim or raise the <a href="#" id="footTheme">lamplight</a>.</p>
+    <span class="latin">Sub luce lucubramus</span>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Inscribe these emendations?</h3>
+    <p>Your annotations to the Dark Academia collection will be entered into the
+      ledger and observed at every desk.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not this hour</button>
+      <button class="btn btn--accent" id="modalConfirm">Inscribe it</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('da-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('da-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent');
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.4; }));
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Award your marks','Wanting','Tolerable','Commendable','Distinguished','Magnum opus'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Cipher accepted — the door yields';
+        showToast('Admittance granted', 'Welcome back to the Collegium.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Inscribe the four-figure cipher';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Emendations inscribed', 'The ledger is brought current.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  /* focus trap within modal */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab' || overlay.hidden) return;
+    var f = overlay.querySelectorAll('button');
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Entered into the catalogue', 'Nocturne in Umber, shelved under Vespers.');
+  });
+})();
+</script>
+</body>
+</html>

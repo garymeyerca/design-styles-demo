@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mochi — A Kawaii Showcase ♡</title>
+<meta name="description" content="A showcase of kawaii design — pastel candy colours, rounded everything, tiny hearts and stars, and a smiley blob mascot named Mochi." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Varela+Round&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   KAWAII TOKENS — pastel candy palette, soft tinted shadows,
+   huge radii, everything sweet and rounded ♡
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --bg:          #fff0f6;   /* pale pink */
+  --bg-2:        #fff8fb;
+  --surface:     #ffffff;
+  --surface-2:   #fff4f9;
+  --ink:         #6b4a5c;   /* soft plum-brown */
+  --ink-soft:    #b18aa0;
+  --line:        #ffd9ea;
+  --accent:      #ffb3d1;   /* baby pink */
+  --accent-d:    #ff7eb3;
+  --accent-l:    #ffe0ee;
+  --accent-ink:  #7a3357;
+  --mint:        #a0e7e5;
+  --lav:         #cdb4f6;
+  --butter:      #ffe5a0;
+  --peach:       #ffc4a3;
+  --blush:       #ff9ec4;
+  --shadow:      rgba(255,138,184,.32);
+  --shadow-soft: rgba(255,138,184,.18);
+}
+[data-theme="dark"]{
+  --bg:          #2a2333;
+  --bg-2:        #322a3e;
+  --surface:     #3a3147;
+  --surface-2:   #423853;
+  --ink:         #ffe6f1;
+  --ink-soft:    #c6a9c9;
+  --line:        #4d4159;
+  --accent:      #ffb3d1;
+  --accent-d:    #ff8fc0;
+  --accent-l:    #5a4660;
+  --accent-ink:  #2a2333;
+  --mint:        #8fd8d6;
+  --lav:         #c0a4f0;
+  --butter:      #f0d48a;
+  --peach:       #f0b290;
+  --blush:       #ff9ec4;
+  --shadow:      rgba(0,0,0,.4);
+  --shadow-soft: rgba(0,0,0,.28);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Varela Round', sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s ease, color .5s ease;
+  overflow-x:hidden;
+}
+/* sprinkled background: tiny hearts, stars, sparkles, dots */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(circle, var(--accent) 2.4px, transparent 3px),
+    radial-gradient(circle, var(--mint) 2px, transparent 2.6px),
+    radial-gradient(circle, var(--lav) 1.8px, transparent 2.4px);
+  background-size:140px 140px, 200px 200px, 170px 170px;
+  background-position:0 0, 70px 90px, 120px 30px;
+  opacity:.5;
+  transition:opacity .5s;
+}
+[data-theme="dark"] body::before{ opacity:.22; }
+.sky{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.sky b{
+  position:absolute; font-size:1.3rem; opacity:.55;
+  animation:floaty 7s ease-in-out infinite;
+}
+.sky b:nth-child(1){ left:6%;  top:14%; animation-delay:0s;   }
+.sky b:nth-child(2){ left:88%; top:9%;  animation-delay:-1.4s; font-size:1.7rem; }
+.sky b:nth-child(3){ left:15%; top:62%; animation-delay:-2.6s; }
+.sky b:nth-child(4){ left:80%; top:48%; animation-delay:-3.8s; font-size:1.5rem; }
+.sky b:nth-child(5){ left:46%; top:8%;  animation-delay:-5s;   }
+.sky b:nth-child(6){ left:92%; top:78%; animation-delay:-2s;   }
+.sky b:nth-child(7){ left:4%;  top:88%; animation-delay:-4.4s; }
+@keyframes floaty{
+  0%,100%{ transform:translateY(0) rotate(-8deg); }
+  50%{ transform:translateY(-22px) rotate(10deg); }
+}
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+::selection{ background:var(--accent-d); color:#fff; }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:16px; }
+.nav-inner{
+  display:flex; align-items:center; gap:18px;
+  padding:11px 14px 11px 18px; border-radius:999px;
+  background:var(--surface);
+  border:3px solid var(--accent);
+  box-shadow:0 10px 24px -8px var(--shadow);
+}
+.brand{ display:flex; align-items:center; gap:11px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; position:relative;
+}
+/* the mochi blob mascot face */
+.blob{
+  width:100%; height:100%; border-radius:50% 50% 48% 52% / 54% 54% 46% 46%;
+  background:linear-gradient(160deg, var(--accent-l), var(--accent));
+  border:3px solid var(--accent-d);
+  position:relative; display:grid; place-items:center;
+}
+.blob::before, .blob::after{ /* rosy blush cheeks */
+  content:""; position:absolute; bottom:30%; width:8px; height:6px;
+  border-radius:50%; background:var(--blush); opacity:.85;
+}
+.blob::before{ left:14%; } .blob::after{ right:14%; }
+.blob .face{
+  font-family:'Baloo 2',cursive; font-weight:700; font-size:.86rem;
+  color:var(--accent-ink); letter-spacing:-1px; margin-top:-2px;
+}
+.brand-name{ font-family:'Baloo 2',cursive; font-weight:800; font-size:1.4rem;
+  letter-spacing:-.01em; color:var(--accent-d); }
+.brand-name .h{ color:var(--lav); }
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-weight:400; font-size:.97rem;
+  padding:8px 16px; border-radius:999px; transition:.2s; font-family:'Baloo 2',cursive;
+}
+.nav-links a:hover{ color:var(--accent-ink); background:var(--accent-l); }
+.all-styles{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Baloo 2',cursive; font-weight:600; font-size:.92rem;
+  color:var(--accent-ink); text-decoration:none;
+  padding:9px 16px; border-radius:999px;
+  background:var(--mint); border:2.5px solid #7fd4d1;
+  transition:transform .2s cubic-bezier(.34,1.6,.5,1);
+}
+.all-styles:hover{ transform:translateY(-2px) rotate(-3deg) scale(1.04); }
+
+.icon-btn{
+  width:46px; height:46px; flex:none; border:2.5px solid var(--accent);
+  cursor:pointer; border-radius:50%; background:var(--surface); color:var(--accent-d);
+  display:grid; place-items:center;
+  transition:transform .22s cubic-bezier(.34,1.6,.5,1), background .2s;
+}
+.icon-btn:hover{ transform:rotate(14deg) scale(1.08); background:var(--accent-l); }
+.icon-btn:active{ transform:scale(.92); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:76px 0 56px; position:relative; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 18px; border-radius:999px; margin-bottom:26px;
+  background:var(--butter); border:2.5px solid #f3cf72;
+  font-family:'Baloo 2',cursive;
+  font-size:.8rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:#8a6a2a;
+}
+.eyebrow .spark{ animation:spin 4s linear infinite; display:inline-block; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.hero h1{
+  font-family:'Baloo 2',cursive; font-weight:800;
+  font-size:clamp(2.6rem, 6.6vw, 5rem); line-height:1.08; letter-spacing:-.02em;
+  color:var(--ink);
+}
+.hero h1 em{ font-style:normal; color:var(--accent-d);
+  position:relative; display:inline-block; }
+.hero h1 em::after{
+  content:""; position:absolute; left:0; right:0; bottom:.04em; height:.22em;
+  background:var(--mint); border-radius:999px; z-index:-1;
+}
+.hero p{
+  max-width:540px; margin:22px auto 0; font-size:1.12rem; color:var(--ink-soft);
+}
+.hero-cta{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:46px;
+}
+.stat-pill{
+  padding:14px 26px; border-radius:999px; background:var(--surface);
+  border:3px dashed var(--accent);
+  display:flex; flex-direction:column; align-items:center; min-width:128px;
+  box-shadow:0 8px 18px -8px var(--shadow-soft);
+}
+.stat-pill b{ font-family:'Baloo 2',cursive; font-weight:800; font-size:1.8rem;
+  color:var(--accent-d); line-height:1; }
+.stat-pill small{ font-size:.74rem; color:var(--ink-soft); margin-top:5px;
+  letter-spacing:.04em; font-weight:700; }
+.stat-pill:nth-child(2){ border-color:var(--mint); }
+.stat-pill:nth-child(2) b{ color:#3fa7a4; }
+.stat-pill:nth-child(3){ border-color:var(--lav); }
+.stat-pill:nth-child(3) b{ color:#8d6fd0; }
+
+/* big waving mascot in the hero */
+.hero-mascot{
+  width:120px; height:120px; margin:0 auto 8px; position:relative;
+  animation:bob 3.4s ease-in-out infinite;
+}
+@keyframes bob{ 0%,100%{ transform:translateY(0) rotate(-3deg); }
+  50%{ transform:translateY(-12px) rotate(3deg); } }
+.hero-mascot .blob{ border-width:4px; }
+.hero-mascot .face{ font-size:2rem; }
+.hero-mascot .blob::before, .hero-mascot .blob::after{
+  width:20px; height:14px; bottom:26%;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Baloo 2',cursive; font-size:1rem; font-weight:700; cursor:pointer;
+  text-decoration:none;
+  background:var(--surface); color:var(--accent-ink);
+  border:3px solid var(--accent-d);
+  padding:13px 26px; border-radius:999px;
+  box-shadow:0 5px 0 var(--accent-d);
+  display:inline-flex; align-items:center; gap:9px;
+  transition:transform .14s cubic-bezier(.34,1.6,.5,1), box-shadow .14s;
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:0 7px 0 var(--accent-d); }
+.btn:active{ transform:translateY(4px); box-shadow:0 1px 0 var(--accent-d); }
+.btn svg{ width:17px; height:17px; }
+.btn--accent{ background:var(--accent-d); color:#fff; }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-soft); background:var(--surface-2);
+  border-color:var(--line); box-shadow:0 5px 0 var(--line);
+}
+.btn:disabled:hover{ transform:none; box-shadow:0 5px 0 var(--line); }
+.btn:focus-visible, .icon-btn:focus-visible, .all-styles:focus-visible{
+  outline:3px solid var(--lav); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:48px 0 30px; position:relative; }
+.section-head{ margin-bottom:32px; text-align:center; }
+.section-head h2{
+  font-family:'Baloo 2',cursive; font-weight:800; font-size:clamp(1.9rem,3.8vw,2.7rem);
+  letter-spacing:-.02em; color:var(--ink);
+}
+.section-head h2 .deco{ color:var(--accent-d); }
+.section-head p{ color:var(--ink-soft); margin-top:4px; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.card{
+  background:var(--surface); border-radius:32px; padding:28px;
+  border:3px solid var(--line);
+  box-shadow:0 14px 30px -12px var(--shadow);
+  position:relative;
+  opacity:0; transform:translateY(28px) scale(.96);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.34,1.5,.5,1),
+             background .5s ease, border-color .5s ease;
+}
+.card.in{ opacity:1; transform:none; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+/* tiny corner sticker on each card */
+.card::after{
+  content:"♡"; position:absolute; top:-13px; right:22px;
+  width:30px; height:30px; border-radius:50%;
+  background:var(--accent); color:#fff; font-size:.9rem;
+  display:grid; place-items:center;
+  border:2.5px solid #fff;
+  box-shadow:0 3px 8px -2px var(--shadow);
+}
+.card:nth-child(2n)::after{ content:"★"; background:var(--butter); color:#a8801e; }
+.card:nth-child(3n)::after{ content:"✿"; background:var(--mint); color:#2f8c89; }
+.card-label{
+  font-family:'Baloo 2',cursive;
+  font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent-d); display:flex; align-items:center; gap:8px; margin-bottom:18px;
+}
+.card-label::before{ content:"✦"; font-size:.9rem; }
+.card-title{ font-family:'Baloo 2',cursive; font-weight:700; font-size:1.4rem;
+  letter-spacing:-.01em; color:var(--ink); }
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:26px;
+  background:
+    radial-gradient(60% 55% at 30% 26%, var(--butter), transparent 70%),
+    radial-gradient(70% 70% at 78% 84%, var(--lav), transparent 75%),
+    linear-gradient(150deg, var(--mint), var(--accent));
+  border:3px solid #fff;
+  box-shadow:0 12px 26px -10px var(--shadow);
+  display:grid; place-items:center; margin-bottom:20px; overflow:hidden;
+}
+/* mascot inside album art */
+.art-blob{ width:46%; height:46%; position:relative; z-index:1;
+  animation:bob 3.4s ease-in-out infinite; }
+.art-blob .face{ font-size:1.4rem; }
+.playing .art-blob{ animation:wiggle .5s ease-in-out infinite; }
+@keyframes wiggle{ 0%,100%{ transform:rotate(-9deg); }
+  50%{ transform:rotate(9deg); } }
+.eq{ display:flex; align-items:flex-end; gap:5px; height:34px;
+  position:absolute; bottom:14px; left:50%; transform:translateX(-50%); }
+.eq span{
+  width:8px; height:12px; border-radius:999px; background:#fff;
+  box-shadow:0 2px 4px -1px var(--shadow);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; background:var(--butter); }
+.eq span:nth-child(3){ animation-delay:-320ms; background:var(--mint); }
+.eq span:nth-child(4){ animation-delay:-510ms; background:var(--lav); }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:10px; } 50%{ height:30px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:12px; }
+.player-meta h3{ font-family:'Baloo 2',cursive; font-size:1.32rem; font-weight:700;
+  line-height:1.2; color:var(--ink); }
+.player-meta p{ color:var(--ink-soft); font-size:.92rem; }
+.heart{ margin-left:auto; }
+.heart.on{ color:#fff; background:var(--accent-d); border-color:var(--accent-d); }
+.heart.on svg{ fill:#fff; }
+.heart.pop{ animation:pop .42s cubic-bezier(.34,1.7,.5,1); }
+@keyframes pop{ 0%{ transform:scale(1);} 45%{ transform:scale(1.4) rotate(-12deg);}
+  100%{ transform:scale(1);} }
+
+.player-progress{ margin:20px 0 7px; cursor:pointer; padding:7px 0; }
+.track{ height:14px; border-radius:999px; background:var(--accent-l);
+  border:2px solid var(--line); position:relative; }
+.track-fill{
+  position:absolute; top:-2px; bottom:-2px; left:-2px; width:34%; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-d), var(--accent));
+  border:2px solid var(--accent-d);
+}
+.track-fill::after{
+  content:"♥"; position:absolute; right:-13px; top:50%; transform:translateY(-50%);
+  width:26px; height:26px; border-radius:50%; background:#fff;
+  border:2.5px solid var(--accent-d); color:var(--accent-d);
+  font-size:.7rem; display:grid; place-items:center;
+  box-shadow:0 3px 7px -2px var(--shadow);
+}
+.player-time{ display:flex; justify-content:space-between; font-size:.82rem;
+  color:var(--ink-soft); font-weight:700; }
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:18px; margin-top:18px; }
+.play-btn{
+  width:66px; height:66px; border:3px solid var(--accent-d); cursor:pointer;
+  border-radius:50%; background:var(--accent-d); color:#fff;
+  box-shadow:0 6px 0 #d65f93;
+  display:grid; place-items:center;
+  transition:transform .14s cubic-bezier(.34,1.6,.5,1), box-shadow .14s;
+}
+.play-btn:hover{ transform:translateY(-2px) scale(1.04); box-shadow:0 8px 0 #d65f93; }
+.play-btn:active{ transform:translateY(5px); box-shadow:0 1px 0 #d65f93; }
+.play-btn svg{ width:24px; height:24px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:14px; padding:14px 0; }
+.switch-row + .switch-row{ border-top:2.5px dotted var(--line); }
+.switch-row .lbl{ font-family:'Baloo 2',cursive; font-weight:600; font-size:1rem;
+  color:var(--ink); }
+.switch-row .sub{ font-size:.82rem; color:var(--ink-soft); }
+.switch{ position:relative; width:66px; height:36px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{ position:absolute; inset:0; border-radius:999px;
+  background:var(--accent-l); border:2.5px solid var(--line);
+  transition:background .3s, border-color .3s; }
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:28px; height:28px; border-radius:50%;
+  background:#fff; border:2.5px solid var(--line);
+  display:grid; place-items:center;
+  transition:transform .34s cubic-bezier(.34,1.6,.5,1), background .3s, border-color .3s;
+}
+.switch .s-thumb::after{ content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--ink-soft); transition:.3s; }
+.switch input:checked ~ .s-track{ background:var(--mint); border-color:#7fd4d1; }
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px); border-color:#3fa7a4;
+}
+.switch input:checked ~ .s-thumb::after{ background:#3fa7a4; }
+.switch input:focus-visible ~ .s-track{ outline:3px solid var(--lav); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:186px; height:186px; border-radius:50%;
+  background:var(--accent-l); border:3px solid var(--line);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:10px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent-d) 0 calc(var(--v,40) * 2.7deg),
+      var(--accent-l) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 74%, #000 75%);
+          mask:radial-gradient(closest-side, transparent 74%, #000 75%);
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:linear-gradient(160deg,#fff,var(--accent-l));
+  border:3px solid var(--accent-d); pointer-events:none;
+}
+.dial-knob::before{ /* the rotation notch — a tiny heart */
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:11px; height:11px; border-radius:50%; background:var(--accent-d);
+  box-shadow:0 0 0 4px #fff;
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{ font-family:'Baloo 2',cursive; font-weight:800; font-size:2.1rem;
+  line-height:1; color:var(--accent-d); }
+.dial-readout small{ display:block; font-size:.7rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:2px; font-weight:700; }
+.dial-hint{ font-size:.84rem; color:var(--ink-soft); }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:8px; }
+.slider-head .v{ font-family:'Baloo 2',cursive; font-weight:800; font-size:1.8rem;
+  color:var(--accent-d); }
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:36px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:16px; border-radius:999px; border:2.5px solid var(--line);
+  background:linear-gradient(90deg, var(--butter) 0 var(--val,55%),
+    var(--accent-l) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:16px; border-radius:999px;
+  border:2.5px solid var(--line); background:var(--accent-l); }
+.range::-moz-range-progress{ height:16px; border-radius:999px; background:var(--butter); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:32px; height:32px; border-radius:50%;
+  background:#fff; border:3px solid var(--accent-d); margin-top:-11px;
+  box-shadow:0 3px 7px -2px var(--shadow);
+}
+.range::-moz-range-thumb{ width:32px; height:32px; border:3px solid var(--accent-d);
+  border-radius:50%; background:#fff; }
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 4px var(--lav); }
+.range:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 4px var(--lav); }
+.slider-scale{ display:flex; justify-content:space-between; font-size:.76rem;
+  color:var(--ink-soft); margin-top:4px; font-weight:700; }
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:10px; padding:14px 18px; border-radius:999px;
+  background:var(--surface-2); border:2.5px solid var(--line); margin-bottom:22px;
+  transition:border-color .2s;
+}
+.search:focus-within{ border-color:var(--accent-d); }
+.search svg{ width:18px; height:18px; color:var(--accent-d); flex:none; }
+.search input{ border:0; background:transparent; outline:0; font:inherit;
+  font-family:'Varela Round',sans-serif; color:var(--ink); width:100%; }
+.search input::placeholder{ color:var(--ink-soft); }
+
+.seg-label{ font-size:.84rem; color:var(--ink-soft); margin-bottom:9px; font-weight:700; }
+.segmented{
+  position:relative; display:flex; padding:6px; border-radius:999px;
+  background:var(--surface-2); border:2.5px solid var(--line);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:999px; background:var(--accent-d);
+  box-shadow:0 3px 8px -3px var(--shadow);
+  transition:transform .34s cubic-bezier(.34,1.5,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Baloo 2',cursive; font-weight:600; font-size:.92rem; color:var(--ink-soft);
+  padding:10px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:#fff; }
+.seg-opt:focus-visible{ outline:3px solid var(--lav); outline-offset:2px;
+  border-radius:999px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:32px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:152px; height:152px; border-radius:50%;
+  background:var(--accent-l); border:3px solid var(--line);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:11px; border-radius:50%;
+  background:conic-gradient(var(--accent-d) calc(var(--p)*1%), var(--accent-l) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 72%, #000 73%);
+          mask:radial-gradient(closest-side, transparent 72%, #000 73%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-family:'Baloo 2',cursive; font-weight:800; font-size:2.1rem;
+  line-height:1; color:var(--accent-d); }
+.ring-core small{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:700; }
+.chips{ display:flex; flex-direction:column; gap:12px; }
+.chip{ padding:14px 18px; border-radius:22px; background:var(--surface-2);
+  border:2.5px solid var(--line);
+  display:flex; align-items:center; gap:13px; }
+.chip .ci{ width:42px; height:42px; border-radius:50%; flex:none; display:grid;
+  place-items:center; background:var(--butter); color:#a8801e; }
+.chip:nth-child(2) .ci{ background:var(--mint); color:#2f8c89; }
+.chip .ci svg{ width:19px; height:19px; }
+.chip b{ font-family:'Baloo 2',cursive; font-weight:700; font-size:1.2rem;
+  color:var(--ink); }
+.chip small{ display:block; font-size:.82rem; color:var(--ink-soft); }
+.btn-stack{ display:flex; flex-direction:column; gap:12px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.92rem; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:13px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:52px; height:52px; border:3px solid #fff; cursor:pointer; border-radius:50%;
+  background:var(--sw);
+  box-shadow:0 5px 12px -4px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .2s cubic-bezier(.34,1.7,.5,1);
+}
+.swatch:hover{ transform:translateY(-3px) rotate(-8deg) scale(1.08); }
+.swatch:active{ transform:scale(.9); }
+.swatch::after{
+  content:""; width:0; height:0; color:#fff; font-size:1rem;
+  transition:.2s;
+}
+.swatch.is-active{ transform:scale(1.06); }
+.swatch.is-active::after{
+  content:"♥"; width:auto; height:auto;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+}
+.swatch:focus-visible{ outline:3px solid var(--lav); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:22px 0 12px; }
+.step-btn{
+  width:56px; height:56px; flex:none; border:3px solid var(--accent-d); cursor:pointer;
+  border-radius:50%; background:var(--surface); color:var(--accent-d);
+  box-shadow:0 4px 0 var(--accent-d); font-family:'Baloo 2',cursive; font-size:1.7rem;
+  font-weight:700; display:grid; place-items:center; line-height:0;
+  transition:transform .13s cubic-bezier(.34,1.6,.5,1), box-shadow .13s;
+}
+.step-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--accent-d); }
+.step-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 var(--accent-d); }
+.step-btn:focus-visible{ outline:3px solid var(--lav); outline-offset:3px; }
+.step-val{
+  min-width:88px; padding:13px 0; border-radius:22px;
+  background:var(--surface-2); border:2.5px solid var(--line);
+  font-family:'Baloo 2',cursive; font-weight:800; font-size:1.9rem;
+  color:var(--accent-d);
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:8px; margin:22px 0 12px; }
+.star{
+  width:50px; height:50px; border:0; cursor:pointer; border-radius:50%;
+  background:var(--surface-2); color:var(--ink-soft);
+  border:2.5px solid var(--line);
+  display:grid; place-items:center;
+  transition:transform .15s cubic-bezier(.34,1.7,.5,1), color .15s,
+             background .15s, border-color .15s;
+}
+.star svg{ width:24px; height:24px; transition:fill .15s; }
+.star:hover{ transform:translateY(-3px) rotate(-10deg); }
+.star.lit{ color:#fff; background:var(--butter); border-color:#f3cf72; }
+.star.lit svg{ fill:#fff; }
+.star:focus-visible{ outline:3px solid var(--lav); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:13px; }
+.acc-item{ border-radius:22px; background:var(--surface-2);
+  border:2.5px solid var(--line); transition:border-color .26s, background .26s; }
+.acc-item.open{ border-color:var(--accent-d); background:var(--accent-l); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Baloo 2',cursive; font-weight:600; font-size:1rem;
+  color:var(--ink); text-align:left; padding:16px 19px;
+  display:flex; align-items:center; gap:12px;
+}
+.acc-head .qm{ width:26px; height:26px; flex:none; border-radius:50%;
+  background:var(--accent); color:#fff; display:grid; place-items:center;
+  font-size:.85rem; font-weight:700; }
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--accent-d);
+  transition:transform .32s cubic-bezier(.34,1.5,.5,1); }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:3px solid var(--lav); outline-offset:-3px;
+  border-radius:22px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .34s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 19px 17px 57px; color:var(--ink-soft); font-size:.92rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:2.5px solid var(--accent-d); cursor:pointer;
+  font-family:'Baloo 2',cursive; font-weight:600; color:var(--ink);
+  background:var(--surface-2); padding:15px 19px; border-radius:999px;
+  display:flex; align-items:center; gap:10px; transition:.18s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--accent-d);
+  transition:transform .25s; }
+.select.open .select-btn{ background:var(--accent-l); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:3px solid var(--lav); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:8px; border-radius:24px;
+  background:var(--surface); border:3px solid var(--accent);
+  box-shadow:0 16px 32px -10px var(--shadow);
+  opacity:0; transform:translateY(-10px) scale(.96); transform-origin:top;
+  pointer-events:none;
+  transition:opacity .2s, transform .24s cubic-bezier(.34,1.5,.5,1);
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 14px; border-radius:999px; cursor:pointer;
+  font-family:'Baloo 2',cursive; font-weight:500;
+  display:flex; align-items:center; gap:10px; transition:.14s;
+}
+.select-menu li:hover{ background:var(--accent-l); color:var(--accent-ink); }
+.select-menu li[aria-selected="true"]{ background:var(--accent-d); color:#fff; }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:11px; margin:22px 0 12px; }
+.pin input{
+  width:54px; height:64px; border:3px solid var(--line); outline:0; text-align:center;
+  font-family:'Baloo 2',cursive; font-weight:800; font-size:1.8rem; color:var(--ink);
+  background:var(--surface-2); border-radius:18px;
+  transition:transform .18s cubic-bezier(.34,1.6,.5,1), border-color .18s, color .18s;
+}
+.pin input.filled{ color:var(--accent-d); border-color:var(--accent); }
+.pin input:focus{ border-color:var(--accent-d); transform:translateY(-3px) scale(1.05); }
+.pin.done input{ border-color:var(--mint); color:#3fa7a4; background:var(--surface); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:11px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; border:3px solid var(--line); cursor:pointer;
+  border-radius:18px; background:var(--surface-2); color:var(--ink-soft);
+  font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:700;
+  display:grid; place-items:center;
+  transition:transform .14s cubic-bezier(.34,1.6,.5,1), color .18s,
+             background .18s, border-color .18s;
+}
+.tg-btn:hover{ transform:translateY(-3px) rotate(-6deg); }
+.tg-btn.on{ background:var(--lav); color:#fff; border-color:#9d7fd6; }
+.tg-btn:focus-visible{ outline:3px solid var(--lav); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:#fff;
+  font-family:'Varela Round',sans-serif; font-size:.74rem; font-weight:400;
+  padding:5px 11px; border-radius:999px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(123,51,87,.42); -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:430px; width:100%; text-align:center; padding:40px 34px 34px;
+  background:var(--surface); border-radius:34px;
+  border:4px solid var(--accent);
+  box-shadow:0 28px 55px -14px rgba(123,51,87,.45);
+  transform:scale(.8) translateY(20px) rotate(-3deg);
+  transition:transform .4s cubic-bezier(.34,1.55,.5,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-mascot{ width:74px; height:74px; margin:0 auto 14px;
+  animation:bob 3.4s ease-in-out infinite; }
+.modal-mascot .face{ font-size:1.2rem; }
+.modal h3{ font-family:'Baloo 2',cursive; font-weight:800; font-size:1.5rem;
+  color:var(--ink); }
+.modal p{ color:var(--ink-soft); margin:8px 0 24px; }
+.modal-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:13px; padding:14px 20px 14px 14px;
+  border-radius:999px;
+  background:var(--surface); border:3px solid var(--accent);
+  box-shadow:0 14px 30px -10px var(--shadow);
+  transform:translateX(150%) rotate(8deg);
+  transition:transform .5s cubic-bezier(.34,1.4,.4,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:42px; height:42px; flex:none; border-radius:50%; display:grid;
+  place-items:center; background:var(--mint); color:#2f8c89;
+}
+.toast .t-ico .face{ font-family:'Baloo 2',cursive; font-weight:800; font-size:.9rem; }
+.toast b{ font-family:'Baloo 2',cursive; font-weight:700; font-size:1rem; color:var(--ink); }
+.toast small{ display:block; color:var(--ink-soft); font-size:.83rem; }
+
+/* ============================================================ ABOUT */
+.about-card{ text-align:center; }
+.about-emoji{
+  width:60px; height:60px; margin:0 auto 12px; border-radius:50%;
+  display:grid; place-items:center; font-size:1.6rem;
+  background:var(--accent-l); border:3px dashed var(--accent);
+}
+.about-card:nth-child(2) .about-emoji{ background:#dff6f5; border-color:var(--mint); }
+.about-card:nth-child(3) .about-emoji{ background:#efe7fc; border-color:var(--lav); }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:64px 0 56px; color:var(--ink-soft); font-size:.94rem;
+}
+.foot .foot-mascot{ width:64px; height:64px; margin:0 auto 14px;
+  animation:bob 3.4s ease-in-out infinite; }
+.foot .foot-mascot .face{ font-size:1rem; }
+.foot a{ color:var(--accent-d); text-decoration:none; font-weight:700;
+  font-family:'Baloo 2',cursive; }
+.foot a:hover{ text-decoration:underline wavy; }
+.foot .hearts{ font-size:1.1rem; margin-bottom:6px; letter-spacing:4px; }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{
+  from{ opacity:0; transform:translateY(30px) scale(.94); }
+  to{ opacity:1; transform:none; }
+}
+.rise{ animation:rise .8s cubic-bezier(.34,1.45,.5,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.17s; }
+.d3{ animation-delay:.28s; } .d4{ animation-delay:.39s; } .d5{ animation-delay:.5s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:48px 0 36px; }
+  .card{ padding:22px; }
+  .all-styles span.txt{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     animation-iteration-count:1 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <b>♡</b><b>★</b><b>✦</b><b>♡</b><b>✿</b><b>★</b><b>✦</b>
+</div>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <div class="blob"><span class="face">^‿^</span></div>
+        </div>
+        <div class="brand-name">Moch<span class="h">i</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">Sweet Rules</a>
+      </div>
+      <a class="all-styles" href="../index.html" aria-label="Back to all styles">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        <span class="txt">All styles</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-mascot rise d1">
+      <div class="blob"><span class="face">^‿^</span></div>
+    </div>
+    <div class="eyebrow rise d1"><span class="spark">✦</span>Kawaii Design System</div>
+    <h1 class="rise d2">Interfaces so cute<br/>they make you <em>squee!</em></h1>
+    <p class="rise d3">A showcase of kawaii UI — candy pastels, pillowy rounded shapes,
+      bouncy springs, and tiny hearts everywhere. Meet Mochi, your smiley little guide.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Explore the cuteness
+      </a>
+      <a href="#about" class="btn">How it works ♡</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>100%</b><small>PURE SUGAR</small></div>
+      <div class="stat-pill"><b>∞</b><small>TINY HEARTS</small></div>
+      <div class="stat-pill"><b>0</b><small>SHARP CORNERS</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A super sweet component set <span class="deco">♡</span></h2>
+      <p>Every control below is live — drag, toggle, slide, and boop.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">Now Playing</div>
+        <div class="player-art" id="playerArt">
+          <div class="art-blob" aria-hidden="true">
+            <div class="blob"><span class="face">♪‿♪</span></div>
+          </div>
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Marshmallow Skies</h3>
+            <p>Puff &middot; Cloud Candy</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Push alerts</div>
+            <div class="sub">Notify on new releases</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Push alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-sync</div>
+            <div class="sub">Across all devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Sparkle mode</div>
+            <div class="sub">Extra twinkly ✨</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Sparkle mode" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">Volume</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Drag the knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">Brightness</div>
+        <div class="slider-head">
+          <span class="card-title">Display</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Dim</span><span>Bright</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">Inputs</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the candy shop&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Grid</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">This week</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Goal</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>Current cuteness streak</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
+              <div><b>38 treats</b><small>Saved to your collection</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share recap</button>
+            <button class="btn">Export data</button>
+            <button class="btn" disabled>Sync paused</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>More ways to play <span class="deco">★</span></h2>
+      <p>Steppers, ratings, menus and dialogs — every one soft, springy and sweet.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">Live Theme</div>
+        <h3 class="card-title">Candy colour</h3>
+        <p class="muted" style="margin-top:6px">Tap a sweet to repaint every control on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#ff7eb3" data-accent="#ff7eb3" aria-label="Bubblegum"></button>
+          <button class="swatch" style="--sw:#5fc9c6" data-accent="#5fc9c6" aria-label="Mint"></button>
+          <button class="swatch" style="--sw:#a98ee6" data-accent="#a98ee6" aria-label="Lavender"></button>
+          <button class="swatch" style="--sw:#f2b94b" data-accent="#f2b94b" aria-label="Butter"></button>
+          <button class="swatch" style="--sw:#ff9e7d" data-accent="#ff9e7d" aria-label="Peach"></button>
+          <button class="swatch" style="--sw:#84c98a" data-accent="#84c98a" aria-label="Matcha"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">Stepper</div>
+        <h3 class="card-title">Mochi order</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Boxes of &ldquo;Cloud Candy&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">Feedback</div>
+        <h3 class="card-title">Rate this kit</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">Dropdown</div>
+        <h3 class="card-title" style="margin-bottom:16px">Sort order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most loved" aria-selected="false">Most loved<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">Verification</div>
+        <h3 class="card-title">Secret code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter your 4-digit code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">Toggle group</div>
+        <h3 class="card-title">Text style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each button toggles independently</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">FAQ</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              <span class="qm">?</span>
+              What exactly is kawaii design?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Kawaii (かわいい) is the Japanese aesthetic of cuteness — pastel palettes, super-rounded shapes, friendly characters with little faces, and a warm, joyful feeling that makes everything approachable and gentle.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <span class="qm">?</span>
+              Can cute UI still be usable?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Absolutely! This page pairs the sugar with solid contrast, big tap targets, clear focus rings and proper ARIA — so every control is fully operable while still feeling delightful.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <span class="qm">?</span>
+              Where does kawaii shine brightest?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Playful, friendly products — habit trackers, kids' apps, lifestyle and social experiences — anywhere a warm, smiling, low-pressure feeling helps people feel welcome and happy.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">Overlays</div>
+        <h3 class="card-title">Pop-ups &amp; toasts</h3>
+        <p class="muted" style="margin-top:6px">Bouncy little surfaces that spring above the page.</p>
+        <div class="btn-stack" style="margin-top:20px">
+          <button class="btn btn--accent" id="toastBtn">Show toast</button>
+          <button class="btn" id="modalBtn">Open dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three sweet rules <span class="deco">✿</span></h2>
+      <p>Kawaii is warmth — joy built from soft shapes and happy little faces.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <div class="about-emoji">♡</div>
+        <div class="card-label">Rule 01</div>
+        <h3 class="card-title">Round everything</h3>
+        <p style="color:var(--ink-soft);margin-top:8px">
+          Huge radii, pill shapes and circles. Not a single sharp corner —
+          every edge is soft, pillowy and pettable.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-emoji">☻</div>
+        <div class="card-label">Rule 02</div>
+        <h3 class="card-title">Give it a face</h3>
+        <p style="color:var(--ink-soft);margin-top:8px">
+          A smiley blob mascot, ^‿^ eyes and rosy blush cheeks turn plain
+          components into friendly little characters.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-emoji">✦</div>
+        <div class="card-label">Rule 03</div>
+        <h3 class="card-title">Bounce with joy</h3>
+        <p style="color:var(--ink-soft);margin-top:8px">
+          Springy, over-shooting motion and gentle wiggles on hover make
+          every tap feel cheerful and alive.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-mascot">
+      <div class="blob"><span class="face">^‿^</span></div>
+    </div>
+    <div class="hearts">♡ ★ ✿ ★ ♡</div>
+    <p>Mochi — a kawaii design showcase, made with extra sugar.<br/>
+       Try the <a href="#" id="footTheme">theme toggle</a> &middot;
+       <a href="../index.html">← Back to all styles</a></p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-mascot">
+      <div class="blob"><span class="face">^‿^</span></div>
+    </div>
+    <h3 id="modalTitle">Apply these changes? ♡</h3>
+    <p>Your tweaks to the kawaii kit will sync across every device on your account.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not now</button>
+      <button class="btn btn--accent" id="modalConfirm">Yes please!</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('kawaii-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('kawaii-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+    heart.classList.remove('pop'); void heart.offsetWidth; heart.classList.add('pop');
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = 'calc(' + (100/opts.length) + '% - ' +
+      ((opts.length-1)/opts.length*0) + 'px)';
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><span class="face">^‿^</span></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 520);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      /* accent-d = the chosen vivid candy; accent = a softer pastel of it */
+      root.style.setProperty('--accent-d', c);
+      root.style.setProperty('--accent', reChannel(c, function(x){ return x+(255-x)*0.4; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.82; }));
+      root.style.setProperty('--accent-ink', lum > 0.62 ? '#5a3a2a' : '#7a3357');
+      root.style.setProperty('--shadow', 'rgba(' +
+        parseInt(h.substr(0,2),16) + ',' + parseInt(h.substr(2,2),16) + ',' +
+        parseInt(h.substr(4,2),16) + ',.34)');
+      root.style.setProperty('--shadow-soft', 'rgba(' +
+        parseInt(h.substr(0,2),16) + ',' + parseInt(h.substr(2,2),16) + ',' +
+        parseInt(h.substr(4,2),16) + ',.2)');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Aww','Cute','Sweet','Adorable','Squee! ♡'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Code accepted ♡';
+        showToast('Yay, access granted!', 'Welcome back to Mochi.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 320);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Changes saved!', 'Your kawaii kit is all sparkly.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Saved to library', 'Marshmallow Skies added to Cloud Candy.');
+  });
+})();
+</script>
+</body>
+</html>

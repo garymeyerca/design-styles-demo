@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rough Draft — A Conceptual Sketch Showcase</title>
+<meta name="description" content="A showcase of conceptual-sketch design — hand-drawn wobbly borders, crosshatch shading, pencil-grey strokes and an ink-blue accent, like a designer's wireframe sketchbook." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   CONCEPTUAL SKETCH — everything looks hand-drawn.
+   Pencil-grey ink on off-white sketch paper, one ink-blue accent.
+   Doubled wobbly borders, crosshatch fills, construction lines.
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --paper:        #f3f0e6;   /* off-white sketch paper */
+  --paper-2:      #ece8da;   /* slightly darker panel */
+  --ink:          #3a3a3a;   /* pencil grey */
+  --ink-soft:     #6f6c63;   /* faded pencil */
+  --ink-faint:    #a8a394;   /* construction-line grey */
+  --accent:       #2f5d8a;   /* ink blue */
+  --accent-d:     #1f3f60;
+  --accent-l:     #5f8cb8;
+  --accent-ink:   #f3f0e6;
+  --hatch:        rgba(58,58,58,.16);
+  --grid:         rgba(58,58,58,.055);
+  --line:         #3a3a3a;
+}
+[data-theme="dark"]{
+  --paper:        #2b2a26;   /* dark drafting-board */
+  --paper-2:      #232220;
+  --ink:          #d9d4c4;
+  --ink-soft:     #9c978a;
+  --ink-faint:    #5c594f;
+  --accent:       #7ba9d6;
+  --accent-d:     #4f7ba6;
+  --accent-l:     #a6c6e3;
+  --accent-ink:   #232220;
+  --hatch:        rgba(217,212,196,.15);
+  --grid:         rgba(217,212,196,.05);
+  --line:         #d9d4c4;
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Archivo', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s ease, color .4s ease;
+  overflow-x:hidden;
+}
+/* paper grain + faint construction grid */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 28px 28px;
+}
+body::after{ /* paper grain via fractal noise */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+}
+[data-theme="dark"] body::after{ mix-blend-mode:screen; opacity:.28; }
+
+.wrap{ max-width:1200px; margin:0 auto; padding:0 30px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+
+/* handwritten display helper */
+.hand{ font-family:'Caveat', cursive; }
+
+/* ============================================================
+   THE SKETCH BORDER — doubled, slightly-offset, wobbly outlines.
+   Border 1 = the .sketch element itself (irregular radius).
+   Border 2 = ::before, offset a couple px, rotated a hair.
+   ============================================================ */
+.sketch{
+  position:relative;
+  background:var(--paper);
+  border:2px solid var(--line);
+  border-radius:255px 14px 225px 14px / 14px 225px 14px 255px;
+}
+.sketch::before{ /* the doubled hand-drawn outline */
+  content:""; position:absolute; inset:-5px -4px -3px -6px;
+  border:1.6px solid var(--line);
+  border-radius:14px 235px 16px 245px / 245px 16px 235px 14px;
+  opacity:.55; pointer-events:none;
+  transform:rotate(-.5deg);
+}
+.sketch--alt{ border-radius:14px 235px 14px 235px / 235px 14px 235px 14px; }
+.sketch--alt::before{ border-radius:235px 14px 235px 14px / 14px 235px 14px 235px;
+  transform:rotate(.7deg); }
+
+/* crosshatch shading fill — used on accents & panels */
+.hatch{
+  background-image:
+    repeating-linear-gradient(45deg, var(--hatch) 0 1.4px, transparent 1.4px 7px),
+    repeating-linear-gradient(-45deg, var(--hatch) 0 1.2px, transparent 1.2px 9px);
+}
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:16px; }
+.nav-inner{
+  display:flex; align-items:center; gap:22px;
+  padding:12px 16px 12px 18px;
+  background:var(--paper);
+  border:2px solid var(--line);
+  border-radius:235px 14px 235px 14px / 14px 235px 14px 235px;
+  box-shadow:3px 4px 0 var(--ink);
+}
+.brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+.brand-mark{
+  width:44px; height:44px; flex:none; display:grid; place-items:center;
+  color:var(--accent);
+}
+.brand-mark svg{ width:44px; height:44px; }
+.brand-name{ font-family:'Caveat',cursive; font-weight:700; font-size:1.85rem;
+  letter-spacing:.01em; line-height:1; }
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  font-family:'Caveat',cursive; font-size:1.28rem; font-weight:600;
+  color:var(--ink-soft); text-decoration:none;
+  padding:5px 14px; border-radius:60px 18px 60px 18px / 18px 60px 18px 60px;
+  transition:color .18s, background .18s;
+}
+.nav-links a:hover{ color:var(--accent);
+  background:repeating-linear-gradient(-12deg, transparent 0 6px, var(--grid) 6px 7px); }
+
+.back-link{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Caveat',cursive; font-size:1.32rem; font-weight:700;
+  color:var(--accent); text-decoration:none; padding:6px 14px;
+  border:2px solid var(--accent); background:var(--paper);
+  border-radius:18px 70px 18px 70px / 70px 18px 70px 18px;
+  transition:transform .16s, box-shadow .16s;
+}
+.back-link:hover{ transform:translate(-1px,-1px); box-shadow:2px 3px 0 var(--accent); }
+.back-link svg{ width:17px; height:17px; }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; cursor:pointer;
+  border:2px solid var(--line); background:var(--paper); color:var(--ink);
+  border-radius:60px 16px 60px 16px / 16px 60px 16px 60px;
+  display:grid; place-items:center;
+  transition:transform .15s, box-shadow .15s, color .18s;
+}
+.icon-btn:hover{ color:var(--accent); transform:translate(-1px,-1px);
+  box-shadow:2px 3px 0 var(--ink); }
+.icon-btn:active{ transform:translate(1px,1px); box-shadow:none; }
+.icon-btn svg{ width:20px; height:20px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ STAMPS + NOTES */
+.stamp{
+  font-family:'Archivo',sans-serif; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; font-size:.74rem;
+  color:var(--accent); border:2.5px solid var(--accent);
+  padding:6px 12px 5px; border-radius:6px;
+  display:inline-block; transform:rotate(-9deg);
+  opacity:.82; white-space:nowrap;
+}
+.note{
+  font-family:'Caveat',cursive; font-weight:600; font-size:1.18rem;
+  color:var(--ink-soft); line-height:1.2;
+}
+.note-arrow{ display:inline-flex; align-items:center; gap:4px; }
+.note-arrow svg{ width:38px; height:24px; color:var(--ink-faint); }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:78px 0 56px; position:relative; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:7px 17px 6px; margin-bottom:26px;
+  border:2px solid var(--line); background:var(--paper);
+  border-radius:60px 16px 60px 16px / 16px 60px 16px 60px;
+  font-family:'Kalam',cursive; font-weight:700; font-size:.82rem;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+}
+.eyebrow .dot{ width:9px; height:9px; flex:none; }
+.eyebrow .dot svg{ width:9px; height:9px; color:var(--accent); }
+.hero h1{
+  font-family:'Caveat',cursive; font-weight:700;
+  font-size:clamp(3.1rem, 8vw, 6.4rem); line-height:.98; letter-spacing:.005em;
+}
+.hero h1 .ink{ color:var(--accent); position:relative; }
+.hero h1 .ink::after{ /* underline scribble */
+  content:""; position:absolute; left:-2%; right:-2%; bottom:.04em; height:.16em;
+  background:
+    repeating-linear-gradient(-3deg, var(--accent) 0 14px, transparent 14px 17px);
+  opacity:.55;
+}
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.1rem; color:var(--ink-soft);
+}
+.hero-cta{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+.hero-stats{ display:flex; gap:22px; justify-content:center; flex-wrap:wrap; margin-top:52px; }
+.stat-pill{
+  position:relative; padding:14px 26px; min-width:140px;
+  border:2px solid var(--line); background:var(--paper);
+  border-radius:235px 14px 235px 14px / 14px 235px 14px 235px;
+  display:flex; flex-direction:column; align-items:center;
+}
+.stat-pill:nth-child(2){ transform:rotate(-1.6deg); }
+.stat-pill:nth-child(3){ transform:rotate(1.4deg); }
+.stat-pill b{ font-family:'Caveat',cursive; font-weight:700; font-size:2.6rem;
+  color:var(--accent); line-height:.9; }
+.stat-pill small{ font-family:'Kalam',cursive; font-size:.78rem; color:var(--ink-soft);
+  margin-top:6px; letter-spacing:.05em; text-transform:uppercase; }
+
+/* hero decorative construction lines */
+.hero-deco{ position:absolute; inset:0; pointer-events:none; z-index:-1;
+  color:var(--ink-faint); }
+.hero-deco svg{ position:absolute; }
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Caveat',cursive; font-size:1.32rem; font-weight:700; cursor:pointer;
+  background:var(--paper); color:var(--ink);
+  border:2px solid var(--line);
+  padding:11px 26px;
+  border-radius:60px 18px 60px 18px / 18px 60px 18px 60px;
+  display:inline-flex; align-items:center; gap:9px;
+  transition:transform .15s ease, box-shadow .15s ease, color .18s;
+  box-shadow:3px 4px 0 var(--ink);
+}
+.btn:hover{ transform:translate(-2px,-2px); box-shadow:5px 6px 0 var(--ink); }
+.btn:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--ink); }
+.btn svg{ width:18px; height:18px; }
+.btn--accent{
+  background:var(--accent); color:var(--accent-ink); border-color:var(--accent-d);
+  box-shadow:3px 4px 0 var(--accent-d);
+}
+.btn--accent:hover{ box-shadow:5px 6px 0 var(--accent-d); }
+.btn--accent:active{ box-shadow:0 0 0 var(--accent-d); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-faint); border-color:var(--ink-faint);
+  box-shadow:none; opacity:.7;
+  background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 6px);
+}
+.btn:disabled:hover{ transform:none; box-shadow:none; }
+.btn:focus-visible, .icon-btn:focus-visible, .back-link:focus-visible{
+  outline:2.5px dashed var(--accent); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:54px 0 28px; }
+.section-head{ margin-bottom:38px; position:relative; }
+.section-head h2{
+  font-family:'Caveat',cursive; font-weight:700;
+  font-size:clamp(2.3rem,4.6vw,3.4rem); letter-spacing:.005em; line-height:1;
+}
+.section-head .num{
+  font-family:'Kalam',cursive; font-weight:700; font-size:.86rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
+  display:inline-flex; align-items:center; gap:9px; margin-bottom:8px;
+}
+.section-head .num::before{ content:""; width:34px; height:0;
+  border-top:2px dashed var(--accent); }
+.section-head p{ font-family:'Kalam',cursive; color:var(--ink-soft);
+  margin-top:4px; font-size:1.02rem; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+.card{
+  position:relative;
+  background:var(--paper);
+  border:2px solid var(--line);
+  border-radius:235px 14px 235px 14px / 14px 235px 14px 235px;
+  padding:30px;
+  opacity:0; transform:translateY(26px) rotate(-.4deg);
+  transition:opacity .65s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+}
+.card::before{ /* doubled wobbly outline */
+  content:""; position:absolute; inset:-6px -5px -4px -7px;
+  border:1.6px solid var(--line); opacity:.5; pointer-events:none;
+  border-radius:14px 245px 16px 235px / 235px 16px 245px 14px;
+  transform:rotate(.6deg);
+}
+.card.in{ opacity:1; transform:none; }
+.card:nth-child(even).in{ transform:rotate(.5deg); }
+.card:nth-child(3n).in{ transform:rotate(-.5deg); }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card--wide{ grid-column:span 2; }
+
+.card-label{
+  font-family:'Kalam',cursive; font-weight:700; font-size:.78rem;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft);
+  display:flex; align-items:center; gap:9px; margin-bottom:18px;
+}
+.card-label::before{
+  content:""; width:24px; height:24px; flex:none;
+  border:2px solid var(--accent); color:var(--accent);
+  border-radius:60px 8px 60px 8px / 8px 60px 8px 60px;
+  background:repeating-linear-gradient(45deg, transparent 0 3px, var(--hatch) 3px 4px);
+}
+.card-title{ font-family:'Caveat',cursive; font-weight:700; font-size:1.85rem;
+  line-height:1; }
+.muted{ font-family:'Kalam',cursive; color:var(--ink-soft); font-size:.96rem; }
+.center{ text-align:center; }
+
+/* DRAFT corner stamp on some cards */
+.card .corner-note{
+  position:absolute; top:-14px; right:18px; z-index:3;
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1;
+  border:2px solid var(--line); margin-bottom:22px;
+  border-radius:14px 235px 14px 235px / 235px 14px 235px 14px;
+  display:grid; place-items:center;
+  background:
+    repeating-linear-gradient(45deg, var(--hatch) 0 1.6px, transparent 1.6px 9px),
+    repeating-linear-gradient(-45deg, var(--hatch) 0 1.4px, transparent 1.4px 11px),
+    var(--paper-2);
+  overflow:hidden;
+}
+.player-art::after{ /* "image placeholder" diagonal cross — wireframe convention */
+  content:""; position:absolute; inset:8px; pointer-events:none;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--ink-faint) calc(50% - 1px), var(--ink-faint) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to top left, transparent calc(50% - 1px), var(--ink-faint) calc(50% - 1px), var(--ink-faint) calc(50% + 1px), transparent calc(50% + 1px));
+  opacity:.32;
+}
+.eq{ display:flex; align-items:flex-end; gap:7px; height:56px; position:relative; z-index:1;
+  padding:8px 12px; border:2px solid var(--accent); background:var(--paper);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px; }
+.eq span{
+  width:9px; height:18px; background:var(--accent);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:42px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{ font-family:'Caveat',cursive; font-size:1.95rem; font-weight:700;
+  line-height:1; }
+.player-meta p{ font-family:'Kalam',cursive; color:var(--ink-soft); font-size:.92rem; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--accent); border-color:var(--accent); }
+.heart.on svg{ fill:var(--accent); }
+
+.player-progress{ margin:20px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:14px; border:2px solid var(--line); position:relative;
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px;
+  background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 6px);
+}
+.track-fill{
+  position:absolute; top:-2px; bottom:-2px; left:-2px; width:34%;
+  border:2px solid var(--accent-d); background:var(--accent);
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px;
+  background-image:repeating-linear-gradient(-45deg, rgba(255,255,255,.22) 0 2px, transparent 2px 7px);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; background:var(--paper);
+  border:2px solid var(--accent-d);
+  border-radius:60px 10px 60px 10px / 10px 60px 10px 60px;
+}
+.player-time{ display:flex; justify-content:space-between;
+  font-family:'Kalam',cursive; font-size:.84rem; color:var(--ink-soft);
+  font-variant-numeric:tabular-nums; }
+
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:18px; margin-top:18px; }
+.play-btn{
+  width:66px; height:66px; cursor:pointer;
+  border:2px solid var(--accent-d); background:var(--accent); color:var(--accent-ink);
+  border-radius:60px 16px 60px 16px / 16px 60px 16px 60px;
+  display:grid; place-items:center;
+  box-shadow:3px 4px 0 var(--accent-d);
+  transition:transform .15s, box-shadow .15s;
+}
+.play-btn:hover{ transform:translate(-2px,-2px); box-shadow:5px 6px 0 var(--accent-d); }
+.play-btn.playing,.play-btn:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--accent-d); }
+.play-btn svg{ width:26px; height:26px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:15px 0; }
+.switch-row + .switch-row{ border-top:2px dashed var(--ink-faint); }
+.switch-row .lbl{ font-family:'Caveat',cursive; font-weight:700; font-size:1.32rem;
+  line-height:1.05; }
+.switch-row .sub{ font-family:'Kalam',cursive; font-size:.82rem; color:var(--ink-soft); }
+.switch{ position:relative; width:66px; height:36px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  background:repeating-linear-gradient(45deg, transparent 0 4px, var(--grid) 4px 5px);
+  transition:background .3s, border-color .3s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:28px; height:28px;
+  background:var(--paper); border:2px solid var(--line);
+  border-radius:60px 10px 60px 10px / 10px 60px 10px 60px;
+  transition:transform .3s cubic-bezier(.34,1.3,.5,1), background .3s, border-color .3s;
+}
+.switch input:checked ~ .s-track{
+  border-color:var(--accent-d);
+  background:repeating-linear-gradient(45deg, var(--hatch) 0 2px, transparent 2px 6px), var(--accent-l);
+}
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px); background:var(--accent); border-color:var(--accent-d);
+}
+.switch input:focus-visible ~ .s-track{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:188px; height:188px; border-radius:50%;
+  border:2px solid var(--line);
+  display:grid; place-items:center; touch-action:none; cursor:grab;
+  background:repeating-radial-gradient(circle at 50% 50%, transparent 0 9px, var(--grid) 9px 10px);
+}
+.dial::before{ /* doubled circle outline */
+  content:""; position:absolute; inset:-6px; border-radius:50%;
+  border:1.6px solid var(--line); opacity:.5; pointer-events:none;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:14px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      transparent calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+  opacity:.9;
+}
+.dial-track{
+  position:absolute; inset:14px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg, var(--ink-faint) 0 270deg, transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%, #000 77%, transparent 78%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%, #000 77%, transparent 78%);
+  opacity:.55;
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:var(--paper); border:2px solid var(--line); pointer-events:none;
+}
+.dial-knob::after{ content:""; position:absolute; inset:-5px; border-radius:50%;
+  border:1.4px solid var(--line); opacity:.5; }
+.dial-knob::before{ /* the rotation notch */
+  content:""; position:absolute; top:8px; left:50%; transform:translateX(-50%);
+  width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent;
+  border-bottom:12px solid var(--accent);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{ font-family:'Caveat',cursive; font-weight:700; font-size:2.6rem;
+  line-height:.9; font-variant-numeric:tabular-nums; }
+.dial-readout small{ display:block; font-family:'Kalam',cursive; font-size:.72rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-top:2px; }
+.dial-hint{ font-family:'Kalam',cursive; font-size:.86rem; color:var(--ink-soft); }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:10px; }
+.slider-head .v{ font-family:'Caveat',cursive; font-weight:700; font-size:2.3rem;
+  color:var(--accent); font-variant-numeric:tabular-nums; line-height:.9; }
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:34px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:16px; border:2px solid var(--line);
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px;
+  background:
+    linear-gradient(90deg, var(--accent) 0 var(--val,55%), transparent var(--val,55%) 100%),
+    repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 6px);
+}
+.range::-moz-range-track{ height:16px; border:2px solid var(--line);
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px;
+  background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 6px); }
+.range::-moz-range-progress{ height:16px; background:var(--accent);
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px; }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:30px; height:30px;
+  background:var(--paper); border:2px solid var(--accent-d); margin-top:-9px;
+  border-radius:60px 10px 60px 10px / 10px 60px 10px 60px;
+}
+.range::-moz-range-thumb{ width:30px; height:30px; background:var(--paper);
+  border:2px solid var(--accent-d);
+  border-radius:60px 10px 60px 10px / 10px 60px 10px 60px; }
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ outline:2.5px dashed var(--accent);
+  outline-offset:2px; }
+.slider-scale{ display:flex; justify-content:space-between;
+  font-family:'Kalam',cursive; font-size:.78rem; color:var(--ink-soft); margin-top:6px; }
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:11px; padding:13px 17px;
+  border:2px solid var(--line); margin-bottom:22px;
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 6px);
+}
+.search svg{ width:18px; height:18px; color:var(--ink-soft); flex:none; }
+.search input{ border:0; background:transparent; outline:0;
+  font-family:'Kalam',cursive; font-size:1rem; color:var(--ink); width:100%; }
+.search input::placeholder{ color:var(--ink-faint); }
+
+.seg-label{ font-family:'Kalam',cursive; font-size:.84rem; color:var(--ink-soft);
+  margin-bottom:9px; }
+.segmented{
+  position:relative; display:flex; padding:6px; gap:0;
+  border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  background:repeating-linear-gradient(-45deg, transparent 0 6px, var(--grid) 6px 7px);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  background:var(--accent); border:2px solid var(--accent-d);
+  border-radius:34px 9px 34px 9px / 9px 34px 9px 34px;
+  transition:transform .3s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.2rem; color:var(--ink-soft);
+  padding:9px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:var(--accent-ink); }
+.seg-opt:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:-2px;
+  border-radius:11px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:36px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:158px; height:158px; border-radius:50%;
+  border:2px solid var(--line); display:grid; place-items:center; flex:none;
+  background:repeating-radial-gradient(circle at 50% 50%, transparent 0 11px, var(--grid) 11px 12px);
+}
+.ring::before{
+  content:""; position:absolute; inset:13px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), transparent 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring::after{ /* track outline ring */
+  content:""; position:absolute; inset:13px; border-radius:50%;
+  border:2px dashed var(--ink-faint); opacity:.6;
+}
+.ring-core{ text-align:center; position:relative; z-index:1; }
+.ring-core b{ font-family:'Caveat',cursive; font-weight:700; font-size:2.7rem;
+  line-height:.85; }
+.ring-core small{ font-family:'Kalam',cursive; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{ padding:15px 18px; display:flex; align-items:center; gap:14px;
+  border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  background:repeating-linear-gradient(45deg, transparent 0 6px, var(--grid) 6px 7px); }
+.chip .ci{ width:40px; height:40px; flex:none; display:grid; place-items:center;
+  border:2px solid var(--accent); color:var(--accent); background:var(--paper);
+  border-radius:60px 10px 60px 10px / 10px 60px 10px 60px; }
+.chip .ci svg{ width:19px; height:19px; }
+.chip b{ font-family:'Caveat',cursive; font-weight:700; font-size:1.5rem; line-height:.95; }
+.chip small{ display:block; font-family:'Kalam',cursive; font-size:.8rem;
+  color:var(--ink-soft); }
+.btn-stack{ display:flex; flex-direction:column; gap:14px; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:50px; height:50px; cursor:pointer;
+  border:2px solid var(--line); background:var(--paper);
+  border-radius:60px 12px 60px 12px / 12px 60px 12px 60px;
+  display:grid; place-items:center;
+  transition:transform .15s, box-shadow .15s;
+}
+.swatch:hover{ transform:translate(-1px,-2px); box-shadow:3px 4px 0 var(--ink); }
+.swatch:active{ transform:translate(1px,1px); box-shadow:none; }
+.swatch::after{
+  content:""; width:24px; height:24px; background:var(--sw);
+  border:1.6px solid var(--ink);
+  border-radius:60px 7px 60px 7px / 7px 60px 7px 60px; transition:.18s;
+}
+.swatch.is-active{ box-shadow:3px 4px 0 var(--accent); border-color:var(--accent); }
+.swatch.is-active::after{ width:18px; height:18px;
+  box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--sw); }
+.swatch:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px;
+  margin:22px 0 12px; }
+.step-btn{
+  width:56px; height:56px; flex:none; cursor:pointer;
+  border:2px solid var(--line); background:var(--paper); color:var(--ink);
+  font-family:'Caveat',cursive; font-weight:700; font-size:2rem;
+  border-radius:60px 14px 60px 14px / 14px 60px 14px 60px;
+  display:grid; place-items:center;
+  box-shadow:2px 3px 0 var(--ink);
+  transition:transform .14s, box-shadow .14s, color .18s;
+}
+.step-btn:hover{ color:var(--accent); transform:translate(-1px,-1px);
+  box-shadow:3px 4px 0 var(--ink); }
+.step-btn:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--ink); }
+.step-btn:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+.step-val{
+  min-width:90px; padding:11px 0; text-align:center;
+  border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  font-family:'Caveat',cursive; font-weight:700; font-size:2.4rem; line-height:1;
+  font-variant-numeric:tabular-nums;
+  background:repeating-linear-gradient(45deg, transparent 0 6px, var(--grid) 6px 7px);
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:10px; margin:22px 0 12px; }
+.star{
+  width:50px; height:50px; cursor:pointer;
+  border:2px solid var(--line); background:var(--paper); color:var(--ink-faint);
+  border-radius:60px 12px 60px 12px / 12px 60px 12px 60px;
+  display:grid; place-items:center;
+  transition:transform .14s, color .14s, box-shadow .14s;
+}
+.star svg{ width:24px; height:24px; transition:fill .14s; }
+.star:hover{ transform:translate(-1px,-2px); box-shadow:2px 3px 0 var(--ink); }
+.star.lit{ color:var(--accent); border-color:var(--accent); }
+.star.lit svg{ fill:var(--accent); }
+.star:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:16px; }
+.acc-item{
+  border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  transition:background .25s;
+}
+.acc-item.open{
+  background:repeating-linear-gradient(-45deg, transparent 0 8px, var(--grid) 8px 9px);
+  border-color:var(--accent);
+}
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.5rem;
+  color:var(--ink); text-align:left; padding:14px 19px;
+  display:flex; align-items:center; gap:14px; line-height:1.1;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--ink-soft);
+  transition:transform .3s, color .3s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); color:var(--accent); }
+.acc-head:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:-3px;
+  border-radius:18px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 19px 16px; font-family:'Kalam',cursive;
+  color:var(--ink-soft); font-size:.94rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:2px solid var(--line); cursor:pointer;
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.4rem; color:var(--ink);
+  background:var(--paper); padding:12px 18px;
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  display:flex; align-items:center; gap:10px;
+  box-shadow:2px 3px 0 var(--ink);
+  transition:box-shadow .14s, transform .14s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--ink-soft);
+  transition:transform .25s; }
+.select.open .select-btn{ transform:translate(1px,1px); box-shadow:0 0 0 var(--ink);
+  border-color:var(--accent); }
+.select.open .select-btn .chev{ transform:rotate(180deg); color:var(--accent); }
+.select-btn:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 12px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:8px;
+  background:var(--paper); border:2px solid var(--line);
+  border-radius:30px 12px 30px 12px / 12px 30px 12px 30px;
+  box-shadow:4px 5px 0 var(--ink);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .18s, transform .18s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:10px 13px; cursor:pointer;
+  font-family:'Caveat',cursive; font-weight:600; font-size:1.28rem;
+  display:flex; align-items:center; gap:10px;
+  border-radius:30px 8px 30px 8px / 8px 30px 8px 30px;
+  transition:background .14s, color .14s;
+}
+.select-menu li:hover{ color:var(--accent);
+  background:repeating-linear-gradient(-12deg, transparent 0 6px, var(--grid) 6px 7px); }
+.select-menu li[aria-selected="true"]{ color:var(--accent);
+  background:repeating-linear-gradient(45deg, var(--hatch) 0 2px, transparent 2px 7px); }
+.select-menu .tick{ margin-left:auto; width:17px; height:17px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:13px; margin:22px 0 12px; }
+.pin input{
+  width:56px; height:66px; outline:0; text-align:center;
+  font-family:'Caveat',cursive; font-weight:700; font-size:2.3rem; color:var(--ink);
+  background:var(--paper); border:2px solid var(--line);
+  border-radius:40px 12px 40px 12px / 12px 40px 12px 40px;
+  transition:transform .15s, border-color .15s, color .15s, box-shadow .15s;
+}
+.pin input::placeholder{ color:var(--ink-faint); }
+.pin input.filled{ color:var(--accent); }
+.pin input:focus{ border-color:var(--accent); transform:translate(-1px,-2px);
+  box-shadow:2px 3px 0 var(--accent); }
+.pin.done input{ border-color:var(--accent); color:var(--accent);
+  background:repeating-linear-gradient(45deg, var(--hatch) 0 2px, transparent 2px 8px); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:13px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; cursor:pointer;
+  border:2px solid var(--line); background:var(--paper); color:var(--ink);
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.7rem;
+  border-radius:60px 14px 60px 14px / 14px 60px 14px 60px;
+  display:grid; place-items:center;
+  box-shadow:2px 3px 0 var(--ink);
+  transition:transform .14s, box-shadow .14s, color .18s, background .18s;
+}
+.tg-btn:hover{ color:var(--accent); }
+.tg-btn.on{ color:var(--accent-ink); background:var(--accent); border-color:var(--accent-d);
+  transform:translate(2px,2px); box-shadow:0 0 0 var(--accent-d); }
+.tg-btn:focus-visible{ outline:2.5px dashed var(--accent); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:var(--paper);
+  font-family:'Kalam',cursive; font-weight:700; font-size:.74rem;
+  padding:5px 10px; border-radius:8px 3px 8px 3px / 3px 8px 3px 8px;
+  opacity:0; pointer-events:none; transition:.16s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(40,38,33,.55);
+  background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.08) 0 6px, transparent 6px 12px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:440px; width:100%; text-align:center;
+  padding:38px 34px; background:var(--paper);
+  border:2.5px solid var(--line);
+  border-radius:235px 16px 235px 16px / 16px 235px 16px 235px;
+  box-shadow:8px 10px 0 var(--ink);
+  transform:scale(.9) rotate(-1.5deg) translateY(12px);
+  transition:transform .32s cubic-bezier(.2,1.25,.4,1);
+}
+.modal-overlay.show .modal{ transform:rotate(-1deg); }
+.modal::before{ content:""; position:absolute; inset:-8px -6px -5px -9px;
+  border:1.8px solid var(--line); opacity:.5; pointer-events:none;
+  border-radius:16px 245px 18px 235px / 235px 18px 245px 16px; transform:rotate(1deg); }
+.modal-stamp{ position:absolute; top:-16px; left:26px; }
+.modal-icon{
+  width:66px; height:66px; margin:0 auto 16px; display:grid; place-items:center;
+  border:2px solid var(--accent); color:var(--accent); background:var(--paper);
+  border-radius:60px 16px 60px 16px / 16px 60px 16px 60px;
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{ font-family:'Caveat',cursive; font-weight:700; font-size:2.2rem; line-height:1; }
+.modal p{ font-family:'Kalam',cursive; color:var(--ink-soft); margin:10px 0 24px; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:26px; bottom:26px; z-index:120;
+  display:flex; flex-direction:column; gap:14px; max-width:calc(100vw - 52px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:14px 20px;
+  background:var(--paper); border:2px solid var(--line);
+  border-radius:40px 14px 40px 14px / 14px 40px 14px 40px;
+  box-shadow:4px 5px 0 var(--ink);
+  transform:translateX(150%) rotate(-2deg);
+  transition:transform .44s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:rotate(-1.5deg); }
+.toast .t-ico{
+  width:40px; height:40px; flex:none; display:grid; place-items:center;
+  border:2px solid var(--accent-d); background:var(--accent); color:var(--accent-ink);
+  border-radius:60px 12px 60px 12px / 12px 60px 12px 60px;
+}
+.toast .t-ico svg{ width:20px; height:20px; }
+.toast b{ font-family:'Caveat',cursive; font-weight:700; font-size:1.4rem; line-height:1; }
+.toast small{ display:block; font-family:'Kalam',cursive; color:var(--ink-soft);
+  font-size:.82rem; }
+
+/* ---- Principles cards extras ---- */
+.principle b.rule{ font-family:'Caveat',cursive; font-weight:700; }
+.principle p{ font-family:'Kalam',cursive; color:var(--ink-soft); margin-top:8px;
+  font-size:.96rem; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:72px 0 56px; color:var(--ink-soft);
+  font-family:'Kalam',cursive; font-size:.95rem;
+}
+.foot .brand-mark{ margin:0 auto 14px; }
+.foot a{ color:var(--accent); text-decoration:none;
+  border-bottom:2px dotted var(--accent); }
+.foot .foot-name{ font-family:'Caveat',cursive; font-weight:700; font-size:1.7rem;
+  color:var(--ink); display:block; margin-bottom:4px; }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(28px) rotate(-1deg); }
+  to{ opacity:1; transform:none; } }
+.rise{ animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.16s; }
+.d3{ animation-delay:.26s; } .d4{ animation-delay:.36s; } .d5{ animation-delay:.46s; }
+
+/* doodle scribble draw-in */
+@keyframes draw{ from{ stroke-dashoffset:var(--len,300); } to{ stroke-dashoffset:0; } }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:940px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:52px 0 38px; }
+  .card{ padding:24px; }
+  .wrap{ padding:0 20px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30 7c-3 0-5 1-7 4L9 30c-1 1-2 3-2 6 3 0 5-1 6-2L27 19c2-2 4-4 4-7 0-2-1-5-1-5z"/>
+            <path d="M27 9l5 5"/>
+            <path d="M9 30l4 4"/>
+          </svg>
+        </div>
+        <div class="brand-name">Rough Draft</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">Principles</a>
+      </div>
+      <a class="back-link" href="../index.html" aria-label="Back to all styles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="hero-deco" aria-hidden="true">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" style="top:30px;left:4%">
+      <path d="M10 60h100M60 10v100" stroke-dasharray="5 6"/>
+      <circle cx="60" cy="60" r="44" stroke-dasharray="4 7"/>
+    </svg>
+    <svg width="100" height="80" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="1.6" style="top:60px;right:5%">
+      <path d="M5 70C25 20 60 60 95 10" stroke-dasharray="5 6"/>
+      <path d="M86 10l9 0 0 9"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow rise d1">
+      <span class="dot"><svg viewBox="0 0 9 9" fill="currentColor"><circle cx="4.5" cy="4.5" r="4.5"/></svg></span>
+      Conceptual Sketch System
+    </div>
+    <h1 class="rise d2">Not final.<br/>Just a <span class="ink">rough draft</span>.</h1>
+    <p class="rise d3">A showcase of hand-drawn UI — wobbly doubled outlines, crosshatch
+      shading, pencil-grey strokes and one ink-blue accent. Every control is a sketch
+      you can actually use.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Flip through it
+      </a>
+      <a href="#about" class="btn">Read the margins</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>2B</b><small>pencil grade</small></div>
+      <div class="stat-pill"><b>1</b><small>ink-blue accent</small></div>
+      <div class="stat-pill"><b>∞</b><small>revisions left</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">Page 01 — Components</span>
+      <h2>A wireframe component set</h2>
+      <p>Every control below is live — drag, toggle, slide and scribble. Pretend the ink is still wet.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <span class="corner-note stamp">Draft</span>
+        <div class="card-label">Now Playing</div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Graphite Skies</h3>
+            <p>The Margins &middot; Sketchbook EP</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Push alerts</div>
+            <div class="sub">Notify on new releases</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Push alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-sync</div>
+            <div class="sub">Across all devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Lossless audio</div>
+            <div class="sub">Higher data usage</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Lossless audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">Volume</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-track"></div>
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Drag the knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">Brightness</div>
+        <div class="slider-head">
+          <span class="card-title">Display</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Dim</span><span>Bright</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">Inputs</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the sketchbook&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Grid</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <span class="corner-note stamp">WIP</span>
+        <div class="card-label">This week</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Goal</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>Current sketching streak</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 pages</b><small>Filled in your sketchbook</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share recap</button>
+            <button class="btn">Export data</button>
+            <button class="btn" disabled>Sync paused</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">Page 02 — Controls</span>
+      <h2>More to scribble with</h2>
+      <p>Steppers, ratings, menus and dialogs — every one of them roughed out by hand.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">Live Theme</div>
+        <h3 class="card-title">Ink colour</h3>
+        <p class="muted" style="margin-top:6px">Pick a pen — it re-inks every control on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#2f5d8a" data-accent="#2f5d8a" aria-label="Ink blue"></button>
+          <button class="swatch" style="--sw:#5a7d4f" data-accent="#5a7d4f" aria-label="Pencil green"></button>
+          <button class="swatch" style="--sw:#9a4a32" data-accent="#9a4a32" aria-label="Sanguine"></button>
+          <button class="swatch" style="--sw:#6b4a8a" data-accent="#6b4a8a" aria-label="Violet"></button>
+          <button class="swatch" style="--sw:#b0791f" data-accent="#b0791f" aria-label="Ochre"></button>
+          <button class="swatch" style="--sw:#a83b5c" data-accent="#a83b5c" aria-label="Crimson"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">Stepper</div>
+        <h3 class="card-title">Print run</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Copies of &ldquo;Sketchbook EP&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">Feedback</div>
+        <h3 class="card-title">Rate this draft</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">Dropdown</div>
+        <h3 class="card-title" style="margin-bottom:16px">Sort order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most played" aria-selected="false">Most played<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">Verification</div>
+        <h3 class="card-title">Access code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" placeholder="0" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" placeholder="0" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" placeholder="0" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" placeholder="0" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter your 4-digit code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">Toggle group</div>
+        <h3 class="card-title">Text style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each button toggles independently</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">FAQ</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What exactly is a conceptual sketch style?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A UI style that wears its working process on its sleeve — wobbly doubled outlines, crosshatch shading and handwritten labels, as if the interface were torn straight out of a designer's wireframe sketchbook.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Is a hand-drawn look still accessible?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>It can be. The wobble is purely cosmetic — underneath sit semantic HTML, dashed focus rings, real ARIA roles and a clean sans-serif for body copy so the sketch never costs you legibility.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does the sketch style work best?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Anywhere that should feel exploratory and unfinished on purpose — prototypes, creative tools, design portfolios and pitch decks where a polished render would feel too final, too soon.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">Overlays</div>
+        <h3 class="card-title">Dialogs &amp; toasts</h3>
+        <p class="muted" style="margin-top:6px">Notes pinned on top of the page.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--accent" id="toastBtn">Show toast</button>
+          <button class="btn" id="modalBtn">Open dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">Page 03 — Margins</span>
+      <h2>Three notes in the margin</h2>
+      <p>The sketch style is a process made visible — every mark is deliberate.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card principle">
+        <div class="card-label">Note 01</div>
+        <h3 class="card-title">Doubled, wobbly lines</h3>
+        <p>Every border is drawn twice, slightly offset and rotated — the
+          imperfect overlap reads instantly as &ldquo;by hand&rdquo;.</p>
+      </section>
+      <section class="card principle">
+        <div class="card-label">Note 02</div>
+        <h3 class="card-title">Crosshatch, not fill</h3>
+        <p>Shading comes from diagonal pencil strokes layered into a hatch — never
+          a flat solid block of colour.</p>
+      </section>
+      <section class="card principle">
+        <div class="card-label">Note 03</div>
+        <h3 class="card-title">Handwriting &amp; ink</h3>
+        <p>Headlines and labels are handwritten; one steady ink-blue accent and
+          a clean sans keep the body legible.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 44 44" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 7c-3 0-5 1-7 4L9 30c-1 1-2 3-2 6 3 0 5-1 6-2L27 19c2-2 4-4 4-7 0-2-1-5-1-5z"/>
+        <path d="M27 9l5 5"/><path d="M9 30l4 4"/>
+      </svg>
+    </div>
+    <span class="foot-name">Rough Draft</span>
+    <p>A conceptual-sketch design showcase.<br/>
+       Drawn in 2B, never finalised. Try the <a href="#" id="footTheme">theme toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <span class="modal-stamp stamp">Review</span>
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>
+      </svg>
+    </div>
+    <h3 id="modalTitle">Commit this draft?</h3>
+    <p>Your sketch edits will be inked in across every page of the sketchbook.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not yet</button>
+      <button class="btn btn--accent" id="modalConfirm">Ink it in</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('sketch-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('sketch-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.5; }));
+      root.style.setProperty('--accent-ink', lum > 0.62 ? '#2b2a26' : '#f3f0e6');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Rough','Loose','Sharp','Inked','Masterpiece'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Code accepted ✓';
+        showToast('Access granted', 'Welcome back to the sketchbook.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Draft committed', 'Your sketchbook is up to date.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Saved to sketchbook', 'Graphite Skies pinned to your EP.');
+  });
+})();
+</script>
+</body>
+</html>

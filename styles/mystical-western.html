@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dusk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Wandering Hour — A Mystical Western Showcase</title>
+<meta name="description" content="A showcase of Mystical Western design — tarot card frames, desert dusk, celestial motifs, and occult-romance interface craft." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MYSTICAL WESTERN — tarot meets desert.
+   Dusk-purple night, terracotta & faded gold, ornate card frames,
+   celestial & occult motifs hand-drawn in SVG.
+   ============================================================ */
+:root,
+[data-theme="dusk"]{
+  --bg:        #2a2030;   /* deep dusk plum */
+  --bg-2:      #3a2e3f;   /* night-desert purple */
+  --panel:     #34283c;   /* tarot card field */
+  --panel-2:   #3f3148;   /* raised card */
+  --ink:       #ead8c0;   /* parchment cream */
+  --ink-soft:  #b29db0;   /* dusty mauve text */
+  --ink-faint: #7c6a82;
+  --accent:    #c98b4a;   /* terracotta */
+  --accent-d:  #9a6230;
+  --accent-l:  #e6b878;
+  --gold:      #d9b15e;   /* faded gold */
+  --sage:      #8ba072;   /* sage cactus */
+  --sage-d:    #5f7350;
+  --line:      #5a4660;   /* engraved purple line */
+  --line-gold: rgba(217,177,94,.42);
+  --ink-on-acc:#241a1f;
+}
+[data-theme="night"]{
+  --bg:        #1c1622;
+  --bg-2:      #251d2c;
+  --panel:     #241c2b;
+  --panel-2:   #2d2435;
+  --ink:       #ecdcc4;
+  --ink-soft:  #9b889d;
+  --ink-faint: #685a70;
+  --accent:    #d49654;
+  --accent-d:  #9a6230;
+  --accent-l:  #ecc189;
+  --gold:      #e0ba6a;
+  --sage:      #8ba072;
+  --sage-d:    #5f7350;
+  --line:      #463553;
+  --line-gold: rgba(224,186,106,.36);
+  --ink-on-acc:#1c1622;
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'EB Garamond', serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.62;
+  font-size:1.04rem;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s ease, color .5s ease;
+  overflow-x:hidden;
+}
+/* night-desert atmosphere: dusk gradient + a faint star field + horizon mountains */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(48rem 30rem at 78% -6%, rgba(201,139,74,.26), transparent 64%),
+    radial-gradient(40rem 34rem at 12% 8%, rgba(139,160,114,.12), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 46%, var(--bg) 100%);
+}
+body::after{ /* dusted star field */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 14%, rgba(234,216,192,.9), transparent),
+    radial-gradient(1.2px 1.2px at 26% 32%, rgba(217,177,94,.8), transparent),
+    radial-gradient(1.6px 1.6px at 44% 9%,  rgba(234,216,192,.7), transparent),
+    radial-gradient(1.1px 1.1px at 62% 26%, rgba(234,216,192,.85), transparent),
+    radial-gradient(1.5px 1.5px at 78% 12%, rgba(217,177,94,.7), transparent),
+    radial-gradient(1.2px 1.2px at 88% 34%, rgba(234,216,192,.7), transparent),
+    radial-gradient(1.3px 1.3px at 34% 50%, rgba(234,216,192,.55), transparent),
+    radial-gradient(1.2px 1.2px at 70% 58%, rgba(217,177,94,.5), transparent),
+    radial-gradient(1.1px 1.1px at 8% 64%,  rgba(234,216,192,.5), transparent);
+  background-repeat:no-repeat;
+}
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:var(--ink-on-acc); }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:16px; }
+.nav-inner{
+  display:flex; align-items:center; gap:20px;
+  padding:11px 16px 11px 18px; border-radius:4px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line);
+  box-shadow:0 0 0 1px rgba(217,177,94,.16) inset,
+             0 14px 30px -12px rgba(0,0,0,.7);
+}
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:42px; height:42px; flex:none; display:grid; place-items:center;
+  color:var(--gold);
+}
+.brand-name{
+  font-family:'Rye', serif; font-size:1.22rem; letter-spacing:.02em;
+  color:var(--ink); line-height:1;
+}
+.brand-name small{
+  display:block; font-family:'Cinzel',serif; font-size:.52rem; font-weight:500;
+  letter-spacing:.42em; color:var(--accent); margin-top:5px; text-transform:uppercase;
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-family:'Cinzel',serif;
+  font-weight:500; font-size:.74rem; letter-spacing:.13em; text-transform:uppercase;
+  padding:9px 14px; border-radius:3px; transition:color .2s, background .2s;
+}
+.nav-links a:hover{ color:var(--gold); background:rgba(217,177,94,.08); }
+.nav-back{
+  display:inline-flex; align-items:center; gap:7px;
+  color:var(--accent); text-decoration:none; font-family:'Cinzel',serif;
+  font-weight:600; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:9px 14px; border:1px solid var(--accent-d); border-radius:3px;
+  transition:background .2s, color .2s;
+}
+.nav-back:hover{ background:var(--accent); color:var(--ink-on-acc); }
+.nav-back svg{ width:14px; height:14px; }
+
+.icon-btn{
+  width:42px; height:42px; flex:none; border:1px solid var(--line); cursor:pointer;
+  border-radius:3px; background:var(--panel-2); color:var(--ink);
+  display:grid; place-items:center;
+  transition:border-color .2s, color .2s, background .2s, transform .15s;
+}
+.icon-btn:hover{ color:var(--gold); border-color:var(--line-gold); }
+.icon-btn:active{ transform:translateY(1px); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="night"] .theme-toggle .sun{ display:none; }
+[data-theme="night"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:88px 0 64px; position:relative; }
+.hero-celestial{
+  position:absolute; left:50%; top:34px; transform:translateX(-50%);
+  width:118px; height:118px; color:var(--gold); opacity:.92;
+}
+.hero-celestial .ray{ transform-origin:59px 59px; animation:spin 64s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:11px;
+  padding:9px 20px; border-radius:999px; margin-bottom:26px;
+  border:1px solid var(--line-gold); background:rgba(217,177,94,.07);
+  font-family:'Cinzel',serif; font-size:.7rem; font-weight:600;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--gold);
+}
+.eyebrow svg{ width:13px; height:13px; }
+.hero h1{
+  font-family:'Rye', serif; font-weight:400;
+  font-size:clamp(2.5rem, 7vw, 5rem); line-height:1.08; letter-spacing:.01em;
+  color:var(--ink);
+  text-shadow:0 2px 0 rgba(0,0,0,.4), 0 0 34px rgba(201,139,74,.2);
+}
+.hero h1 em{
+  font-style:normal; color:var(--accent);
+  text-shadow:0 0 26px rgba(201,139,74,.5);
+}
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.18rem; color:var(--ink-soft);
+  font-style:italic;
+}
+.hero-rule{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:26px auto 0; max-width:300px; color:var(--accent);
+}
+.hero-rule::before, .hero-rule::after{
+  content:""; height:1px; flex:1; background:linear-gradient(90deg,transparent,var(--line-gold));
+}
+.hero-rule::after{ background:linear-gradient(90deg,var(--line-gold),transparent); }
+.hero-rule svg{ width:16px; height:16px; }
+.hero-cta{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:54px;
+}
+.stat-pill{
+  padding:18px 26px; border-radius:4px; min-width:140px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:0 0 0 1px rgba(217,177,94,.1) inset;
+  display:flex; flex-direction:column; align-items:center; position:relative;
+}
+.stat-pill::before{ /* tiny corner star */
+  content:"✦"; position:absolute; top:5px; right:8px; font-size:.6rem; color:var(--accent);
+}
+.stat-pill b{
+  font-family:'Rye',serif; font-size:1.85rem; color:var(--gold); line-height:1;
+}
+.stat-pill small{
+  font-family:'Cinzel',serif; font-size:.62rem; color:var(--ink-soft);
+  margin-top:9px; letter-spacing:.18em; text-transform:uppercase;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Cinzel',serif; font-size:.8rem; font-weight:600; cursor:pointer;
+  letter-spacing:.1em; text-transform:uppercase;
+  background:var(--panel-2); color:var(--ink);
+  padding:14px 26px; border-radius:3px;
+  border:1px solid var(--line-gold);
+  display:inline-flex; align-items:center; gap:9px;
+  transition:background .2s, color .2s, transform .15s, box-shadow .2s;
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:0 8px 20px -10px rgba(0,0,0,.7); color:var(--gold); }
+.btn:active{ transform:translateY(0); }
+.btn svg{ width:15px; height:15px; }
+.btn--accent{
+  background:linear-gradient(180deg,var(--accent-l),var(--accent));
+  color:var(--ink-on-acc); border-color:var(--accent-d);
+  box-shadow:0 0 22px -6px rgba(201,139,74,.5);
+}
+.btn--accent:hover{ color:var(--ink-on-acc);
+  box-shadow:0 0 30px -4px rgba(201,139,74,.7); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-faint); border-color:var(--line);
+  background:var(--panel); box-shadow:none;
+}
+.btn:disabled:hover{ transform:none; }
+.btn:focus-visible, .icon-btn:focus-visible, .nav-back:focus-visible{
+  outline:2px solid var(--gold); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE */
+.showcase{ padding:54px 0 24px; }
+.section-head{ margin-bottom:38px; text-align:center; }
+.section-head .kicker{
+  font-family:'Cinzel',serif; font-size:.68rem; font-weight:600;
+  letter-spacing:.32em; text-transform:uppercase; color:var(--accent);
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.section-head .kicker::before, .section-head .kicker::after{
+  content:"✦"; color:var(--gold); font-size:.7rem;
+}
+.section-head h2{
+  font-family:'Rye',serif; font-weight:400; font-size:clamp(1.8rem,3.8vw,2.7rem);
+  letter-spacing:.01em; color:var(--ink);
+}
+.section-head p{ color:var(--ink-soft); margin-top:8px; font-style:italic; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+
+/* ---- the tarot card frame ---- */
+.card{
+  position:relative; padding:26px; border-radius:5px;
+  background:
+    linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
+  border:1px solid var(--line);
+  box-shadow:0 18px 38px -18px rgba(0,0,0,.8);
+  opacity:0; transform:translateY(28px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1),
+             background .5s ease;
+}
+.card.in{ opacity:1; transform:none; }
+/* ornate inner gold rule of the tarot card */
+.card::before{
+  content:""; position:absolute; inset:8px; border-radius:3px;
+  border:1px solid var(--line-gold); pointer-events:none;
+}
+/* corner flourishes */
+.card::after{
+  content:""; position:absolute; inset:8px; pointer-events:none; border-radius:3px;
+  background:
+    radial-gradient(circle at 0 0, transparent 13px, var(--line-gold) 13px 14px, transparent 15px) top left/26px 26px no-repeat,
+    radial-gradient(circle at 100% 0, transparent 13px, var(--line-gold) 13px 14px, transparent 15px) top right/26px 26px no-repeat,
+    radial-gradient(circle at 0 100%, transparent 13px, var(--line-gold) 13px 14px, transparent 15px) bottom left/26px 26px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, var(--line-gold) 13px 14px, transparent 15px) bottom right/26px 26px no-repeat;
+}
+.card > *{ position:relative; z-index:1; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card--wide{ grid-column:span 2; }
+
+.card-label{
+  font-family:'Cinzel',serif; font-size:.64rem; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
+  display:flex; align-items:center; gap:9px; margin-bottom:18px;
+}
+.card-label svg{ width:15px; height:15px; color:var(--gold); flex:none; }
+.card-label::after{
+  content:""; flex:1; height:1px;
+  background:linear-gradient(90deg,var(--line-gold),transparent);
+}
+.card-title{
+  font-family:'Rye',serif; font-weight:400; font-size:1.3rem;
+  letter-spacing:.01em; color:var(--ink);
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:4px;
+  background:
+    radial-gradient(70% 60% at 30% 26%, var(--accent-l), transparent 66%),
+    radial-gradient(80% 80% at 78% 92%, #5a3b66, transparent 72%),
+    linear-gradient(160deg, var(--accent), #6b3f55);
+  border:1px solid var(--line-gold);
+  display:grid; place-items:center; margin-bottom:20px; overflow:hidden;
+}
+/* sun-with-rays etched on album art */
+.player-art .art-sun{
+  position:absolute; inset:0; margin:auto; width:62%; height:62%;
+  color:rgba(36,26,31,.5);
+}
+.player-art .art-sun .ray{ transform-origin:50% 50%; animation:spin 30s linear infinite; }
+.playing .art-sun .ray{ animation-duration:9s; }
+.eq{ display:flex; align-items:flex-end; gap:6px; height:50px; position:relative;
+  z-index:1; filter:drop-shadow(0 2px 4px rgba(0,0,0,.4)); }
+.eq span{
+  width:8px; height:16px; border-radius:2px 2px 0 0;
+  background:linear-gradient(180deg,var(--gold),var(--accent));
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:46px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Rye',serif; font-size:1.28rem; font-weight:400;
+  line-height:1.2; color:var(--ink);
+}
+.player-meta p{ color:var(--ink-soft); font-size:.95rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--accent); border-color:var(--accent-d); }
+.heart.on svg{ fill:var(--accent); }
+
+.player-progress{ margin:20px 0 8px; cursor:pointer; padding:7px 0; }
+.track{
+  height:8px; border-radius:999px; position:relative;
+  background:var(--bg); border:1px solid var(--line);
+}
+.track-fill{
+  position:absolute; top:-1px; bottom:-1px; left:-1px; width:34%; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-d), var(--gold));
+}
+.track-fill::after{
+  content:""; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  width:16px; height:16px; border-radius:50%;
+  background:var(--gold); border:2px solid var(--bg);
+  box-shadow:0 0 10px rgba(217,177,94,.7);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.78rem;
+  color:var(--ink-soft); font-family:'Cinzel',serif; letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;
+}
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:18px; margin-top:18px; }
+.play-btn{
+  width:64px; height:64px; border:1px solid var(--accent-d); cursor:pointer;
+  border-radius:50%;
+  background:linear-gradient(180deg,var(--accent-l),var(--accent));
+  color:var(--ink-on-acc);
+  box-shadow:0 0 24px -4px rgba(201,139,74,.6);
+  display:grid; place-items:center; transition:transform .15s, box-shadow .2s;
+}
+.play-btn:hover{ transform:translateY(-2px); box-shadow:0 0 32px -2px rgba(201,139,74,.8); }
+.play-btn:active{ transform:translateY(0); }
+.play-btn svg{ width:23px; height:23px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:15px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--line); }
+.switch-row .lbl{ font-family:'Cinzel',serif; font-weight:600; font-size:.86rem;
+  letter-spacing:.04em; color:var(--ink); }
+.switch-row .sub{ font-size:.88rem; color:var(--ink-soft); font-style:italic; }
+.switch{ position:relative; width:62px; height:32px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--bg); border:1px solid var(--line);
+  transition:background .3s, border-color .3s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
+  background:var(--ink-soft); color:var(--bg);
+  display:grid; place-items:center;
+  transition:transform .34s cubic-bezier(.34,1.4,.5,1), background .3s;
+}
+.switch .s-thumb svg{ width:13px; height:13px; }
+.switch .s-thumb .moon{ display:block; }
+.switch .s-thumb .sun{ display:none; }
+.switch input:checked ~ .s-track{
+  background:rgba(201,139,74,.2); border-color:var(--accent-d);
+}
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px); background:var(--gold);
+}
+.switch input:checked ~ .s-thumb .moon{ display:none; }
+.switch input:checked ~ .s-thumb .sun{ display:block; }
+.switch input:focus-visible ~ .s-track{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:178px; height:178px; border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--line);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-ticks{ position:absolute; inset:0; pointer-events:none; color:var(--line); }
+.dial-arc{
+  position:absolute; inset:16px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      transparent calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 79%, #000 80%);
+          mask:radial-gradient(closest-side, transparent 79%, #000 80%);
+  filter:drop-shadow(0 0 6px rgba(201,139,74,.5));
+}
+.dial-knob{
+  position:relative; width:112px; height:112px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--panel-2), var(--panel));
+  border:1px solid var(--line-gold);
+  box-shadow:0 6px 16px -6px rgba(0,0,0,.8);
+  pointer-events:none;
+}
+.dial-knob::before{ /* notch — a tiny terracotta star */
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:8px; height:8px; border-radius:50%; background:var(--accent);
+  box-shadow:0 0 0 4px rgba(201,139,74,.25), 0 0 8px var(--accent);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Rye',serif; font-size:1.9rem; line-height:1; color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.dial-readout small{
+  display:block; font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:5px;
+}
+.dial-hint{ font-size:.88rem; color:var(--ink-soft); font-style:italic; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.slider-head .v{
+  font-family:'Rye',serif; font-size:1.6rem; color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:30px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:8px; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--bg) var(--val,55%) 100%);
+  border:1px solid var(--line);
+}
+.range::-moz-range-track{ height:8px; border-radius:999px;
+  background:var(--bg); border:1px solid var(--line); }
+.range::-moz-range-progress{ height:8px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%;
+  background:var(--gold); border:2px solid var(--bg); margin-top:-10px;
+  box-shadow:0 0 10px rgba(217,177,94,.6);
+}
+.range::-moz-range-thumb{ width:26px; height:26px; border:2px solid var(--bg);
+  border-radius:50%; background:var(--gold); box-shadow:0 0 10px rgba(217,177,94,.6); }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px var(--gold); }
+.range:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 3px var(--gold); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-family:'Cinzel',serif;
+  font-size:.64rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:6px;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 17px; border-radius:3px;
+  background:var(--bg); border:1px solid var(--line); margin-bottom:22px;
+}
+.search:focus-within{ border-color:var(--line-gold); }
+.search svg{ width:17px; height:17px; color:var(--accent); flex:none; }
+.search input{ border:0; background:transparent; outline:0; font:inherit;
+  color:var(--ink); width:100%; }
+.search input::placeholder{ color:var(--ink-faint); font-style:italic; }
+
+.seg-label{ font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:9px; }
+.segmented{
+  position:relative; display:flex; padding:5px; border-radius:3px;
+  background:var(--bg); border:1px solid var(--line);
+}
+.seg-thumb{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px);
+  border-radius:2px; background:linear-gradient(180deg,var(--accent-l),var(--accent));
+  box-shadow:0 0 14px -2px rgba(201,139,74,.6);
+  transition:transform .34s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Cinzel',serif; font-weight:600; font-size:.72rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+  padding:11px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:var(--ink-on-acc); }
+.seg-opt:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:34px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:148px; height:148px; border-radius:50%;
+  background:var(--bg); border:1px solid var(--line);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:13px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--line) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 76%, #000 77%);
+          mask:radial-gradient(closest-side, transparent 76%, #000 77%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+  filter:drop-shadow(0 0 6px rgba(201,139,74,.4));
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-family:'Rye',serif; font-size:1.9rem; line-height:1; color:var(--gold); }
+.ring-core small{ font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:15px 18px; border-radius:3px; background:var(--bg);
+  border:1px solid var(--line);
+  display:flex; align-items:center; gap:14px;
+}
+.chip .ci{
+  width:38px; height:38px; border-radius:3px; flex:none; display:grid;
+  place-items:center; background:var(--panel-2); border:1px solid var(--line-gold);
+  color:var(--gold);
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Rye',serif; font-size:1.05rem; color:var(--ink); }
+.chip small{ display:block; font-size:.85rem; color:var(--ink-soft); font-style:italic; }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.95rem; font-style:italic; }
+.center{ text-align:center; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:13px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:46px; height:46px; border:1px solid var(--line); cursor:pointer;
+  border-radius:50%; background:var(--panel); display:grid; place-items:center;
+  transition:border-color .18s, transform .18s;
+}
+.swatch:hover{ transform:translateY(-2px); border-color:var(--line-gold); }
+.swatch::after{
+  content:""; width:22px; height:22px; border-radius:50%; background:var(--sw);
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.4); transition:.2s;
+}
+.swatch.is-active{ border-color:var(--gold); }
+.swatch.is-active::after{
+  width:17px; height:17px;
+  box-shadow:inset 0 -2px 4px rgba(0,0,0,.4), 0 0 0 4px var(--panel), 0 0 0 5px var(--sw);
+}
+.swatch:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px; margin:22px 0 12px; }
+.step-btn{
+  width:52px; height:52px; flex:none; border:1px solid var(--line-gold); cursor:pointer;
+  border-radius:3px; background:var(--panel-2); color:var(--gold); font-size:1.5rem;
+  display:grid; place-items:center;
+  transition:background .15s, color .2s, transform .12s;
+}
+.step-btn:hover{ background:var(--accent); color:var(--ink-on-acc); }
+.step-btn:active{ transform:translateY(1px); }
+.step-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.step-val{
+  min-width:84px; padding:13px 0; border-radius:3px;
+  background:var(--bg); border:1px solid var(--line);
+  font-family:'Rye',serif; font-size:1.7rem; color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- Star rating (suns of fortune) ---- */
+.stars{ display:flex; justify-content:center; gap:9px; margin:22px 0 12px; }
+.star{
+  width:48px; height:48px; border:1px solid var(--line); cursor:pointer;
+  border-radius:3px; background:var(--panel); color:var(--ink-faint);
+  display:grid; place-items:center;
+  transition:color .15s, border-color .15s, transform .15s, background .15s;
+}
+.star svg{ width:23px; height:23px; transition:fill .15s; }
+.star:hover{ transform:translateY(-3px) rotate(-6deg); }
+.star.lit{
+  color:var(--gold); border-color:var(--line-gold); background:rgba(217,177,94,.1);
+}
+.star.lit svg{ fill:var(--gold); }
+.star:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:13px; }
+.acc-item{
+  border-radius:3px; background:var(--bg); border:1px solid var(--line);
+  transition:border-color .26s;
+}
+.acc-item.open{ border-color:var(--line-gold); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Cinzel',serif; font-weight:600; font-size:.88rem; letter-spacing:.03em;
+  color:var(--ink); text-align:left; padding:16px 18px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .3s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:2px solid var(--gold); outline-offset:-3px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 18px 17px; color:var(--ink-soft); font-size:.96rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:1px solid var(--line); cursor:pointer;
+  font-family:'EB Garamond',serif; font-size:1rem; color:var(--ink);
+  background:var(--bg); padding:15px 18px; border-radius:3px;
+  display:flex; align-items:center; gap:10px; transition:border-color .15s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .25s; }
+.select.open .select-btn{ border-color:var(--line-gold); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:7px; border-radius:4px;
+  background:var(--panel-2); border:1px solid var(--line-gold);
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.85);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 13px; border-radius:2px; cursor:pointer; font-weight:500;
+  display:flex; align-items:center; gap:10px; transition:background .14s, color .14s;
+}
+.select-menu li:hover{ background:rgba(201,139,74,.12); color:var(--gold); }
+.select-menu li[aria-selected="true"]{ color:var(--gold); }
+.select-menu .tick{ margin-left:auto; width:15px; height:15px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.pin input{
+  width:52px; height:62px; border:1px solid var(--line); outline:0; text-align:center;
+  font-family:'Rye',serif; font-size:1.6rem; color:var(--ink);
+  background:var(--bg); border-radius:3px;
+  transition:border-color .18s, color .18s, box-shadow .18s;
+}
+.pin input.filled{ color:var(--gold); }
+.pin input:focus{ border-color:var(--gold); box-shadow:0 0 0 2px rgba(217,177,94,.3); }
+.pin.done input{ border-color:var(--sage-d); color:var(--sage); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:52px; height:52px; border:1px solid var(--line); cursor:pointer;
+  border-radius:3px; background:var(--panel); color:var(--ink-soft);
+  font-family:'EB Garamond',serif; font-size:1.3rem; display:grid; place-items:center;
+  transition:color .18s, border-color .18s, background .18s;
+}
+.tg-btn:hover{ color:var(--gold); }
+.tg-btn.on{
+  color:var(--gold); border-color:var(--line-gold); background:rgba(217,177,94,.12);
+}
+.tg-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--panel-2); border:1px solid var(--line-gold); color:var(--ink);
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+  padding:5px 10px; border-radius:2px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(20,14,24,.74); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:432px; width:100%; text-align:center; padding:40px 36px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line-gold); border-radius:6px;
+  box-shadow:0 34px 70px -16px rgba(0,0,0,.9), 0 0 60px -20px rgba(201,139,74,.4);
+  transform:scale(.92) translateY(14px);
+  transition:transform .34s cubic-bezier(.2,1.25,.4,1);
+}
+.modal::before{
+  content:""; position:absolute; inset:9px; border:1px solid var(--line-gold);
+  border-radius:4px; pointer-events:none;
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-icon{
+  width:66px; height:66px; margin:0 auto 16px; border-radius:50%; display:grid;
+  place-items:center; background:var(--bg); border:1px solid var(--line-gold);
+  color:var(--gold);
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{ font-family:'Rye',serif; font-size:1.45rem; font-weight:400; color:var(--ink); }
+.modal p{ color:var(--ink-soft); margin:10px 0 26px; font-style:italic; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:14px 19px; border-radius:4px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line-gold);
+  box-shadow:0 16px 34px -14px rgba(0,0,0,.85);
+  transform:translateX(150%); transition:transform .46s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:38px; height:38px; flex:none; border-radius:50%; display:grid; place-items:center;
+  background:var(--bg); border:1px solid var(--line-gold); color:var(--gold);
+}
+.toast .t-ico svg{ width:19px; height:19px; }
+.toast b{ font-family:'Rye',serif; font-size:.95rem; font-weight:400; color:var(--ink); }
+.toast small{ display:block; color:var(--ink-soft); font-size:.84rem; font-style:italic; }
+
+/* ============================================================ ABOUT */
+.about-card{ text-align:center; }
+.about-card .about-glyph{
+  width:56px; height:56px; margin:0 auto 14px; color:var(--gold);
+}
+.about-card .roman{
+  font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.3em;
+  color:var(--accent); text-transform:uppercase; margin-bottom:8px;
+}
+.about-card h3{ font-family:'Rye',serif; font-weight:400; font-size:1.2rem; color:var(--ink); }
+.about-card p{ color:var(--ink-soft); margin-top:10px; font-size:.97rem; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:72px 0 56px; color:var(--ink-soft); font-size:.95rem;
+  position:relative;
+}
+.foot-mark{ width:50px; height:50px; margin:0 auto 16px; color:var(--gold); }
+.foot p{ font-style:italic; }
+.foot a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--line-gold); }
+.foot a:hover{ color:var(--gold); }
+.foot .foot-rule{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  max-width:340px; margin:0 auto 22px; color:var(--accent);
+}
+.foot .foot-rule::before, .foot .foot-rule::after{
+  content:""; height:1px; flex:1; background:linear-gradient(90deg,transparent,var(--line-gold));
+}
+.foot .foot-rule::after{ background:linear-gradient(90deg,var(--line-gold),transparent); }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(30px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .9s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.18s; }
+.d3{ animation-delay:.3s; } .d4{ animation-delay:.42s; } .d5{ animation-delay:.54s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:64px 0 44px; }
+  .card{ padding:22px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="21" cy="21" r="9"/>
+            <path d="M21 6v4M21 32v4M6 21h4M32 21h4M10.5 10.5l2.8 2.8M28.7 28.7l2.8 2.8M31.5 10.5l-2.8 2.8M13.3 28.7l-2.8 2.8" stroke-linecap="round"/>
+            <path d="M17 21a4 4 0 0 1 8 0" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div class="brand-name">The Wandering Hour<small>Mystical Western</small></div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Divinations</a>
+        <a href="#about">Tenets</a>
+      </div>
+      <a href="../index.html" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dusk and deep-night theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-celestial" aria-hidden="true">
+      <svg viewBox="0 0 118 118" fill="none" stroke="currentColor" stroke-width="1.3">
+        <g class="ray">
+          <path d="M59 4v16M59 98v16M4 59h16M98 59h16M19.7 19.7l11.3 11.3M87 87l11.3 11.3M98.3 19.7L87 31M31 87 19.7 98.3" stroke-linecap="round"/>
+          <path d="M59 11v9M59 98v9M11 59h9M98 59h9" stroke-linecap="round" opacity=".5"/>
+        </g>
+        <circle cx="59" cy="59" r="22"/>
+        <path d="M48 59a11 11 0 0 1 22 0" />
+        <circle cx="53" cy="55" r="1.6" fill="currentColor"/>
+        <circle cx="65" cy="55" r="1.6" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="eyebrow rise d1">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5 5 1.6-5 1.6L12 16l-1.6-5.8L5.4 8.6l5-1.6z"/></svg>
+      The Arcana of Interface
+    </div>
+    <h1 class="rise d2">Read the cards.<br/>Drawn for the <em>desert dusk</em>.</h1>
+    <p class="rise d3">A showcase of Mystical Western design — every control framed
+      like a tarot card, lit by faded gold and terracotta under a star-strewn,
+      cactus-quiet sky.</p>
+    <div class="hero-rule rise d3" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 16a8 8 0 0 1 20 0"/><circle cx="12" cy="8" r="3"/></svg>
+    </div>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5 5 1.6-5 1.6L12 16l-1.6-5.8L5.4 8.6l5-1.6z"/></svg>
+        Consult the deck
+      </a>
+      <a href="#about" class="btn">The tenets</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>XXII</b><small>Arcana drawn</small></div>
+      <div class="stat-pill"><b>3</b><small>Phases of moon</small></div>
+      <div class="stat-pill"><b>∞</b><small>Roads through dusk</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">The Major Arcana</div>
+      <h2>A spread of living controls</h2>
+      <p>Every card below is bewitched — drag it, turn it, deal it, press it.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M9 12a3 3 0 0 1 6 0" stroke-linecap="round"/></svg>
+          Now Playing
+        </div>
+        <div class="player-art" id="playerArt">
+          <div class="art-sun" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6">
+              <g class="ray">
+                <path d="M50 6v12M50 82v12M6 50h12M82 50h12M19 19l8.5 8.5M72.5 72.5 81 81M81 19l-8.5 8.5M27.5 72.5 19 81" stroke-linecap="round"/>
+              </g>
+              <circle cx="50" cy="50" r="20"/>
+            </svg>
+          </div>
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Coyote Lullaby</h3>
+            <p>Sister Marigold &middot; Songs for the Long Ride</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Bless this track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21V8M3 8a4 4 0 0 1 8 0M13 21V8M13 8a4 4 0 0 1 8 0"/></svg>
+          Rituals
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Omen alerts</div>
+            <div class="sub">Whisper when fate stirs</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Omen alerts" />
+            <span class="s-track"></span>
+            <span class="s-thumb">
+              <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+              <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.4 1.4M16.6 16.6L18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+            </span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Trail sync</div>
+            <div class="sub">Bound across all camps</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Trail sync" />
+            <span class="s-track"></span>
+            <span class="s-thumb">
+              <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+              <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.4 1.4M16.6 16.6L18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+            </span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Lossless spirits</div>
+            <div class="sub">Heavier on the saddlebag</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Lossless spirits" />
+            <span class="s-track"></span>
+            <span class="s-thumb">
+              <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+              <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.4 1.4M16.6 16.6L18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 12v-6M12 12l4.5 4.5" stroke-linecap="round"/></svg>
+          The Wheel
+        </div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <svg class="dial-ticks" viewBox="0 0 178 178" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <path d="M89 18v8M134 33l-5 6M161 76l-7 2M152 122l-7-4M118 156l-4-7M60 156l4-7M26 122l7-4M17 76l7 2M44 33l5 6"/>
+            </svg>
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>Resonance</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the wheel &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke-linecap="round"/></svg>
+          The Sun
+        </div>
+        <div class="slider-head">
+          <span class="card-title">Daylight</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Midnight</span><span>High noon</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+          The Seeker
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the grimoire&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">Lay the spread as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Spread</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Scroll</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          This Lunar Cycle
+        </div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Fortune</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 nights</b><small>Riding under one moon</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 hymns</b><small>Gathered to your saddlebag</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share the omen</button>
+            <button class="btn">Etch the ledger</button>
+            <button class="btn" disabled>Trail asleep</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">The Minor Arcana</div>
+      <h2>Further divinations</h2>
+      <p>Steppers, ratings, oracles and dialogs — each one cut from the same deck.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a9 9 0 1 0 0 18 2 2 0 0 0 0-4 2 2 0 0 1 0-4h2a5 5 0 0 0 5-5c0-2.8-3.1-5-7-5z"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="11" r="1.2" fill="currentColor"/></svg>
+          The Pigment
+        </div>
+        <h3 class="card-title">Cast a new hue</h3>
+        <p class="muted" style="margin-top:6px">Touch a vial to repaint every charm on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#c98b4a" data-accent="#c98b4a" aria-label="Terracotta"></button>
+          <button class="swatch" style="--sw:#8ba072" data-accent="#8ba072" aria-label="Sage cactus"></button>
+          <button class="swatch" style="--sw:#d9b15e" data-accent="#d9b15e" aria-label="Faded gold"></button>
+          <button class="swatch" style="--sw:#9a6f93" data-accent="#9a6f93" aria-label="Dusk plum"></button>
+          <button class="swatch" style="--sw:#b9554a" data-accent="#b9554a" aria-label="Desert rose"></button>
+          <button class="swatch" style="--sw:#6f88aa" data-accent="#6f88aa" aria-label="Twilight blue"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14M5 12h14M5 16h14M9 3v18M15 3v18" stroke-linecap="round"/></svg>
+          The Stack
+        </div>
+        <h3 class="card-title">Decks of fortune</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Decks of &ldquo;The Wandering Hour&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg>
+          The Verdict
+        </div>
+        <h3 class="card-title">Bless this deck</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Touch to foretell</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M6 12h12M10 18h4" stroke-linecap="round"/></svg>
+          The Order
+        </div>
+        <h3 class="card-title" style="margin-bottom:16px">Read the spread by</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest omens first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest omens first" aria-selected="true">Newest omens first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest omens first" aria-selected="false">Oldest omens first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="By the Arcana" aria-selected="false">By the Arcana<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most foretold" aria-selected="false">Most foretold<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          The Sigil
+        </div>
+        <h3 class="card-title">Speak the rune</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Trace the four-rune sigil</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke-linecap="round"/></svg>
+          The Quill
+        </div>
+        <h3 class="card-title">Engrave the script</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strike" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each rune turns on its own</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.4a2.8 2.8 0 0 1 5.5.7c0 2-2.7 2.5-2.7 4M12 17.5h.01" stroke-linecap="round"/></svg>
+          The Oracle Answers
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What is Mystical Western design?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>It weds the tarot's ornate, occult symbolism to the dusty romance of the
+                old frontier — celestial suns and moons, all-seeing eyes and open hands,
+                cacti and mountain ranges, all framed like cards drawn from a worn deck.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Why frame controls as tarot cards?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A tarot card is a small, self-contained portent — a ruled border, a corner
+                flourish, a single symbol. That format gives each interface element ceremony
+                and weight, as if every toggle were a fortune waiting to be turned over.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does this style ride best?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Storytelling products, music and folklore apps, boutique brands and
+                anything that wants atmosphere over sterility — interfaces meant to feel
+                hand-dealt, lantern-lit and a little bit haunted.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="14" height="14" rx="1.5"/><path d="M9 9h12v12H9"/></svg>
+          The Apparitions
+        </div>
+        <h3 class="card-title">Visions &amp; portents</h3>
+        <p class="muted" style="margin-top:6px">Summon layered spirits that hover above the page.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--accent" id="toastBtn">Send a portent</button>
+          <button class="btn" id="modalBtn">Open the vision</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">The Tenets</div>
+      <h2>Three signs, one prophecy</h2>
+      <p>Mystical Western is ceremony — depth drawn from symbol and dusk.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <div class="about-glyph" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="28" cy="28" r="11"/>
+            <path d="M28 8v8M28 40v8M8 28h8M40 28h8M14 14l5.5 5.5M36.5 36.5 42 42M42 14l-5.5 5.5M19.5 36.5 14 42" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="roman">Sign I</div>
+        <h3>The card as frame</h3>
+        <p>Every element wears a ruled border and corner flourish — a tarot card
+          dealt onto the dusk-purple table, never floating loose.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-glyph" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10 40c0-14 8-22 18-22s18 8 18 22"/>
+            <circle cx="28" cy="14" r="6"/>
+            <path d="M22 14h12M28 8v12" stroke-linecap="round"/>
+            <circle cx="28" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="roman">Sign II</div>
+        <h3>Celestial symbols</h3>
+        <p>Suns, crescent moons, all-seeing eyes and open hands. The decoration
+          speaks an occult-desert language, not a generic one.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-glyph" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 44l14-22 9 13 6-9 19 18z" stroke-linejoin="round"/>
+            <circle cx="40" cy="13" r="6"/>
+            <path d="M40 7v12M34 13h12" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="roman">Sign III</div>
+        <h3>Dusk &amp; faded gold</h3>
+        <p>A night-desert palette — plum shadow, terracotta, sage and gold leaf
+          gone soft — lit by starlight rather than glare.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-mark" aria-hidden="true">
+      <svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.4">
+        <circle cx="25" cy="25" r="10"/>
+        <path d="M25 6v6M25 38v6M6 25h6M38 25h6M12 12l4 4M34 34l4 4M38 12l-4 4M16 34l-4 4" stroke-linecap="round"/>
+        <path d="M21 25a4 4 0 0 1 8 0"/>
+      </svg>
+    </div>
+    <div class="foot-rule" aria-hidden="true">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <p>The Wandering Hour — a Mystical Western design showcase.<br/>
+       Dealt by lantern-light across the dusk. Turn the <a href="#" id="footTheme">night card</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/>
+        <circle cx="12" cy="12" r="3.4"/>
+        <circle cx="12" cy="12" r="1" fill="currentColor"/>
+      </svg>
+    </div>
+    <h3 id="modalTitle">Seal this reading?</h3>
+    <p>The cards you have turned will be bound to your account and ride with you to every camp.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not yet</button>
+      <button class="btn btn--accent" id="modalConfirm">Seal the reading</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('mw-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('mw-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'night' ? 'dusk' : 'night');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = 'calc(' + (100/opts.length) + '% - 0px)';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="currentColor">' +
+      '<path d="M12 2l1.6 5 5 1.6-5 1.6L12 16l-1.6-5.8L5.4 8.6l5-1.6z"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.4; }));
+      root.style.setProperty('--ink-on-acc', lum > 0.62 ? '#241a1f' : '#f3e6cf');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Touch to foretell','Cursed','Clouded','Favoured','Blessed','Destined'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'The sigil holds ✦';
+        showToast('The gate opens', 'Welcome back to The Wandering Hour.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Trace the four-rune sigil';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('The reading is sealed', 'Your spread rides with you now.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('A portent arrives', 'Coyote Lullaby was added to your saddlebag.');
+  });
+})();
+</script>
+</body>
+</html>

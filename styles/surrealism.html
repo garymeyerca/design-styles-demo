@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dusk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Persistence of Interface — A Surrealist Showcase</title>
+<meta name="description" content="A showcase of Surrealist interface design — impossible juxtapositions, melting clocks, floating doorways, watching eyes, and dream logic made interactive." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   SURREALISM — Dalí / Magritte / dream logic.
+   Deep dreamlike skies, melting forms, long shadows, eyes,
+   clouds, doorways, trompe-l'oeil. Uncanny but elegant.
+   ============================================================ */
+:root,
+[data-theme="dusk"]{
+  --sky-top:    #2b3a6b;   /* deep dusk zenith */
+  --sky-mid:    #5a6fa8;
+  --sky-low:    #d9a677;   /* warm horizon glow */
+  --sand:       #e9d8b8;   /* desert floor */
+  --paper:      #f4ead2;   /* aged canvas surface */
+  --paper-2:    #efe0c0;
+  --ink:        #2a2540;   /* deep violet-ink text */
+  --ink-soft:   #6c6486;
+  --accent:     #c0492f;   /* burnt vermilion */
+  --accent-d:   #8a2f1d;
+  --accent-l:   #e0795c;
+  --accent-ink: #f7ecd4;
+  --gold:       #c89b3c;
+  --shadow:     rgba(28,22,48,.34);
+  --edge:       #cbb88c;
+  --frame:      #3a3056;
+}
+[data-theme="noon"]{
+  --sky-top:    #6f97c8;
+  --sky-mid:    #a6c0dc;
+  --sky-low:    #f0d39c;
+  --sand:       #f0e4c6;
+  --paper:      #fbf3df;
+  --paper-2:    #f5e9cd;
+  --ink:        #3a3354;
+  --ink-soft:   #847b9a;
+  --accent:     #c0492f;
+  --accent-d:   #8a2f1d;
+  --accent-l:   #e0795c;
+  --accent-ink: #fbf3df;
+  --gold:       #b78e2e;
+  --shadow:     rgba(60,48,80,.22);
+  --edge:       #d8c79e;
+  --frame:      #4a4068;
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'EB Garamond', Georgia, serif;
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  background:
+    linear-gradient(180deg,
+      var(--sky-top)   0%,
+      var(--sky-mid)  34%,
+      var(--sky-low)  60%,
+      var(--sand)     74%,
+      var(--sand)    100%);
+  background-attachment:fixed;
+  transition:color .6s ease;
+}
+/* a dreaming sun + drifting clouds painted onto the sky */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(13rem 13rem at 78% 20%,
+      rgba(255,243,210,.85), rgba(255,225,170,.32) 45%, transparent 70%),
+    radial-gradient(40rem 22rem at 20% 12%,
+      rgba(255,255,255,.10), transparent 65%);
+}
+/* faint floating clouds layer */
+body::after{
+  content:""; position:fixed; left:-10%; right:-10%; top:0; height:62vh;
+  pointer-events:none; z-index:0; opacity:.5;
+  background:
+    radial-gradient(8rem 3rem at 18% 30%, rgba(255,250,240,.55), transparent 70%),
+    radial-gradient(11rem 4rem at 62% 46%, rgba(255,250,240,.45), transparent 72%),
+    radial-gradient(7rem 2.6rem at 86% 24%, rgba(255,250,240,.42), transparent 72%),
+    radial-gradient(9rem 3.4rem at 40% 58%, rgba(255,250,240,.35), transparent 74%);
+  animation:drift 90s linear infinite;
+}
+@keyframes drift{ from{ transform:translateX(0); } to{ transform:translateX(6%); } }
+
+.wrap{ max-width:1200px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+
+/* shared surrealist motifs ------------------------------------- */
+.eyebrow, .card-label, .seg-label, .slider-scale, .dial-readout small,
+.ring-core small, .stat-pill small{
+  font-family:'EB Garamond', serif;
+  text-transform:uppercase; letter-spacing:.28em;
+}
+h1, h2, h3, .brand-name, .card-title, .player-meta h3,
+.dial-readout b, .ring-core b, .stat-pill b, .step-val, .pin input,
+.tg-btn, .toast b, .modal h3, .slider-head .v{
+  font-family:'Cormorant Garamond', 'Cormorant', serif;
+}
+
+/* a single hovering "eye" decoration used across cards */
+.eye{
+  position:absolute; width:34px; height:20px; pointer-events:none;
+  opacity:.5;
+}
+.eye::before{ /* lid */
+  content:""; position:absolute; inset:0; border-radius:50%;
+  border:1.5px solid var(--ink); border-bottom-color:transparent;
+  transform:rotate(0deg);
+}
+.eye::after{ /* iris */
+  content:""; position:absolute; left:50%; top:48%;
+  width:8px; height:8px; border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 38% 35%, var(--accent-l), var(--accent-d));
+  box-shadow:0 0 0 3px var(--paper);
+}
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:60; margin-top:18px; }
+.nav-inner{
+  display:flex; align-items:center; gap:22px;
+  padding:12px 14px 12px 18px;
+  background:var(--paper);
+  border:1.5px solid var(--frame);
+  border-radius:4px 22px 4px 22px;
+  box-shadow:14px 16px 0 -2px var(--shadow), 0 2px 14px rgba(0,0,0,.18);
+}
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:44px; height:44px; flex:none; position:relative;
+  display:grid; place-items:center;
+  background:
+    linear-gradient(160deg, var(--sky-mid), var(--sky-top));
+  border:1.5px solid var(--frame);
+  border-radius:50% 50% 50% 4px;
+  box-shadow:4px 5px 0 -1px var(--shadow);
+  transform:rotate(-6deg);
+}
+.brand-mark .eyeball{
+  width:20px; height:20px; border-radius:50%;
+  background:var(--paper);
+  display:grid; place-items:center;
+}
+.brand-mark .eyeball span{
+  width:9px; height:9px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--accent-l), var(--accent-d));
+  animation:lookaround 7s ease-in-out infinite;
+}
+@keyframes lookaround{
+  0%,100%{ transform:translate(0,0); }
+  25%{ transform:translate(3px,-2px); }
+  60%{ transform:translate(-3px,1px); }
+}
+.brand-name{ font-weight:600; font-size:1.5rem; letter-spacing:.01em; }
+.brand-name em{ font-style:italic; color:var(--accent); }
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-weight:500;
+  font-size:1.06rem; padding:7px 15px; border-radius:3px 13px 3px 13px;
+  transition:color .25s, background .25s, transform .25s;
+}
+.nav-links a:hover{ color:var(--ink); background:var(--paper-2); transform:rotate(-2deg); }
+
+.all-styles{
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--accent-ink); text-decoration:none; font-weight:600;
+  font-size:1rem; padding:9px 16px;
+  background:var(--accent);
+  border:1.5px solid var(--accent-d);
+  border-radius:3px 14px 3px 14px;
+  box-shadow:4px 5px 0 -1px var(--shadow);
+  transition:transform .22s ease, box-shadow .22s ease;
+}
+.all-styles:hover{ transform:translate(-2px,-2px); box-shadow:6px 8px 0 -1px var(--shadow); }
+.all-styles:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 -1px var(--shadow); }
+
+.icon-btn{
+  width:46px; height:46px; flex:none; border:1.5px solid var(--frame); cursor:pointer;
+  background:var(--paper); color:var(--ink);
+  border-radius:50% 50% 4px 50%;
+  display:grid; place-items:center;
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  transition:transform .2s ease, box-shadow .2s ease, color .2s;
+}
+.icon-btn:hover{ color:var(--accent); transform:translate(-1px,-1px) rotate(4deg); }
+.icon-btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 -1px var(--shadow); }
+.icon-btn svg{ width:20px; height:20px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="noon"] .theme-toggle .sun{ display:none; }
+[data-theme="noon"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:78px 0 56px; position:relative; }
+.hero-doorway{
+  /* a Magritte doorway floating behind the headline */
+  position:absolute; left:50%; top:34px; transform:translateX(-50%) rotate(-3deg);
+  width:240px; height:340px; z-index:-1; opacity:.55;
+  border:2px solid var(--frame);
+  border-radius:120px 120px 6px 6px;
+  background:linear-gradient(180deg, var(--sky-top), var(--accent-l) 120%);
+  box-shadow:22px 26px 0 -6px var(--shadow);
+  animation:floaty 11s ease-in-out infinite;
+}
+.hero-doorway::after{
+  content:""; position:absolute; right:18px; top:50%;
+  width:10px; height:10px; border-radius:50%; background:var(--gold);
+}
+@keyframes floaty{
+  0%,100%{ transform:translateX(-50%) translateY(0) rotate(-3deg); }
+  50%{ transform:translateX(-50%) translateY(-22px) rotate(-1deg); }
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:11px;
+  padding:9px 20px; margin-bottom:28px;
+  background:var(--paper);
+  border:1.5px solid var(--frame);
+  border-radius:999px;
+  box-shadow:5px 6px 0 -1px var(--shadow);
+  font-size:.74rem; font-weight:600; color:var(--ink-soft);
+  transform:rotate(-1.5deg);
+}
+.eyebrow .dot{
+  width:11px; height:11px; flex:none; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--accent-l), var(--accent-d));
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.hero h1{
+  font-weight:600; color:var(--accent-ink);
+  font-size:clamp(2.9rem, 8vw, 6.2rem); line-height:1.0; letter-spacing:.005em;
+  text-shadow:0 2px 0 var(--accent-d), 14px 20px 26px rgba(20,16,40,.5);
+}
+.hero h1 em{ font-style:italic; color:var(--gold); }
+.hero h1 .melt{
+  display:inline-block; transform:skewX(-9deg) scaleY(1.16) translateY(4px);
+  transform-origin:top;
+}
+.hero p{
+  max-width:560px; margin:26px auto 0; font-size:1.22rem;
+  color:var(--accent-ink); font-style:italic;
+  text-shadow:0 2px 6px rgba(20,16,40,.45);
+}
+.hero-cta{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+.hero-stats{
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:52px;
+}
+.stat-pill{
+  padding:16px 26px; min-width:140px;
+  background:var(--paper);
+  border:1.5px solid var(--frame);
+  border-radius:50% 50% 50% 4px / 40% 40% 60% 60%;
+  box-shadow:8px 11px 0 -2px var(--shadow);
+  display:flex; flex-direction:column; align-items:center;
+}
+.stat-pill:nth-child(2){ transform:translateY(-14px) rotate(2deg); }
+.stat-pill:nth-child(3){ transform:rotate(-3deg); }
+.stat-pill b{ font-size:2.5rem; color:var(--accent); line-height:1; font-weight:700; }
+.stat-pill small{ font-size:.66rem; color:var(--ink-soft); margin-top:7px; }
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'EB Garamond', serif; font-size:1.05rem; font-weight:600; cursor:pointer;
+  background:var(--paper); color:var(--ink);
+  border:1.5px solid var(--frame);
+  padding:14px 26px; border-radius:4px 18px 4px 18px;
+  box-shadow:6px 8px 0 -1px var(--shadow);
+  display:inline-flex; align-items:center; gap:10px;
+  transition:transform .2s ease, box-shadow .2s ease, color .2s;
+}
+.btn:hover{ transform:translate(-2px,-2px); box-shadow:9px 12px 0 -1px var(--shadow); }
+.btn:active{ transform:translate(3px,3px); box-shadow:2px 2px 0 -1px var(--shadow); }
+.btn svg{ width:17px; height:17px; }
+.btn--accent{
+  background:var(--accent); color:var(--accent-ink);
+  border-color:var(--accent-d);
+}
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-soft); opacity:.6;
+  background:var(--paper-2); box-shadow:3px 4px 0 -1px var(--shadow);
+}
+.btn:disabled:hover{ transform:none; box-shadow:3px 4px 0 -1px var(--shadow); }
+.btn:focus-visible, .icon-btn:focus-visible, .all-styles:focus-visible{
+  outline:2.5px dashed var(--gold); outline-offset:4px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:54px 0 32px; }
+.section-head{ margin-bottom:38px; position:relative; }
+.section-head h2{
+  font-weight:600; color:var(--accent-ink);
+  font-size:clamp(2rem,4.4vw,3.2rem); letter-spacing:.005em;
+  text-shadow:0 2px 0 var(--accent-d), 8px 12px 18px rgba(20,16,40,.4);
+}
+.section-head h2 em{ font-style:italic; color:var(--gold); }
+.section-head p{ color:var(--accent-ink); margin-top:4px; font-style:italic; font-size:1.1rem; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+.card{
+  position:relative;
+  background:var(--paper);
+  border:1.5px solid var(--frame);
+  border-radius:6px 26px 6px 26px;
+  padding:30px;
+  box-shadow:16px 20px 0 -4px var(--shadow), 0 6px 22px rgba(0,0,0,.16);
+  opacity:0; transform:translateY(34px) rotate(-1.4deg);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.card.in{ opacity:1; transform:rotate(-.6deg); }
+.card:nth-child(even).in{ transform:rotate(.7deg); }
+.card:hover{ transform:rotate(0deg) translateY(-3px); transition:transform .4s ease; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+/* a watching eye perched on the corner of every card */
+.card > .eye{ top:-13px; right:30px; }
+
+.card-label{
+  font-size:.7rem; font-weight:600; color:var(--accent);
+  display:flex; align-items:center; gap:10px; margin-bottom:20px;
+}
+.card-label::before{
+  content:""; width:24px; height:14px; flex:none;
+  border:1.5px solid var(--frame); border-bottom:none;
+  border-radius:14px 14px 0 0;
+  background:linear-gradient(180deg, var(--accent-l), transparent);
+}
+.card-title{ font-weight:600; font-size:1.7rem; letter-spacing:.005em; line-height:1.1; }
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1;
+  border:1.5px solid var(--frame); border-radius:50% 50% 6px 50%;
+  overflow:hidden;
+  background:
+    radial-gradient(60% 50% at 30% 26%, var(--accent-l), transparent 72%),
+    radial-gradient(70% 70% at 82% 88%, var(--sky-top), transparent 76%),
+    linear-gradient(170deg, var(--sky-mid), var(--accent-d));
+  box-shadow:8px 11px 0 -2px var(--shadow);
+  display:grid; place-items:center; margin-bottom:24px;
+}
+/* a melting clock face painted on the album art */
+.player-art::before{
+  content:""; position:absolute; left:16%; top:14%;
+  width:46px; height:46px; border-radius:50% 50% 60% 40%;
+  border:2px solid var(--accent-ink); opacity:.5;
+  transform:skewX(-20deg) rotate(-8deg);
+}
+.player-art::after{
+  content:""; position:absolute; right:14%; bottom:18%;
+  width:0; height:0;
+  border-left:13px solid transparent; border-right:13px solid transparent;
+  border-bottom:46px solid rgba(247,236,212,.28);
+  transform:rotate(18deg);
+}
+.eq{ display:flex; align-items:flex-end; gap:7px; height:54px; position:relative; z-index:1; }
+.eq span{
+  width:9px; height:18px; border-radius:5px 5px 2px 2px;
+  background:var(--accent-ink);
+  box-shadow:0 4px 8px rgba(0,0,0,.3);
+  animation:eq 1000ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-720ms; }
+.eq span:nth-child(3){ animation-delay:-340ms; }
+.eq span:nth-child(4){ animation-delay:-540ms; }
+.eq span:nth-child(5){ animation-delay:-160ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:48px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{ font-size:1.66rem; font-weight:600; line-height:1.12; }
+.player-meta p{ color:var(--ink-soft); font-size:1rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--accent); }
+.heart.on svg{ fill:var(--accent); }
+
+.player-progress{ margin:22px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:12px; border-radius:999px; position:relative;
+  background:var(--paper-2);
+  border:1.5px solid var(--frame);
+}
+.track-fill{
+  position:absolute; left:-1px; top:-1px; bottom:-1px; width:34%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-d), var(--accent-l));
+  border:1.5px solid var(--accent-d);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-11px; top:50%; transform:translateY(-50%);
+  width:22px; height:22px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--paper), var(--gold));
+  border:1.5px solid var(--frame);
+  box-shadow:2px 3px 0 -1px var(--shadow);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.92rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums; font-style:italic;
+}
+.player-controls{
+  display:flex; align-items:center; justify-content:center; gap:20px; margin-top:20px;
+}
+.play-btn{
+  width:70px; height:70px; border:1.5px solid var(--accent-d); cursor:pointer;
+  border-radius:50% 50% 50% 8px;
+  background:var(--accent); color:var(--accent-ink);
+  box-shadow:5px 7px 0 -1px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.play-btn:hover{ transform:translate(-2px,-2px) rotate(-4deg); }
+.play-btn:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 -1px var(--shadow); }
+.play-btn svg{ width:26px; height:26px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:15px 0; }
+.switch-row + .switch-row{ border-top:1.5px dashed var(--edge); }
+.switch-row .lbl{ font-weight:600; font-size:1.12rem; }
+.switch-row .sub{ font-size:.92rem; color:var(--ink-soft); font-style:italic; }
+.switch{ position:relative; width:66px; height:36px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--paper-2); border:1.5px solid var(--frame);
+  transition:background .35s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:28px; height:28px; border-radius:50%;
+  background:radial-gradient(circle at 36% 30%, var(--paper), var(--edge));
+  border:1.5px solid var(--frame);
+  box-shadow:2px 3px 0 -1px var(--shadow);
+  transition:transform .38s cubic-bezier(.34,1.4,.5,1), background .35s;
+}
+.switch input:checked ~ .s-track{ background:color-mix(in srgb, var(--accent) 32%, var(--paper-2)); }
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px) rotate(180deg);
+  background:radial-gradient(circle at 36% 30%, var(--accent-l), var(--accent-d));
+}
+.switch input:focus-visible ~ .s-track{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; }
+.dial{
+  position:relative; width:188px; height:188px; border-radius:50%;
+  background:
+    radial-gradient(circle at 38% 32%, var(--sky-mid), var(--sky-top));
+  border:1.5px solid var(--frame);
+  box-shadow:8px 11px 0 -2px var(--shadow), inset 0 0 30px rgba(20,16,40,.5);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      rgba(247,236,212,.18) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 36% 30%, var(--paper), var(--edge));
+  border:1.5px solid var(--frame);
+  box-shadow:4px 6px 0 -1px var(--shadow);
+  pointer-events:none;
+}
+.dial-knob::before{ /* the rotation notch — a tiny eye */
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--accent-l), var(--accent-d));
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{ font-size:2.5rem; line-height:1; font-weight:700;
+  font-variant-numeric:tabular-nums; }
+.dial-readout small{ display:block; font-size:.62rem; color:var(--ink-soft); margin-top:2px; }
+.dial-hint{ font-size:.96rem; color:var(--accent-ink); font-style:italic; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.slider-head .v{ font-size:2.3rem; color:var(--accent);
+  font-variant-numeric:tabular-nums; font-weight:700; }
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:38px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:14px; border-radius:999px;
+  border:1.5px solid var(--frame);
+  background:linear-gradient(90deg,
+    var(--accent) 0 var(--val,55%), var(--paper-2) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:14px; border-radius:999px;
+  border:1.5px solid var(--frame); background:var(--paper-2); }
+.range::-moz-range-progress{ height:14px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:30px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--paper), var(--gold));
+  border:1.5px solid var(--frame); margin-top:-10px;
+  box-shadow:2px 3px 0 -1px var(--shadow);
+}
+.range::-moz-range-thumb{ width:30px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--paper), var(--gold));
+  border:1.5px solid var(--frame); }
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+.slider-scale{ display:flex; justify-content:space-between; font-size:.66rem;
+  color:var(--ink-soft); margin-top:6px; }
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:13px 18px;
+  background:var(--paper-2); border:1.5px solid var(--frame);
+  border-radius:4px 16px 4px 16px; margin-bottom:24px;
+}
+.search svg{ width:18px; height:18px; color:var(--ink-soft); flex:none; }
+.search input{ border:0; background:transparent; outline:0; font:inherit;
+  font-size:1.05rem; color:var(--ink); width:100%; }
+.search input::placeholder{ color:var(--ink-soft); font-style:italic; }
+
+.seg-label{ font-size:.7rem; color:var(--accent); margin-bottom:10px; }
+.segmented{
+  position:relative; display:flex; padding:6px;
+  background:var(--paper-2); border:1.5px solid var(--frame);
+  border-radius:4px 16px 4px 16px;
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:3px 12px 3px 12px;
+  background:var(--accent); border:1.5px solid var(--accent-d);
+  box-shadow:2px 3px 0 -1px var(--shadow);
+  transition:transform .36s cubic-bezier(.3,1.2,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'EB Garamond', serif; font-weight:600; font-size:1.02rem;
+  color:var(--ink-soft); padding:10px 6px; transition:color .28s;
+}
+.seg-opt.active{ color:var(--accent-ink); }
+.seg-opt:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:2px; border-radius:11px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:36px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:160px; height:160px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--sky-mid), var(--sky-top));
+  border:1.5px solid var(--frame);
+  box-shadow:6px 8px 0 -2px var(--shadow), inset 0 0 26px rgba(20,16,40,.45);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:13px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), rgba(247,236,212,.16) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  transition:--p 1.5s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-size:2.7rem; line-height:1; font-weight:700; color:var(--accent-ink); }
+.ring-core small{ font-size:.6rem; color:var(--accent-ink); opacity:.8; }
+.chips{ display:flex; flex-direction:column; gap:16px; }
+.chip{
+  padding:16px 20px; background:var(--paper-2);
+  border:1.5px solid var(--frame); border-radius:4px 16px 4px 16px;
+  display:flex; align-items:center; gap:14px;
+}
+.chip .ci{
+  width:42px; height:42px; flex:none; display:grid; place-items:center;
+  background:var(--paper); border:1.5px solid var(--frame);
+  border-radius:50% 50% 4px 50%; color:var(--accent);
+}
+.chip .ci svg{ width:19px; height:19px; }
+.chip b{ font-size:1.4rem; font-weight:600; }
+.chip small{ display:block; font-size:.92rem; color:var(--ink-soft); font-style:italic; }
+.btn-stack{ display:flex; flex-direction:column; gap:14px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:1rem; font-style:italic; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.swatch{
+  width:52px; height:52px; border:1.5px solid var(--frame); cursor:pointer;
+  border-radius:50% 50% 50% 6px;
+  background:var(--sw);
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.swatch:hover{ transform:translate(-2px,-2px) rotate(-6deg); }
+.swatch:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 -1px var(--shadow); }
+.swatch::after{
+  content:""; width:14px; height:14px; border-radius:50%;
+  background:var(--paper); opacity:0; transition:opacity .2s, transform .2s;
+  transform:scale(.4);
+}
+.swatch.is-active::after{ opacity:1; transform:scale(1); }
+.swatch.is-active{ transform:rotate(8deg) scale(1.08); }
+.swatch:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px; margin:24px 0 14px; }
+.step-btn{
+  width:56px; height:56px; flex:none; border:1.5px solid var(--frame); cursor:pointer;
+  border-radius:50% 50% 50% 6px;
+  background:var(--paper); color:var(--ink); font-size:1.7rem;
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .18s ease, box-shadow .18s ease, color .2s;
+}
+.step-btn:hover{ color:var(--accent); transform:translate(-1px,-1px) rotate(-5deg); }
+.step-btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 -1px var(--shadow); }
+.step-btn:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+.step-val{
+  min-width:90px; padding:12px 0; text-align:center;
+  background:var(--paper-2); border:1.5px solid var(--frame);
+  border-radius:6px 18px 6px 18px;
+  font-size:2.3rem; font-weight:700; font-variant-numeric:tabular-nums;
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:10px; margin:24px 0 14px; }
+.star{
+  width:50px; height:50px; border:1.5px solid var(--frame); cursor:pointer;
+  border-radius:50% 50% 6px 50%;
+  background:var(--paper); color:var(--ink-soft);
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .18s ease, box-shadow .18s, color .18s;
+}
+.star svg{ width:23px; height:23px; transition:fill .15s; }
+.star:hover{ transform:translateY(-4px) rotate(-8deg); }
+.star.lit{ color:var(--accent); background:color-mix(in srgb, var(--accent) 16%, var(--paper)); }
+.star.lit svg{ fill:var(--accent); }
+.star:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:16px; }
+.acc-item{
+  background:var(--paper-2); border:1.5px solid var(--frame);
+  border-radius:4px 18px 4px 18px;
+  box-shadow:5px 6px 0 -1px var(--shadow);
+  transition:transform .28s ease;
+}
+.acc-item.open{ transform:rotate(-.8deg); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'EB Garamond', serif; font-size:1.16rem;
+  font-weight:600; color:var(--ink); text-align:left; padding:16px 19px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--accent);
+  transition:transform .35s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:-4px; border-radius:18px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .36s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 19px 18px; color:var(--ink-soft); font-size:1.04rem; font-style:italic; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:1.5px solid var(--frame); cursor:pointer;
+  font-family:'EB Garamond', serif; font-size:1.08rem; font-weight:600; color:var(--ink);
+  background:var(--paper-2); padding:15px 19px;
+  border-radius:4px 16px 4px 16px;
+  box-shadow:4px 5px 0 -1px var(--shadow);
+  display:flex; align-items:center; gap:10px;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .28s; }
+.select.open .select-btn{ transform:translate(2px,2px); box-shadow:2px 2px 0 -1px var(--shadow); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 12px); left:0; right:0; z-index:30;
+  list-style:none; margin:0; padding:8px;
+  background:var(--paper); border:1.5px solid var(--frame);
+  border-radius:6px 20px 6px 20px;
+  box-shadow:10px 14px 0 -3px var(--shadow), 0 8px 26px rgba(0,0,0,.22);
+  opacity:0; transform:translateY(-10px) rotate(-2deg); pointer-events:none;
+  transition:opacity .22s, transform .22s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 14px; border-radius:3px 12px 3px 12px; cursor:pointer; font-weight:500;
+  font-size:1.04rem; display:flex; align-items:center; gap:10px;
+  transition:background .15s, color .15s;
+}
+.select-menu li:hover{ background:var(--paper-2); color:var(--accent); }
+.select-menu li[aria-selected="true"]{ background:color-mix(in srgb, var(--accent) 16%, var(--paper)); color:var(--accent); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:13px; margin:24px 0 14px; }
+.pin input{
+  width:56px; height:68px; border:1.5px solid var(--frame); outline:0; text-align:center;
+  font-family:'Cormorant Garamond', serif; font-size:2.1rem; font-weight:700; color:var(--ink);
+  background:var(--paper-2); border-radius:50% 50% 8px 50%;
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  transition:transform .18s, color .18s;
+}
+.pin input.filled{ color:var(--accent); transform:rotate(-5deg) scale(1.05); }
+.pin input:focus{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+.pin.done input{ color:var(--accent); transform:rotate(0); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:13px; margin:24px 0 14px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; border:1.5px solid var(--frame); cursor:pointer;
+  border-radius:50% 50% 50% 6px;
+  background:var(--paper); color:var(--ink);
+  font-size:1.5rem; font-weight:600;
+  box-shadow:3px 4px 0 -1px var(--shadow);
+  display:grid; place-items:center;
+  transition:transform .18s ease, box-shadow .18s, color .18s, background .18s;
+}
+.tg-btn:hover{ color:var(--accent); transform:translate(-1px,-1px) rotate(-5deg); }
+.tg-btn.on{
+  background:var(--accent); color:var(--accent-ink); border-color:var(--accent-d);
+  transform:rotate(6deg);
+}
+.tg-btn:focus-visible{ outline:2.5px dashed var(--gold); outline-offset:3px; }
+.tg-btn::after{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 10px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:var(--paper);
+  font-family:'EB Garamond', serif; font-size:.78rem; font-weight:600; font-style:italic;
+  padding:5px 11px; border-radius:3px 10px 3px 10px;
+  opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::after{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:radial-gradient(circle at 50% 38%, rgba(43,58,107,.55), rgba(20,16,40,.78));
+  -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  opacity:0; transition:opacity .3s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:450px; width:100%; text-align:center; padding:42px 36px;
+  background:var(--paper);
+  border:1.5px solid var(--frame);
+  border-radius:8px 32px 8px 32px;
+  box-shadow:22px 28px 0 -6px var(--shadow), 0 30px 60px -12px rgba(20,16,40,.7);
+  transform:scale(.86) rotate(-4deg) translateY(20px);
+  transition:transform .4s cubic-bezier(.2,1.3,.4,1);
+}
+.modal-overlay.show .modal{ transform:rotate(-1deg); }
+.modal-icon{
+  width:70px; height:70px; margin:0 auto 18px; display:grid; place-items:center;
+  background:radial-gradient(circle at 38% 32%, var(--sky-mid), var(--sky-top));
+  border:1.5px solid var(--frame); border-radius:50% 50% 50% 8px;
+  color:var(--accent-ink);
+  box-shadow:4px 6px 0 -1px var(--shadow);
+  transform:rotate(-8deg);
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{ font-size:1.9rem; font-weight:600; }
+.modal p{ color:var(--ink-soft); margin:10px 0 26px; font-style:italic; font-size:1.08rem; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:26px; bottom:26px; z-index:120;
+  display:flex; flex-direction:column; gap:14px; max-width:calc(100vw - 52px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:15px 20px;
+  background:var(--paper); border:1.5px solid var(--frame);
+  border-radius:6px 22px 6px 22px;
+  box-shadow:10px 13px 0 -3px var(--shadow), 0 8px 22px rgba(0,0,0,.2);
+  transform:translateX(150%) rotate(6deg);
+  transition:transform .5s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:rotate(-2deg); }
+.toast .t-ico{
+  width:42px; height:42px; flex:none; display:grid; place-items:center;
+  background:var(--accent); color:var(--accent-ink);
+  border:1.5px solid var(--accent-d); border-radius:50% 50% 4px 50%;
+}
+.toast .t-ico svg{ width:20px; height:20px; }
+.toast b{ font-size:1.2rem; font-weight:600; }
+.toast small{ display:block; color:var(--ink-soft); font-size:.92rem; font-style:italic; }
+
+/* ============================================================ ABOUT / FOOTER */
+.foot{
+  text-align:center; padding:74px 0 56px;
+  color:var(--accent-ink); font-size:1rem;
+}
+.foot .brand-mark{ margin:0 auto 18px; }
+.foot p{ font-style:italic; text-shadow:0 2px 6px rgba(20,16,40,.4); }
+.foot a{ color:var(--gold); text-decoration:underline; text-underline-offset:3px; }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{
+  from{ opacity:0; transform:translateY(34px) rotate(-3deg); }
+  to{ opacity:1; transform:none; }
+}
+.rise{ animation:rise .95s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.07s; } .d2{ animation-delay:.18s; }
+.d3{ animation-delay:.29s; } .d4{ animation-delay:.4s; } .d5{ animation-delay:.51s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:26px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:54px 0 40px; }
+  .hero-doorway{ width:170px; height:250px; }
+  .card{ padding:24px; }
+  .stat-pill:nth-child(2){ transform:rotate(2deg); }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+  body::after{ animation:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"><div class="eyeball"><span></span></div></div>
+        <div class="brand-name">Ceci n'est pas une <em>UI</em></div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">Manifesto</a>
+      </div>
+      <a class="all-styles" href="../index.html" aria-label="Back to all design styles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle between dusk and noon">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="hero-doorway" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow rise d1"><span class="dot"></span>A Surrealist Design System</div>
+    <h1 class="rise d2">The <em>Persistence</em><br/>of the <span class="melt">Interface</span></h1>
+    <p class="rise d3">A showcase of Surrealism in software — melting clocks, floating
+      doorways, watching eyes, and controls that obey the logic of dreams rather
+      than the logic of grids.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Enter the dream
+      </a>
+      <a href="#about" class="btn">Read the manifesto</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>1</b><small>Melting Clock</small></div>
+      <div class="stat-pill"><b>∞</b><small>Open Doorways</small></div>
+      <div class="stat-pill"><b>0</b><small>Rules Obeyed</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A cabinet of <em>impossible</em> controls</h2>
+      <p>Every object below is awake — drag it, wake it, press it, and watch.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Now Dreaming</div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>The Lobster Telephone</h3>
+            <p>Gala &amp; the Soft Watches</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Whisper alerts</div>
+            <div class="sub">Notify when the sky changes</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Whisper alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-levitate</div>
+            <div class="sub">Across all impossible devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-levitate" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Dreamless audio</div>
+            <div class="sub">Higher subconscious usage</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Dreamless audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Volume of Silence</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the eye &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Light of Day</div>
+        <div class="slider-head">
+          <span class="card-title">The Sun</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Midnight</span><span>High Noon</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Inquiries</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the unconscious&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View as</div>
+        <div class="segmented" id="segmented" role="tablist" aria-label="View mode">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Vision</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Reverie</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Mirage</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">This Week, In Dreams</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Lucidity</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 nights</b><small>Consecutive lucid dreams</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 visions</b><small>Catalogued in the cabinet</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share the dream</button>
+            <button class="btn">Export the reverie</button>
+            <button class="btn" disabled>Waking paused</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Further <em>impossibilities</em></h2>
+      <p>Steppers, ratings, doorways and dialogs — each one painted from memory.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Repaint the Sky</div>
+        <h3 class="card-title">Accent pigment</h3>
+        <p class="muted" style="margin-top:6px">Choose a pigment and the whole dream changes hue.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#c0492f" data-accent="#c0492f" aria-label="Vermilion"></button>
+          <button class="swatch" style="--sw:#3f6f63" data-accent="#3f6f63" aria-label="Verdigris"></button>
+          <button class="swatch" style="--sw:#3c5a8a" data-accent="#3c5a8a" aria-label="Cobalt"></button>
+          <button class="swatch" style="--sw:#7a4a83" data-accent="#7a4a83" aria-label="Amethyst"></button>
+          <button class="swatch" style="--sw:#c89b3c" data-accent="#c89b3c" aria-label="Ochre"></button>
+          <button class="swatch" style="--sw:#b34a6a" data-accent="#b34a6a" aria-label="Madder"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Stepper</div>
+        <h3 class="card-title">Order of eggs</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Eggs, suspended over a desert</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Reverie Rating</div>
+        <h3 class="card-title">Rate this dream</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">A Hidden Doorway</div>
+        <h3 class="card-title" style="margin-bottom:18px">Order of memory</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest dream first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox" aria-label="Order of memory">
+            <li role="option" data-val="Newest dream first" aria-selected="true">Newest dream first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest dream first" aria-selected="false">Oldest dream first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="By strangeness" aria-selected="false">By strangeness<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most recurring" aria-selected="false">Most recurring<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">The Secret Key</div>
+        <h3 class="card-title">Dream cipher</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter your 4-digit cipher</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Toggle group</div>
+        <h3 class="card-title">Hand of the painter</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each gesture acts of its own will</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Questions From the Subconscious</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What exactly is Surrealism?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A movement that frees the imagination by mining the unconscious — pairing photoreal craft with impossible juxtapositions, so a familiar object becomes a strange revelation.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Can a dream still be usable?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Yes — the strangeness is in the imagery, never the logic. Every control here keeps clear labels, visible focus rings and predictable behaviour beneath its uncanny skin.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does it belong?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>In experiences that want to feel wondrous and memorable — storytelling sites, galleries, music players — where a touch of dream logic makes the ordinary unforgettable.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Apparitions</div>
+        <h3 class="card-title">Dialogs &amp; toasts</h3>
+        <p class="muted" style="margin-top:6px">Visions that float above the painted world.</p>
+        <div class="btn-stack" style="margin-top:20px">
+          <button class="btn btn--accent" id="toastBtn">Summon an apparition</button>
+          <button class="btn" id="modalBtn">Open the doorway</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three rules of the <em>dream</em></h2>
+      <p>Surrealism is craft in service of the impossible.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Rule 01</div>
+        <h3 class="card-title">Impossible juxtaposition</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-style:italic">
+          Place the familiar where it cannot belong — a clock that melts, an egg
+          in the sky. Meaning is born from the collision.</p>
+      </section>
+      <section class="card">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Rule 02</div>
+        <h3 class="card-title">Precise, elegant craft</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-style:italic">
+          The stranger the idea, the steadier the hand. Long dramatic shadows and
+          fine rendering make the impossible feel <em>true</em>.</p>
+      </section>
+      <section class="card">
+        <span class="eye" aria-hidden="true"></span>
+        <div class="card-label">Rule 03</div>
+        <h3 class="card-title">Uncanny, never chaotic</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-style:italic">
+          A dream has its own quiet order. Tilt, float and melt with restraint —
+          unsettle the eye without ever confusing it.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand-mark"><div class="eyeball"><span></span></div></div>
+    <p>Ceci n'est pas une UI — a Surrealist design showcase.<br/>
+       Painted from memory. Try the <a href="#" id="footTheme">dusk &amp; noon toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Step through the doorway?</h3>
+    <p>Beyond this threshold the sky is upside down and the clocks have softened.
+       Your changes will follow you into the dream.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Stay awake</button>
+      <button class="btn btn--accent" id="modalConfirm">Enter the dream</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('surreal-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('surreal-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'noon' ? 'dusk' : 'noon');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1500);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b></b><small></small></div>';
+    t.querySelector('b').textContent = title;
+    t.querySelector('small').textContent = msg;
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 520);
+    }, 3500);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.44; }));
+      root.style.setProperty('--accent-ink', lum > 0.62 ? '#2a2540' : '#f7ecd4');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Faint','Hazy','Vivid','Lucid','Transcendent'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Cipher accepted — the doorway opens';
+        showToast('The dream admits you', 'Welcome past the threshold.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit cipher';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 320);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('You crossed the threshold', 'The dream has been remembered.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  /* focus trap for the modal */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab' || overlay.hidden) return;
+    var f = overlay.querySelectorAll('button');
+    if(!f.length) return;
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('An apparition appears', 'The Lobster Telephone was added to your reverie.');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Gilded Parlour — A Victorian Showcase</title>
+<meta name="description" content="A showcase of Victorian design — damask wallpaper, gilded frames, ornamental dividers and fleur-de-lis flourishes from the 19th-century parlour." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   THE GILDED PARLOUR — Victorian / 19th-century opulence.
+   Deep burgundy ground, damask wallpaper, gilt frames, ivory.
+   ============================================================ */
+:root,
+[data-theme="dark"]{
+  --bg:           #2a1418;   /* deep burgundy ground */
+  --bg-2:         #351a1f;
+  --panel:        #34191e;   /* parlour-room panel */
+  --panel-2:      #3d1f24;
+  --ink:          #efe4cb;   /* ivory */
+  --ink-soft:     #c4a98a;
+  --ink-faint:    #8c6f5c;
+  --gilt:         #c69a4c;   /* gilt gold */
+  --gilt-d:       #9c7b3a;
+  --gilt-l:       #e6c878;
+  --accent:       #b6473f;   /* deep rouge red */
+  --accent-d:     #7e2c2a;
+  --accent-l:     #d4796c;
+  --accent-ink:   #fbf3df;
+  --line:         rgba(198,154,76,.34);
+  --line-soft:    rgba(198,154,76,.16);
+  --shade:        rgba(0,0,0,.5);
+}
+[data-theme="light"]{
+  --bg:           #1d3a2e;   /* bottle-green parlour */
+  --bg-2:         #244537;
+  --panel:        #244638;
+  --panel-2:      #2c5343;
+  --ink:          #f1e6c9;
+  --ink-soft:     #cdb98c;
+  --ink-faint:    #8d9a7e;
+  --gilt:         #cfa552;
+  --gilt-d:       #a3823c;
+  --gilt-l:       #ecd084;
+  --accent:       #b6473f;
+  --accent-d:     #802d2a;
+  --accent-l:     #d4796c;
+  --accent-ink:   #fbf3df;
+  --line:         rgba(207,165,82,.36);
+  --line-soft:    rgba(207,165,82,.18);
+  --shade:        rgba(0,0,0,.45);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'EB Garamond', Georgia, serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:1.04rem;
+  -webkit-font-smoothing:antialiased;
+  transition:background .6s ease, color .6s ease;
+  overflow-x:hidden;
+  position:relative;
+}
+/* ---- Damask wallpaper: repeating ornamental motif ---- */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 50% 18%, var(--line-soft) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 0% 50%, var(--line-soft) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 100% 50%, var(--line-soft) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 50% 82%, var(--line-soft) 0 1.4px, transparent 2px),
+    radial-gradient(ellipse 22px 38px at 50% 50%, transparent 38%, var(--line-soft) 39% 41%, transparent 42%),
+    radial-gradient(ellipse 40px 22px at 50% 0%, transparent 46%, var(--line-soft) 47% 49%, transparent 50%),
+    radial-gradient(ellipse 40px 22px at 50% 100%, transparent 46%, var(--line-soft) 47% 49%, transparent 50%);
+  background-size:104px 104px;
+  background-position:0 0;
+  opacity:.55;
+}
+body::after{ /* vignette to deepen the parlour gloom */
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%);
+}
+
+.wrap{ max-width:1200px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+::selection{ background:var(--gilt); color:#2a1418; }
+
+/* ---- Ornamental divider ---- */
+.divider{
+  display:flex; align-items:center; justify-content:center; gap:18px;
+  margin:0 auto; color:var(--gilt);
+}
+.divider::before, .divider::after{
+  content:""; height:1px; flex:1; max-width:200px;
+  background:linear-gradient(90deg, transparent, var(--gilt-d), transparent);
+}
+.divider .fleur{ width:26px; height:26px; flex:none; }
+
+/* fleur-de-lis reusable mark */
+.fleur svg{ width:100%; height:100%; display:block; }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:0; z-index:50; }
+.nav-inner{
+  display:flex; align-items:center; gap:24px;
+  margin-top:0; padding:14px 22px;
+  background:linear-gradient(180deg, var(--bg-2), var(--bg));
+  border-bottom:2px solid var(--gilt-d);
+  box-shadow:0 6px 22px -8px var(--shade);
+  position:relative;
+}
+.nav-inner::after{ /* fine gilt hairline */
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gilt), transparent);
+  opacity:.5;
+}
+.brand{ display:flex; align-items:center; gap:14px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; display:grid; place-items:center;
+  border:2px solid var(--gilt); border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--accent-l), var(--accent-d));
+  box-shadow:inset 0 0 8px rgba(0,0,0,.6), 0 0 0 3px var(--bg), 0 0 0 4px var(--gilt-d);
+  color:var(--gilt-l);
+}
+.brand-mark .fleur{ width:22px; height:22px; }
+.brand-name{
+  font-family:'Cinzel Decorative', serif; font-weight:700; font-size:1.18rem;
+  letter-spacing:.04em; color:var(--gilt-l);
+  text-shadow:0 1px 0 rgba(0,0,0,.6);
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-size:1rem;
+  font-variant:small-caps; letter-spacing:.06em; font-weight:500;
+  padding:7px 16px; border-radius:3px; position:relative;
+  transition:color .25s;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:50%; right:50%; bottom:2px; height:1px;
+  background:var(--gilt); transition:left .28s ease, right .28s ease;
+}
+.nav-links a:hover{ color:var(--gilt-l); }
+.nav-links a:hover::after{ left:14px; right:14px; }
+
+.all-styles{
+  display:inline-flex; align-items:center; gap:7px;
+  color:var(--gilt-l); text-decoration:none; font-variant:small-caps;
+  letter-spacing:.05em; font-weight:600; font-size:.96rem;
+  padding:8px 15px; border:1px solid var(--gilt-d); border-radius:3px;
+  background:rgba(0,0,0,.2); transition:background .25s, border-color .25s;
+}
+.all-styles:hover{ background:rgba(198,154,76,.14); border-color:var(--gilt); }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; border:1px solid var(--gilt-d); cursor:pointer;
+  border-radius:50%; background:rgba(0,0,0,.22); color:var(--gilt-l);
+  display:grid; place-items:center;
+  transition:background .22s, color .22s, box-shadow .22s;
+}
+.icon-btn:hover{ background:rgba(198,154,76,.16); box-shadow:0 0 12px -2px var(--gilt-d); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="light"] .theme-toggle .sun{ display:none; }
+[data-theme="light"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ GILT FRAME (shared) */
+.frame{
+  position:relative;
+  background:
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d);
+  border-radius:5px;
+  box-shadow:0 18px 40px -16px var(--shade),
+             inset 0 0 0 5px var(--bg-2),
+             inset 0 0 0 6px var(--line-soft);
+  padding:30px;
+}
+/* ornate corner flourishes for framed cards */
+.frame .corner{
+  position:absolute; width:24px; height:24px; color:var(--gilt);
+  pointer-events:none; opacity:.92;
+}
+.frame .corner.tl{ top:6px; left:6px; }
+.frame .corner.tr{ top:6px; right:6px; transform:scaleX(-1); }
+.frame .corner.bl{ bottom:6px; left:6px; transform:scaleY(-1); }
+.frame .corner.br{ bottom:6px; right:6px; transform:scale(-1,-1); }
+.frame .corner svg{ width:100%; height:100%; display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:88px 0 64px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:12px;
+  padding:8px 22px; margin-bottom:30px;
+  border-top:1px solid var(--gilt-d); border-bottom:1px solid var(--gilt-d);
+  font-family:'Cinzel Decorative', serif; font-size:.72rem; font-weight:700;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gilt-l);
+}
+.eyebrow .fleur{ width:14px; height:14px; color:var(--gilt); }
+.hero h1{
+  font-family:'Cinzel Decorative', serif; font-weight:900;
+  font-size:clamp(2.5rem, 6.4vw, 5rem); line-height:1.12; letter-spacing:.01em;
+  color:var(--ink);
+  text-shadow:0 2px 0 rgba(0,0,0,.5), 0 0 36px rgba(198,154,76,.12);
+}
+.hero h1 em{
+  display:inline-block; font-style:normal;
+  font-family:'Cormorant Garamond', serif; font-weight:600;
+  font-size:1.06em; letter-spacing:0;
+  color:var(--gilt-l);
+  text-shadow:0 2px 0 rgba(0,0,0,.6);
+}
+.hero p{
+  max-width:600px; margin:26px auto 0; font-size:1.26rem;
+  color:var(--ink-soft); font-family:'Cormorant Garamond', serif;
+  font-style:italic; line-height:1.6;
+}
+.hero-divider{ margin:34px auto 0; }
+.hero-cta{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:52px; }
+.stat-pill{
+  position:relative; padding:18px 30px; min-width:150px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d); border-radius:4px;
+  box-shadow:inset 0 0 0 3px var(--bg-2), 0 10px 24px -14px var(--shade);
+  display:flex; flex-direction:column; align-items:center;
+}
+.stat-pill b{
+  font-family:'Cinzel Decorative', serif; font-size:2rem; line-height:1;
+  color:var(--gilt-l);
+}
+.stat-pill small{
+  font-size:.74rem; color:var(--ink-soft); margin-top:8px;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.stat-pill::before, .stat-pill::after{
+  content:"\2766"; position:absolute; color:var(--gilt-d); font-size:.8rem;
+  top:50%; transform:translateY(-50%);
+}
+.stat-pill::before{ left:9px; }
+.stat-pill::after{ right:9px; }
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Cinzel Decorative', serif; font-size:.82rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+  background:linear-gradient(180deg, var(--panel-2), var(--bg-2));
+  color:var(--gilt-l); padding:14px 26px;
+  border:1px solid var(--gilt-d); border-radius:4px;
+  box-shadow:inset 0 1px 0 rgba(230,200,120,.18), 0 8px 18px -10px var(--shade);
+  display:inline-flex; align-items:center; gap:10px;
+  transition:transform .18s ease, box-shadow .2s ease, background .25s, color .2s;
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(230,200,120,.25), 0 12px 22px -10px var(--shade), 0 0 14px -4px var(--gilt-d); }
+.btn:active{ transform:translateY(0); box-shadow:inset 0 3px 8px rgba(0,0,0,.5); }
+.btn svg{ width:16px; height:16px; }
+.btn--accent{
+  background:linear-gradient(180deg, var(--accent-l), var(--accent-d));
+  color:var(--accent-ink); border-color:var(--gilt);
+  text-shadow:0 1px 1px rgba(0,0,0,.4);
+}
+.btn--accent:hover{ box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 12px 24px -10px var(--shade), 0 0 16px -4px var(--accent); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-faint); opacity:.6;
+  background:var(--bg-2); transform:none; box-shadow:none;
+}
+.btn:disabled:hover{ transform:none; box-shadow:none; }
+.btn:focus-visible, .icon-btn:focus-visible, .all-styles:focus-visible{
+  outline:2px solid var(--gilt-l); outline-offset:3px;
+}
+
+/* ============================================================ SECTION HEADS */
+.showcase{ padding:54px 0 34px; }
+.section-head{ text-align:center; margin-bottom:42px; }
+.section-head h2{
+  font-family:'Cinzel Decorative', serif; font-weight:700;
+  font-size:clamp(1.7rem,3.6vw,2.5rem); letter-spacing:.02em; color:var(--ink);
+}
+.section-head p{
+  color:var(--ink-soft); margin-top:8px; font-family:'Cormorant Garamond', serif;
+  font-style:italic; font-size:1.2rem;
+}
+.section-head .divider{ margin-top:18px; }
+
+/* ============================================================ BENTO */
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+.card{
+  position:relative;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d); border-radius:5px;
+  box-shadow:0 20px 44px -18px var(--shade),
+             inset 0 0 0 5px var(--bg-2),
+             inset 0 0 0 6px var(--line-soft);
+  padding:30px;
+  opacity:0; transform:translateY(28px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.card.in{ opacity:1; transform:none; }
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card--wide{ grid-column:span 2; }
+
+.card .corner{
+  position:absolute; width:26px; height:26px; color:var(--gilt);
+  pointer-events:none; opacity:.9; z-index:2;
+}
+.card .corner.tl{ top:7px; left:7px; }
+.card .corner.tr{ top:7px; right:7px; transform:scaleX(-1); }
+.card .corner.bl{ bottom:7px; left:7px; transform:scaleY(-1); }
+.card .corner.br{ bottom:7px; right:7px; transform:scale(-1,-1); }
+.card .corner svg{ width:100%; height:100%; display:block; }
+
+.card-label{
+  font-family:'Cinzel Decorative', serif; font-size:.66rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gilt);
+  display:flex; align-items:center; gap:10px; margin-bottom:20px;
+}
+.card-label::before{
+  content:""; width:16px; height:16px; flex:none;
+  background:var(--gilt); opacity:.55;
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2c2 2 2 5 0 7 2-2 5-2 7 0-2 0-4 2-4 4 0 3-3 7-3 9 0-2-3-6-3-9 0-2-2-4-4-4 2-2 5-2 7 0-2-2-2-5 0-7z'/></svg>") center/contain no-repeat;
+          mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2c2 2 2 5 0 7 2-2 5-2 7 0-2 0-4 2-4 4 0 3-3 7-3 9 0-2-3-6-3-9 0-2-2-4-4-4 2-2 5-2 7 0-2-2-2-5 0-7z'/></svg>") center/contain no-repeat;
+}
+.card-title{
+  font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.6rem;
+  letter-spacing:.01em; color:var(--ink);
+}
+.muted{ color:var(--ink-soft); font-size:1.04rem; font-family:'Cormorant Garamond',serif; }
+.center{ text-align:center; }
+
+/* ---------------------------------------------- Music player */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:4px;
+  background:
+    radial-gradient(60% 55% at 30% 26%, var(--accent-l), transparent 70%),
+    radial-gradient(70% 70% at 78% 86%, var(--accent-d), transparent 78%),
+    linear-gradient(160deg, var(--accent), var(--accent-d));
+  border:3px solid var(--gilt-d);
+  box-shadow:inset 0 0 0 3px var(--bg-2), inset 0 0 30px rgba(0,0,0,.55),
+             0 14px 30px -16px var(--shade);
+  display:grid; place-items:center; margin-bottom:22px; overflow:hidden;
+}
+.player-art::before{ /* ornate medallion ring */
+  content:""; position:absolute; inset:18px; border-radius:50%;
+  border:1px solid var(--gilt); opacity:.45;
+}
+.player-art .crest{ width:78px; height:78px; color:var(--gilt-l); opacity:.5;
+  position:absolute; }
+.eq{ display:flex; align-items:flex-end; gap:6px; height:54px; position:relative; z-index:1; }
+.eq span{
+  width:8px; height:16px; border-radius:1px;
+  background:linear-gradient(180deg, var(--gilt-l), var(--gilt-d));
+  box-shadow:0 0 6px rgba(0,0,0,.5);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:48px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Cormorant Garamond', serif; font-size:1.55rem; font-weight:600;
+  line-height:1.2; color:var(--ink);
+}
+.player-meta p{ color:var(--ink-soft); font-size:1.02rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--accent-l); border-color:var(--accent); }
+.heart.on svg{ fill:var(--accent-l); }
+
+.player-progress{ margin:22px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:10px; border-radius:2px; position:relative;
+  background:var(--bg-2);
+  border:1px solid var(--gilt-d);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.6);
+}
+.track-fill{
+  position:absolute; left:1px; top:1px; bottom:1px; width:34%; border-radius:1px;
+  background:linear-gradient(90deg, var(--gilt-d), var(--gilt-l));
+}
+.track-fill::after{
+  content:""; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--gilt-l), var(--gilt-d));
+  border:1px solid var(--bg-2);
+  box-shadow:0 2px 6px rgba(0,0,0,.6);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.86rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums; letter-spacing:.04em;
+}
+.player-controls{
+  display:flex; align-items:center; justify-content:center; gap:22px; margin-top:22px;
+}
+.play-btn{
+  width:70px; height:70px; flex:none; cursor:pointer; border-radius:50%;
+  background:radial-gradient(circle at 38% 30%, var(--accent-l), var(--accent-d));
+  color:var(--accent-ink);
+  border:2px solid var(--gilt);
+  box-shadow:inset 0 0 8px rgba(0,0,0,.4), 0 8px 20px -8px var(--shade),
+             0 0 0 4px var(--panel);
+  display:grid; place-items:center; transition:transform .18s, box-shadow .2s;
+}
+.play-btn:hover{ transform:translateY(-2px); box-shadow:inset 0 0 8px rgba(0,0,0,.4), 0 12px 24px -8px var(--shade), 0 0 0 4px var(--panel), 0 0 18px -4px var(--accent); }
+.play-btn:active{ transform:translateY(0); box-shadow:inset 0 4px 12px rgba(0,0,0,.6), 0 0 0 4px var(--panel); }
+.play-btn svg{ width:24px; height:24px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---------------------------------------------- Switches */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:16px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--line-soft); }
+.switch-row .lbl{ font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:1.16rem; color:var(--ink); }
+.switch-row .sub{ font-size:.92rem; color:var(--ink-soft); }
+.switch{ position:relative; width:66px; height:34px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:2px;
+  background:var(--bg-2); border:1px solid var(--gilt-d);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.6); transition:background .3s, border-color .3s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:26px; height:26px; border-radius:2px;
+  background:radial-gradient(circle at 36% 30%, var(--gilt-l), var(--gilt-d));
+  border:1px solid var(--bg-2);
+  box-shadow:0 2px 5px rgba(0,0,0,.6);
+  transition:transform .34s cubic-bezier(.34,1.3,.5,1), background .3s;
+}
+.switch input:checked ~ .s-track{
+  background:linear-gradient(180deg, var(--accent), var(--accent-d));
+  border-color:var(--gilt);
+}
+.switch input:checked ~ .s-thumb{ transform:translateX(32px); }
+.switch input:focus-visible ~ .s-track{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+
+/* ---------------------------------------------- Dial */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; }
+.dial{
+  position:relative; width:184px; height:184px; border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, var(--bg-2), var(--panel));
+  border:2px solid var(--gilt-d);
+  box-shadow:inset 0 0 22px rgba(0,0,0,.7), 0 0 0 5px var(--panel), 0 0 0 6px var(--line-soft);
+  display:grid; place-items:center; touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--gilt-l) 0 calc(var(--v,40) * 2.7deg),
+      rgba(0,0,0,.5) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+          mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 38% 30%, var(--panel-2), var(--bg-2));
+  border:1px solid var(--gilt-d);
+  box-shadow:0 6px 14px rgba(0,0,0,.55), inset 0 1px 0 rgba(230,200,120,.15);
+  pointer-events:none;
+}
+.dial-knob::before{
+  content:""; position:absolute; top:12px; left:50%; transform:translateX(-50%);
+  width:9px; height:9px; border-radius:50%;
+  background:var(--gilt-l); box-shadow:0 0 8px 2px rgba(230,200,120,.5);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Cinzel Decorative', serif; font-size:1.9rem; line-height:1;
+  color:var(--gilt-l); font-variant-numeric:tabular-nums;
+}
+.dial-readout small{
+  display:block; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:5px;
+}
+.dial-hint{ font-size:.96rem; color:var(--ink-soft); font-style:italic; }
+
+/* ---------------------------------------------- Slider */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.slider-head .v{
+  font-family:'Cinzel Decorative', serif; font-size:1.5rem; color:var(--gilt-l);
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:32px;
+  background:transparent; cursor:pointer; margin:8px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:12px; border-radius:2px;
+  border:1px solid var(--gilt-d);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.6);
+  background:linear-gradient(90deg, var(--gilt) 0 var(--val,55%),
+    var(--bg-2) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:12px; border-radius:2px; border:1px solid var(--gilt-d);
+  background:var(--bg-2); }
+.range::-moz-range-progress{ height:12px; border-radius:2px; background:var(--gilt); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--gilt-l), var(--gilt-d));
+  border:1px solid var(--bg-2); margin-top:-8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.6);
+}
+.range::-moz-range-thumb{
+  width:26px; height:26px; border:1px solid var(--bg-2); border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, var(--gilt-l), var(--gilt-d));
+}
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px var(--gilt-l); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.8rem;
+  color:var(--ink-soft); margin-top:4px; font-variant:small-caps; letter-spacing:.06em;
+}
+
+/* ---------------------------------------------- Inputs */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 18px;
+  background:var(--bg-2); border:1px solid var(--gilt-d); border-radius:3px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.5); margin-bottom:24px;
+}
+.search svg{ width:18px; height:18px; color:var(--gilt); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; font:inherit; font-size:1.06rem;
+  color:var(--ink); width:100%;
+}
+.search input::placeholder{ color:var(--ink-faint); font-style:italic; }
+
+.seg-label{ font-size:.86rem; color:var(--ink-soft); margin-bottom:10px;
+  font-variant:small-caps; letter-spacing:.08em; }
+.segmented{
+  position:relative; display:flex; padding:5px; border-radius:3px;
+  background:var(--bg-2); border:1px solid var(--gilt-d);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.5);
+}
+.seg-thumb{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px);
+  border-radius:2px;
+  background:linear-gradient(180deg, var(--accent-l), var(--accent-d));
+  border:1px solid var(--gilt);
+  box-shadow:0 2px 6px rgba(0,0,0,.5);
+  transition:transform .34s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Cinzel Decorative',serif; font-weight:700; font-size:.72rem;
+  letter-spacing:.07em; text-transform:uppercase;
+  color:var(--ink-soft); padding:11px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:var(--accent-ink); }
+.seg-opt:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:2px; }
+
+/* ---------------------------------------------- Activity */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:38px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:158px; height:158px; border-radius:50%;
+  background:radial-gradient(circle, var(--bg-2), var(--panel));
+  border:2px solid var(--gilt-d);
+  box-shadow:inset 0 0 18px rgba(0,0,0,.6), 0 0 0 5px var(--panel);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:12px; border-radius:50%;
+  background:conic-gradient(var(--gilt-l) calc(var(--p)*1%), rgba(0,0,0,.5) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-family:'Cinzel Decorative', serif; font-size:1.9rem; line-height:1;
+  color:var(--gilt-l); }
+.ring-core small{ font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft); }
+.chips{ display:flex; flex-direction:column; gap:16px; }
+.chip{
+  padding:16px 20px; border-radius:3px;
+  background:var(--bg-2); border:1px solid var(--line-soft);
+  box-shadow:inset 0 1px 4px rgba(0,0,0,.4);
+  display:flex; align-items:center; gap:16px;
+}
+.chip .ci{
+  width:42px; height:42px; flex:none; border-radius:50%; display:grid; place-items:center;
+  background:radial-gradient(circle at 38% 30%, var(--accent-l), var(--accent-d));
+  border:1px solid var(--gilt); color:var(--gilt-l);
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Cormorant Garamond', serif; font-size:1.34rem; color:var(--ink); }
+.chip small{ display:block; font-size:.92rem; color:var(--ink-soft); }
+.btn-stack{ display:flex; flex-direction:column; gap:14px; }
+
+/* ---------------------------------------------- Accent swatches */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.swatch{
+  width:50px; height:50px; border:1px solid var(--gilt-d); cursor:pointer;
+  border-radius:50%; background:var(--bg-2);
+  box-shadow:inset 0 0 0 3px var(--panel); display:grid; place-items:center;
+  transition:transform .18s, box-shadow .2s;
+}
+.swatch:hover{ transform:translateY(-3px); box-shadow:inset 0 0 0 3px var(--panel), 0 0 12px -2px var(--gilt-d); }
+.swatch::after{
+  content:""; width:24px; height:24px; border-radius:50%; background:var(--sw);
+  box-shadow:inset 0 -2px 4px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.4); transition:.2s;
+}
+.swatch.is-active{ border-color:var(--gilt-l); box-shadow:inset 0 0 0 3px var(--panel), 0 0 14px -2px var(--gilt); }
+.swatch.is-active::after{
+  width:20px; height:20px;
+  box-shadow:inset 0 -2px 4px rgba(0,0,0,.45), 0 0 0 3px var(--panel), 0 0 0 5px var(--gilt-l);
+}
+.swatch:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+
+/* ---------------------------------------------- Stepper */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px; margin:24px 0 14px; }
+.step-btn{
+  width:54px; height:54px; flex:none; cursor:pointer; border-radius:50%;
+  background:linear-gradient(180deg, var(--panel-2), var(--bg-2));
+  color:var(--gilt-l); border:1px solid var(--gilt-d); font-size:1.5rem;
+  display:grid; place-items:center; transition:background .2s, transform .15s, box-shadow .18s;
+  box-shadow:inset 0 1px 0 rgba(230,200,120,.15);
+}
+.step-btn:hover{ background:linear-gradient(180deg, var(--accent-l), var(--accent-d)); color:var(--accent-ink); }
+.step-btn:active{ transform:scale(.94); box-shadow:inset 0 3px 8px rgba(0,0,0,.5); }
+.step-btn:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+.step-val{
+  min-width:90px; padding:14px 0; border-radius:3px;
+  background:var(--bg-2); border:1px solid var(--gilt-d);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.5);
+  font-family:'Cinzel Decorative', serif; font-size:1.6rem; color:var(--gilt-l);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------------------------------------------- Star rating */
+.stars{ display:flex; justify-content:center; gap:10px; margin:24px 0 14px; }
+.star{
+  width:50px; height:50px; cursor:pointer; border-radius:50%;
+  background:var(--bg-2); color:var(--ink-faint);
+  border:1px solid var(--gilt-d);
+  display:grid; place-items:center;
+  transition:transform .15s, color .15s, box-shadow .18s, background .2s;
+}
+.star svg{ width:24px; height:24px; transition:fill .15s; }
+.star:hover{ transform:translateY(-3px) rotate(-6deg); }
+.star.lit{
+  color:var(--gilt-l); background:linear-gradient(180deg, var(--panel-2), var(--bg-2));
+  box-shadow:0 0 12px -2px var(--gilt-d);
+}
+.star.lit svg{ fill:var(--gilt-l); }
+.star:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+
+/* ---------------------------------------------- Accordion */
+.accordion{ display:flex; flex-direction:column; gap:14px; }
+.acc-item{
+  border:1px solid var(--gilt-d); border-radius:3px;
+  background:var(--bg-2);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.35); transition:box-shadow .26s;
+}
+.acc-item.open{ box-shadow:inset 0 0 0 1px var(--line-soft), 0 0 14px -6px var(--gilt-d); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.2rem;
+  color:var(--ink); text-align:left; padding:16px 19px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--gilt);
+  transition:transform .3s, color .3s; }
+.acc-item.open .acc-head{ color:var(--gilt-l); }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); color:var(--gilt-l); }
+.acc-head:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:-3px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 19px 18px; color:var(--ink-soft); font-size:1.04rem; }
+
+/* ---------------------------------------------- Custom select */
+.select{ position:relative; }
+.select-btn{
+  width:100%; cursor:pointer;
+  font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.14rem;
+  color:var(--ink);
+  background:var(--bg-2); border:1px solid var(--gilt-d); border-radius:3px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.5);
+  padding:14px 18px; display:flex; align-items:center; gap:10px;
+  transition:border-color .2s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--gilt); transition:transform .25s; }
+.select.open .select-btn{ border-color:var(--gilt-l); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:7px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt-d); border-radius:3px;
+  box-shadow:0 22px 44px -16px var(--shade), inset 0 0 0 3px var(--bg-2);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 14px; border-radius:2px; cursor:pointer;
+  font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.1rem;
+  color:var(--ink-soft);
+  display:flex; align-items:center; gap:10px; transition:color .15s, background .15s;
+}
+.select-menu li:hover{ color:var(--gilt-l); background:rgba(198,154,76,.1); }
+.select-menu li[aria-selected="true"]{ color:var(--gilt-l); background:rgba(198,154,76,.14); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---------------------------------------------- PIN input */
+.pin{ display:flex; justify-content:center; gap:13px; margin:24px 0 14px; }
+.pin input{
+  width:56px; height:66px; border:1px solid var(--gilt-d); outline:0; text-align:center;
+  font-family:'Cinzel Decorative', serif; font-size:1.7rem; color:var(--ink);
+  background:var(--bg-2); border-radius:3px;
+  box-shadow:inset 0 2px 7px rgba(0,0,0,.6);
+  transition:border-color .18s, color .18s, box-shadow .18s;
+}
+.pin input.filled{ color:var(--gilt-l); }
+.pin input:focus{ border-color:var(--gilt-l); box-shadow:inset 0 2px 7px rgba(0,0,0,.6), 0 0 0 2px var(--gilt-l); }
+.pin.done input{ border-color:var(--gilt); color:var(--gilt-l);
+  box-shadow:inset 0 2px 7px rgba(0,0,0,.4), 0 0 10px -3px var(--gilt); }
+
+/* ---------------------------------------------- Toggle button group */
+.toggle-group{ display:flex; justify-content:center; gap:13px; margin:24px 0 14px; }
+.tg-btn{
+  position:relative; width:54px; height:54px; cursor:pointer; border-radius:3px;
+  background:linear-gradient(180deg, var(--panel-2), var(--bg-2));
+  color:var(--ink-soft); border:1px solid var(--gilt-d);
+  font-family:'Cormorant Garamond', serif; font-size:1.4rem;
+  display:grid; place-items:center; transition:color .18s, background .2s, box-shadow .18s;
+}
+.tg-btn:hover{ color:var(--gilt-l); }
+.tg-btn.on{
+  color:var(--accent-ink);
+  background:linear-gradient(180deg, var(--accent-l), var(--accent-d));
+  border-color:var(--gilt);
+}
+.tg-btn:focus-visible{ outline:2px solid var(--gilt-l); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 10px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--bg-2); border:1px solid var(--gilt-d); color:var(--gilt-l);
+  font-family:'EB Garamond', serif; font-size:.78rem; font-variant:small-caps;
+  letter-spacing:.06em; padding:5px 11px; border-radius:2px;
+  opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---------------------------------------------- Modal */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(14,7,9,.74); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:450px; width:100%; text-align:center; padding:42px 38px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:2px solid var(--gilt); border-radius:5px;
+  box-shadow:0 36px 70px -16px rgba(0,0,0,.8),
+             inset 0 0 0 6px var(--bg-2), inset 0 0 0 7px var(--line-soft);
+  transform:scale(.9) translateY(14px);
+  transition:transform .34s cubic-bezier(.2,1.25,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal .corner{ position:absolute; width:30px; height:30px; color:var(--gilt);
+  pointer-events:none; }
+.modal .corner.tl{ top:9px; left:9px; }
+.modal .corner.tr{ top:9px; right:9px; transform:scaleX(-1); }
+.modal .corner.bl{ bottom:9px; left:9px; transform:scaleY(-1); }
+.modal .corner.br{ bottom:9px; right:9px; transform:scale(-1,-1); }
+.modal .corner svg{ width:100%; height:100%; }
+.modal-icon{
+  width:66px; height:66px; margin:0 auto 18px; border-radius:50%; display:grid;
+  place-items:center;
+  background:radial-gradient(circle at 38% 30%, var(--accent-l), var(--accent-d));
+  border:2px solid var(--gilt); color:var(--gilt-l);
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{
+  font-family:'Cinzel Decorative', serif; font-size:1.5rem; color:var(--ink);
+  letter-spacing:.01em;
+}
+.modal .modal-divider{ margin:14px auto 16px; }
+.modal p{ color:var(--ink-soft); margin-bottom:26px; font-size:1.1rem;
+  font-family:'Cormorant Garamond',serif; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---------------------------------------------- Toast */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:14px 20px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+  border:1px solid var(--gilt); border-radius:4px;
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.8), inset 0 0 0 3px var(--bg-2);
+  transform:translateX(150%); transition:transform .46s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:40px; height:40px; flex:none; border-radius:50%; display:grid; place-items:center;
+  background:radial-gradient(circle at 38% 30%, var(--accent-l), var(--accent-d));
+  border:1px solid var(--gilt); color:var(--gilt-l);
+}
+.toast .t-ico svg{ width:19px; height:19px; }
+.toast b{ font-family:'Cormorant Garamond', serif; font-size:1.18rem; color:var(--ink); }
+.toast small{ display:block; color:var(--ink-soft); font-size:.92rem; }
+
+/* ============================================================ ABOUT */
+.about-card{ text-align:center; }
+.about-card .fleur{ width:34px; height:34px; color:var(--gilt); margin:0 auto 14px; }
+.about-card .roman{
+  font-family:'Cinzel Decorative', serif; font-size:.78rem; color:var(--gilt);
+  letter-spacing:.2em;
+}
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:72px 0 60px; color:var(--ink-soft); font-size:1rem;
+  position:relative; z-index:1;
+}
+.foot .brand-mark{ margin:0 auto 20px; }
+.foot .foot-divider{ margin-bottom:22px; }
+.foot a{ color:var(--gilt-l); text-decoration:none; border-bottom:1px solid var(--gilt-d); }
+.foot a:hover{ border-color:var(--gilt-l); }
+.foot .foot-name{
+  font-family:'Cinzel Decorative', serif; color:var(--gilt-l); font-size:1.05rem;
+  letter-spacing:.06em;
+}
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(30px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .9s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.18s; }
+.d3{ animation-delay:.3s; } .d4{ animation-delay:.42s; } .d5{ animation-delay:.54s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:26px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:56px 0 44px; }
+  .card, .frame{ padding:24px; }
+  .all-styles span{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- reusable SVG defs: fleur-de-lis + ornate corner -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="fleur">
+      <path d="M12 1c1.8 2.4 1.8 5.2 0 7.6 1.4-1 3-1.4 4.6-1.2-.6 1.7-2 3-3.7 3.4 2 .3 3.6 1.7 4.2 3.6-2 .2-3.9-.5-5.3-1.9.4 2.2.4 4.6 1.5 6.7-1.2-.4-2.3-1.1-3.3-2-.9.9-2 1.6-3.3 2 1.1-2.1 1.1-4.5 1.5-6.7-1.4 1.4-3.3 2.1-5.3 1.9.6-1.9 2.2-3.3 4.2-3.6-1.7-.4-3.1-1.7-3.7-3.4 1.6-.2 3.2.2 4.6 1.2C10.2 6.2 10.2 3.4 12 1z"/>
+      <path d="M9 19h6v2.4c0 .9-1.3 1.6-3 1.6s-3-.7-3-1.6V19z"/>
+    </g>
+    <g id="corner">
+      <path d="M2 22V8c0-3.3 2.7-6 6-6h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M6 22V10c0-2.2 1.8-4 4-4h12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+      <path d="M8 8c-2 0-3 1.4-3 3 1.6 0 3-1 3-3z" fill="currentColor"/>
+      <circle cx="11" cy="11" r="2.1" fill="currentColor"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+        <div class="brand-name">The Gilded Parlour</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Apparatus</a>
+        <a href="#more">Curiosities</a>
+        <a href="#about">Principles</a>
+      </div>
+      <a class="all-styles" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        <span>All styles</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle parlour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rise d1">
+      <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+      A Victorian Design Showcase
+      <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+    </div>
+    <h1 class="rise d2">An Interface of <em>Gilded</em><br/>&amp; Ornamented Splendour</h1>
+    <p class="rise d3">A showcase of nineteenth-century opulence — damask wallpapers,
+      gilt-edged frames, ornamental flourishes and the considered craftsmanship of
+      the well-appointed parlour.</p>
+    <div class="divider hero-divider rise d3">
+      <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+    </div>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Tour the Apparatus
+      </a>
+      <a href="#about" class="btn">The Principles</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>MDCCCXLIII</b><small>Established</small></div>
+      <div class="stat-pill"><b>XXIV</b><small>Gilded Controls</small></div>
+      <div class="stat-pill"><b>&infin;</b><small>Ornament</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A Cabinet of Working Apparatus</h2>
+      <p>Every instrument below is in true working order — pray, drag, toggle and press.</p>
+      <div class="divider"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Now Performing</div>
+        <div class="player-art" id="playerArt">
+          <span class="crest fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Nocturne in Crimson</h3>
+            <p>Mme. Ashcroft &middot; Parlour Reveries</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Add to favourites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous movement">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next movement">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Household Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Calling Cards</div>
+            <div class="sub">Announce each new arrival</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Calling cards" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Gas Illumination</div>
+            <div class="sub">Throughout the parlour</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Gas illumination" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Phonograph</div>
+            <div class="sub">Finest cylinder recordings</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Phonograph" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Volume of Sound</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>Degree</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the dial &middot; or employ the arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Lamplight</div>
+        <div class="slider-head">
+          <span class="card-title">Chandelier</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>Dim</span><span>Brilliant</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">The Inquiry Desk</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the library&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">Manner of Display</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Gallery</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Ledger</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Plates</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">The Week's Pursuits</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Attained</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 Evenings</b><small>Of uninterrupted recital</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 Cylinders</b><small>Catalogued in the cabinet</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Compose Recap</button>
+            <button class="btn">Export Ledger</button>
+            <button class="btn" disabled>Sync Adjourned</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A Cabinet of Curiosities</h2>
+      <p>Steppers, ratings, menus and dialogues — each carved by a patient hand.</p>
+      <div class="divider"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Living Palette</div>
+        <h3 class="card-title">Parlour Hue</h3>
+        <p class="muted" style="margin-top:6px">Select a pigment to repaint every instrument upon the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#b6473f" data-accent="#b6473f" aria-label="Crimson"></button>
+          <button class="swatch" style="--sw:#2f5e44" data-accent="#2f5e44" aria-label="Bottle green"></button>
+          <button class="swatch" style="--sw:#3a5a7a" data-accent="#3a5a7a" aria-label="Prussian blue"></button>
+          <button class="swatch" style="--sw:#6a3d63" data-accent="#6a3d63" aria-label="Aubergine"></button>
+          <button class="swatch" style="--sw:#9c7b3a" data-accent="#9c7b3a" aria-label="Antique gold"></button>
+          <button class="swatch" style="--sw:#7a3b34" data-accent="#7a3b34" aria-label="Mahogany"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">The Stepper</div>
+        <h3 class="card-title">Order of Volumes</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Bound copies of &ldquo;Parlour Reveries&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Esteemed Opinion</div>
+        <h3 class="card-title">Rate this Collection</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Pray, render your verdict</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">The Menu</div>
+        <h3 class="card-title" style="margin-bottom:18px">Order of Arrangement</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most played" aria-selected="false">Most performed<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">The Strongbox</div>
+        <h3 class="card-title">Cipher of Entry</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Inscribe your four-digit cipher</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Penmanship</div>
+        <h3 class="card-title">Style of Lettering</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each toggles by its own accord</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Matters of Enquiry</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What distinguishes the Victorian manner?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>An aesthetic of abundant ornament — damask patterning, gilt framing, fleur-de-lis flourishes and a deep, jewel-toned palette. Nothing is left plain where it might instead be embellished.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Is such ornament not excessive?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>To the Victorian sensibility, decoration is a virtue — a sign of craft, prosperity and care. Yet every flourish here is arranged with order, so the parlour reads as composed rather than cluttered.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where is this manner best suited?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Wherever opulence and heritage are to be conveyed — boutiques, fine publications, theatres and emporia that wish their interface to feel like a richly appointed drawing room.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <div class="card-label">Announcements</div>
+        <h3 class="card-title">Dialogues &amp; Notices</h3>
+        <p class="muted" style="margin-top:6px">Layered cartouches that rest above the parlour.</p>
+        <div class="btn-stack" style="margin-top:20px">
+          <button class="btn btn--accent" id="toastBtn">Ring the Bell</button>
+          <button class="btn" id="modalBtn">Open Dialogue</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three Tenets of the Parlour</h2>
+      <p>Victorian design is ornament governed by order.</p>
+      <div class="divider"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+        <div class="roman">Tenet I</div>
+        <h3 class="card-title" style="margin-top:6px">Abundant Ornament</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Damask wallpapers, gilt frames and flourishes at every corner. The eye
+          should never want for detail to admire.</p>
+      </section>
+      <section class="card about-card">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+        <div class="roman">Tenet II</div>
+        <h3 class="card-title" style="margin-top:6px">Jewel-Toned Riches</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Deep burgundy and bottle green, lit by gilt gold and ivory. The palette
+          of a candlelit drawing room after dusk.</p>
+      </section>
+      <section class="card about-card">
+        <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+        <span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span>
+        <div class="roman">Tenet III</div>
+        <h3 class="card-title" style="margin-top:6px">Order Within</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Symmetry and framing keep the abundance composed — every flourish set
+          deliberately, never strewn about.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand-mark"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    <div class="divider foot-divider"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    <p><span class="foot-name">The Gilded Parlour</span> &mdash; a showcase of Victorian design.<br/>
+       Wrought with damask, gilt and fleur-de-lis. Try the <a href="#" id="footTheme">parlour theme</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <span class="corner tl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+    <span class="corner tr"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+    <span class="corner bl"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+    <span class="corner br"><svg viewBox="0 0 24 24"><use href="#corner"/></svg></span>
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg>
+    </div>
+    <h3 id="modalTitle">Shall we commit these changes?</h3>
+    <div class="divider modal-divider"><span class="fleur"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#fleur"/></svg></span></div>
+    <p>Your refinements to the parlour shall be recorded in the household ledger for every room.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not at Present</button>
+      <button class="btn btn--accent" id="modalConfirm">Commit Changes</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('parlour-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('parlour-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.58; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.4; }));
+      root.style.setProperty('--accent-ink', lum > 0.62 ? '#2a1418' : '#fbf3df');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Pray, render your verdict','Wanting','Passable','Commendable','Admirable','Exquisite'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'The strongbox is unlocked ✓';
+        showToast('Entry Granted', 'Welcome back to the Gilded Parlour.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Inscribe your four-digit cipher';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Changes Committed', 'The household ledger has been duly updated.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Added to the Collection', 'Nocturne in Crimson catalogued.');
+  });
+})();
+</script>
+</body>
+</html>

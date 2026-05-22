@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Mossy Hollow — A Cottagecore Showcase</title>
+<meta name="description" content="A showcase of cottagecore / farmhouse design — warm cream, sage green, gingham checks, pressed florals and hand-lettered charm." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   COTTAGECORE / FARMHOUSE — warm cream, sage, barn-red, butter.
+   Decoration: gingham checks, wood grain, pressed florals,
+   hand-lettered Caveat accents, scalloped & stitched edges.
+   ============================================================ */
+:root,
+[data-theme="day"]{
+  --cream:       #ece3cc;   /* warm linen base */
+  --cream-2:     #f4eed9;   /* paper / card */
+  --cream-deep:  #e1d6b6;   /* recessed wells */
+  --sage:        #8a9a5b;   /* sage green */
+  --sage-d:      #5f6e3c;
+  --sage-l:      #aab682;
+  --barn:        #a84e3d;   /* muted barn-red */
+  --barn-d:      #7e3729;
+  --wood:        #8a6a47;   /* soft brown wood */
+  --wood-d:      #5e4631;
+  --butter:      #e9c46a;   /* butter cream */
+  --ink:         #4a4334;   /* warm dark brown text */
+  --ink-soft:    #8a7f63;
+  --accent:      #8a9a5b;   /* re-themeable accent (sage default) */
+  --accent-d:    #5f6e3c;
+  --accent-l:    #aab682;
+  --accent-ink:  #fbf7e8;
+  --line:        #c7b98f;
+  --stitch:      rgba(74,67,52,.45);
+}
+[data-theme="dusk"]{
+  --cream:       #312b22;
+  --cream-2:     #3b3429;
+  --cream-deep:  #272219;
+  --sage:        #9fad75;
+  --sage-d:      #75835098;
+  --sage-l:      #b9c592;
+  --barn:        #c9705c;
+  --barn-d:      #a4503f;
+  --wood:        #a98a64;
+  --wood-d:      #75593e;
+  --butter:      #e9c46a;
+  --ink:         #ece1c6;
+  --ink-soft:    #aa9f82;
+  --accent:      #9fad75;
+  --accent-d:    #75835098;
+  --accent-l:    #b9c592;
+  --accent-ink:  #2a251d;
+  --line:        #5b513b;
+  --stitch:      rgba(236,225,198,.35);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Fraunces', Georgia, serif;
+  font-optical-sizing:auto;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.66;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s ease, color .5s ease;
+  overflow-x:hidden;
+}
+/* gingham + soft botanical wash over the whole page */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    linear-gradient(rgba(138,154,91,.045) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(138,154,91,.045) 50%, transparent 50%),
+    radial-gradient(46rem 32rem at 90% -6%, rgba(233,196,106,.16), transparent 62%),
+    radial-gradient(40rem 30rem at -8% 102%, rgba(138,154,91,.14), transparent 60%);
+  background-size:46px 46px, 46px 46px, 100% 100%, 100% 100%;
+}
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+::selection{ background:var(--barn); color:#fbf7e8; }
+
+/* gingham helper used on a few panels */
+.gingham{
+  background-image:
+    linear-gradient(45deg, transparent 46%, rgba(255,255,255,.5) 46% 54%, transparent 54%);
+}
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:18px; }
+.nav-inner{
+  display:flex; align-items:center; gap:20px;
+  padding:12px 16px 12px 18px; border-radius:20px;
+  background:var(--cream-2);
+  border:2px solid var(--ink);
+  box-shadow:5px 6px 0 var(--wood-d);
+}
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; border-radius:14px 14px 14px 4px;
+  display:grid; place-items:center;
+  background:var(--sage); color:var(--cream-2);
+  border:2px solid var(--ink);
+  box-shadow:2px 3px 0 var(--sage-d);
+}
+.brand-mark svg{ width:25px; height:25px; }
+.brand-name{
+  font-family:'Gloock', serif; font-size:1.42rem; line-height:1; letter-spacing:.005em;
+}
+.brand-name small{
+  display:block; font-family:'Caveat',cursive; font-weight:600;
+  font-size:1.02rem; color:var(--barn); letter-spacing:.02em; margin-top:-1px;
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none; font-weight:500; font-size:.96rem;
+  padding:8px 14px; border-radius:11px; transition:color .2s, background .2s;
+}
+.nav-links a:hover{ color:var(--barn); background:rgba(168,78,61,.08); }
+.allstyles{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.18rem;
+  text-decoration:none; color:var(--cream-2);
+  background:var(--barn); border:2px solid var(--ink);
+  padding:6px 15px 5px; border-radius:12px;
+  box-shadow:2px 3px 0 var(--barn-d);
+  transition:transform .16s, box-shadow .16s;
+}
+.allstyles:hover{ transform:translate(-1px,-1px); box-shadow:3px 4px 0 var(--barn-d); }
+.allstyles:active{ transform:translate(2px,3px); box-shadow:0 0 0 var(--barn-d); }
+.allstyles svg{ width:15px; height:15px; }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; border:2px solid var(--ink); cursor:pointer;
+  border-radius:12px; background:var(--cream-2); color:var(--ink);
+  box-shadow:2px 3px 0 var(--wood-d); display:grid; place-items:center;
+  transition:transform .16s, box-shadow .16s, color .2s, background .2s;
+}
+.icon-btn:hover{ color:var(--barn); transform:translate(-1px,-1px); box-shadow:3px 4px 0 var(--wood-d); }
+.icon-btn:active{ transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d); }
+.icon-btn svg{ width:20px; height:20px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dusk"] .theme-toggle .sun{ display:none; }
+[data-theme="dusk"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:78px 0 56px; position:relative; }
+.hero .sprig{ position:absolute; pointer-events:none; opacity:.7; color:var(--sage); }
+.hero .sprig.l{ left:2%; top:64px; width:96px; transform:rotate(-12deg); }
+.hero .sprig.r{ right:2%; top:48px; width:104px; transform:scaleX(-1) rotate(-10deg); }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:7px 17px 6px; border-radius:999px; margin-bottom:24px;
+  background:var(--cream-2); border:2px solid var(--ink);
+  box-shadow:2px 3px 0 var(--wood-d);
+  font-family:'Caveat',cursive; font-size:1.22rem; font-weight:700;
+  color:var(--barn);
+}
+.eyebrow .dot{
+  width:11px; height:11px; flex:none; color:var(--sage);
+}
+.hero h1{
+  font-family:'Gloock', serif; font-weight:400;
+  font-size:clamp(2.7rem, 7vw, 5.2rem); line-height:1.06; letter-spacing:.003em;
+  color:var(--ink);
+}
+.hero h1 em{
+  font-family:'Caveat',cursive; font-style:normal; font-weight:700;
+  color:var(--barn); font-size:1.14em; padding:0 .04em;
+}
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.13rem; color:var(--ink-soft);
+  font-style:italic;
+}
+.hero-cta{ display:flex; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:48px;
+}
+.stat-pill{
+  padding:15px 26px; border-radius:16px 16px 16px 5px;
+  background:var(--cream-2); border:2px solid var(--ink);
+  box-shadow:3px 4px 0 var(--wood-d);
+  display:flex; flex-direction:column; align-items:center; min-width:138px;
+}
+.stat-pill b{
+  font-family:'Gloock',serif; font-size:1.95rem; color:var(--barn); line-height:1;
+}
+.stat-pill small{
+  font-family:'Caveat',cursive; font-weight:600; font-size:1.04rem;
+  color:var(--ink-soft); margin-top:5px;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Fraunces',serif; font-size:1rem; font-weight:600; cursor:pointer;
+  background:var(--cream-2); color:var(--ink);
+  border:2px solid var(--ink); padding:13px 26px; border-radius:14px;
+  box-shadow:3px 4px 0 var(--wood-d);
+  display:inline-flex; align-items:center; gap:9px;
+  transition:transform .15s ease, box-shadow .15s ease, background .2s;
+}
+.btn:hover{ transform:translate(-1px,-2px); box-shadow:4px 6px 0 var(--wood-d); }
+.btn:active{ transform:translate(3px,4px); box-shadow:0 0 0 var(--wood-d); }
+.btn svg{ width:17px; height:17px; }
+.btn--accent{
+  background:var(--barn); color:#fbf7e8; box-shadow:3px 4px 0 var(--barn-d);
+}
+.btn--accent:hover{ box-shadow:4px 6px 0 var(--barn-d); }
+.btn--accent:active{ box-shadow:0 0 0 var(--barn-d); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-soft); background:var(--cream-deep);
+  box-shadow:2px 2px 0 var(--line); border-color:var(--line);
+  transform:none;
+}
+.btn:disabled:hover{ transform:none; box-shadow:2px 2px 0 var(--line); }
+.btn:focus-visible, .icon-btn:focus-visible, .allstyles:focus-visible{
+  outline:2.5px dashed var(--sage-d); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:52px 0 30px; }
+.section-head{ margin-bottom:34px; text-align:center; }
+.section-head .kicker{
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.3rem; color:var(--sage-d);
+  display:block; margin-bottom:2px;
+}
+.section-head h2{
+  font-family:'Gloock',serif; font-weight:400; font-size:clamp(1.9rem,3.6vw,2.7rem);
+  letter-spacing:.004em;
+}
+.section-head h2::after{
+  content:""; display:block; width:88px; height:9px; margin:14px auto 0;
+  background:
+    repeating-linear-gradient(45deg, var(--sage) 0 6px, var(--butter) 6px 12px);
+  border:2px solid var(--ink); border-radius:6px;
+}
+.section-head p{ color:var(--ink-soft); margin-top:12px; font-style:italic; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.card{
+  background:var(--cream-2); border-radius:20px; padding:28px;
+  border:2px solid var(--ink);
+  box-shadow:5px 7px 0 var(--wood-d);
+  position:relative;
+  opacity:0; transform:translateY(26px);
+  transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1),
+             background .5s ease, border-color .5s ease;
+}
+.card.in{ opacity:1; transform:none; }
+/* stitched inner border */
+.card::after{
+  content:""; position:absolute; inset:7px; border-radius:14px;
+  border:1.5px dashed var(--stitch); pointer-events:none;
+}
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card-label{
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.26rem;
+  color:var(--sage-d); display:flex; align-items:center; gap:8px; margin-bottom:16px;
+}
+.card-label svg{ width:18px; height:18px; flex:none; color:var(--barn); }
+.card-title{
+  font-family:'Gloock',serif; font-weight:400; font-size:1.42rem; letter-spacing:.004em;
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:16px;
+  border:2px solid var(--ink);
+  background:
+    radial-gradient(circle at 30% 28%, var(--butter), transparent 45%),
+    radial-gradient(circle at 78% 80%, var(--barn), transparent 55%),
+    repeating-linear-gradient(45deg, var(--sage) 0 18px, var(--sage-d) 18px 36px);
+  box-shadow:3px 4px 0 var(--wood-d);
+  display:grid; place-items:center; margin-bottom:20px; overflow:hidden;
+}
+/* pressed-flower medallion on the art */
+.player-art .bloom{
+  width:108px; height:108px; color:var(--cream-2); opacity:.92;
+  filter:drop-shadow(2px 3px 0 rgba(74,67,52,.4));
+}
+.eq{
+  position:absolute; bottom:18px; display:flex; align-items:flex-end; gap:6px; height:42px;
+}
+.eq span{
+  width:9px; height:14px; border-radius:4px 4px 0 0;
+  background:var(--cream-2); border:1.5px solid var(--ink);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:13px; } 50%{ height:38px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:12px; }
+.player-meta h3{
+  font-family:'Gloock',serif; font-size:1.3rem; font-weight:400; line-height:1.2;
+}
+.player-meta p{ color:var(--ink-soft); font-size:.94rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--barn); background:rgba(168,78,61,.12); }
+.heart.on svg{ fill:var(--barn); }
+
+.player-progress{ margin:20px 0 7px; cursor:pointer; padding:8px 0; }
+.track{
+  height:14px; border-radius:999px; position:relative;
+  background:var(--cream-deep); border:2px solid var(--ink); overflow:hidden;
+}
+.track-fill{
+  position:absolute; inset:0; width:34%; border-radius:999px 0 0 999px;
+  background:repeating-linear-gradient(45deg, var(--barn) 0 7px, var(--barn-d) 7px 14px);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; border-radius:50%; background:var(--butter);
+  border:2px solid var(--ink); box-shadow:1px 2px 0 var(--wood-d);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.84rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums; font-style:italic;
+}
+
+.player-controls{
+  display:flex; align-items:center; justify-content:center; gap:18px; margin-top:18px;
+}
+.play-btn{
+  width:66px; height:66px; border:2px solid var(--ink); cursor:pointer; border-radius:50%;
+  background:var(--barn); color:#fbf7e8; box-shadow:3px 4px 0 var(--barn-d);
+  display:grid; place-items:center;
+  transition:transform .15s, box-shadow .15s;
+}
+.play-btn:hover{ transform:translate(-1px,-2px); box-shadow:4px 6px 0 var(--barn-d); }
+.play-btn:active, .play-btn.playing{ transform:translate(3px,4px); box-shadow:0 0 0 var(--barn-d); }
+.play-btn svg{ width:25px; height:25px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:14px 0; }
+.switch-row + .switch-row{ border-top:1.5px dashed var(--line); }
+.switch-row .lbl{ font-weight:600; font-size:1rem; }
+.switch-row .sub{ font-size:.86rem; color:var(--ink-soft); font-style:italic; }
+.switch{ position:relative; width:64px; height:34px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--cream-deep); border:2px solid var(--ink);
+  transition:background .3s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
+  background:var(--cream-2); border:2px solid var(--ink);
+  box-shadow:1px 1px 0 var(--wood-d);
+  transition:transform .3s cubic-bezier(.34,1.4,.5,1), background .3s;
+}
+.switch input:checked ~ .s-track{ background:var(--sage); }
+.switch input:checked ~ .s-thumb{
+  transform:translateX(30px); background:var(--butter);
+}
+.switch input:focus-visible ~ .s-track{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:180px; height:180px; border-radius:50%;
+  background:var(--cream-deep); border:2px solid var(--ink);
+  box-shadow:inset 2px 3px 0 rgba(74,67,52,.18);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      var(--cream-deep) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 74%, #000 75%);
+          mask:radial-gradient(closest-side, transparent 74%, #000 75%);
+}
+.dial-ring{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  border:2px solid var(--ink);
+}
+.dial-knob{
+  position:relative; width:116px; height:116px; border-radius:50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%,
+      var(--wood) 0 4px, var(--wood-d) 4px 9px);
+  border:2px solid var(--ink);
+  box-shadow:2px 3px 0 var(--wood-d); pointer-events:none;
+}
+.dial-knob::before{ /* the rotation notch */
+  content:""; position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width:11px; height:11px; border-radius:50%; background:var(--butter);
+  border:2px solid var(--ink);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Gloock',serif; font-size:1.95rem; line-height:1; color:var(--cream-2);
+  font-variant-numeric:tabular-nums;
+  text-shadow:1px 2px 0 var(--wood-d);
+}
+.dial-readout small{
+  display:block; font-family:'Caveat',cursive; font-weight:700; font-size:1rem;
+  color:var(--cream-2); margin-top:1px;
+}
+.dial-hint{ font-size:.86rem; color:var(--ink-soft); font-style:italic; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.slider-head .v{
+  font-family:'Gloock',serif; font-size:1.7rem; color:var(--barn);
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:34px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:16px; border-radius:999px;
+  border:2px solid var(--ink);
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--cream-deep) var(--val,55%) 100%);
+}
+.range::-moz-range-track{
+  height:16px; border-radius:999px; border:2px solid var(--ink);
+  background:var(--cream-deep);
+}
+.range::-moz-range-progress{ height:16px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:30px; height:30px; border-radius:50%;
+  background:var(--butter); border:2px solid var(--ink);
+  box-shadow:1px 2px 0 var(--wood-d); margin-top:-9px;
+}
+.range::-moz-range-thumb{
+  width:30px; height:30px; border:2px solid var(--ink); border-radius:50%;
+  background:var(--butter);
+}
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px var(--sage-d); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.86rem;
+  color:var(--ink-soft); margin-top:5px; font-style:italic;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:11px; padding:13px 16px; border-radius:13px;
+  background:var(--cream); border:2px solid var(--ink);
+  box-shadow:inset 1px 2px 0 rgba(74,67,52,.12);
+  margin-bottom:22px;
+}
+.search svg{ width:18px; height:18px; color:var(--sage-d); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; font:inherit;
+  color:var(--ink); width:100%;
+}
+.search input::placeholder{ color:var(--ink-soft); font-style:italic; }
+
+.seg-label{
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.1rem;
+  color:var(--ink-soft); margin-bottom:8px;
+}
+.segmented{
+  position:relative; display:flex; padding:5px; border-radius:13px;
+  background:var(--cream-deep); border:2px solid var(--ink);
+}
+.seg-thumb{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px);
+  border-radius:9px; background:var(--sage); border:2px solid var(--ink);
+  box-shadow:1px 2px 0 var(--sage-d);
+  transition:transform .32s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Fraunces',serif; font-weight:600; font-size:.94rem; color:var(--ink-soft);
+  padding:10px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:var(--cream-2); }
+.seg-opt:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:2px; border-radius:9px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:32px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:152px; height:152px; border-radius:50%;
+  background:var(--cream-deep); border:2px solid var(--ink);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:11px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--cream) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 72%, #000 73%);
+          mask:radial-gradient(closest-side, transparent 72%, #000 73%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring::after{
+  content:""; position:absolute; inset:11px; border-radius:50%;
+  border:2px solid var(--ink); pointer-events:none;
+}
+.ring-core{ text-align:center; }
+.ring-core b{ font-family:'Gloock',serif; font-size:2rem; line-height:1; }
+.ring-core small{
+  font-family:'Caveat',cursive; font-weight:700; font-size:1.04rem; color:var(--ink-soft);
+}
+.chips{ display:flex; flex-direction:column; gap:13px; }
+.chip{
+  padding:14px 17px; border-radius:13px;
+  background:var(--cream); border:2px solid var(--ink);
+  display:flex; align-items:center; gap:13px;
+}
+.chip .ci{
+  width:40px; height:40px; border-radius:11px; flex:none; display:grid;
+  place-items:center; background:var(--sage); color:var(--cream-2);
+  border:2px solid var(--ink); box-shadow:1px 2px 0 var(--sage-d);
+}
+.chip .ci svg{ width:19px; height:19px; }
+.chip b{ font-family:'Gloock',serif; font-size:1.18rem; }
+.chip small{ display:block; font-size:.85rem; color:var(--ink-soft); font-style:italic; }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.95rem; font-style:italic; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:50px; height:50px; border:2px solid var(--ink); cursor:pointer;
+  border-radius:50%; background:var(--sw);
+  box-shadow:2px 3px 0 var(--wood-d); display:grid; place-items:center;
+  transition:transform .16s, box-shadow .16s;
+}
+.swatch:hover{ transform:translate(-1px,-2px); box-shadow:3px 5px 0 var(--wood-d); }
+.swatch:active{ transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d); }
+.swatch::after{
+  content:""; width:0; height:0; border-radius:50%;
+  background:var(--cream-2); transition:.2s;
+}
+.swatch.is-active{ transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d); }
+.swatch.is-active::after{
+  width:16px; height:16px;
+  background:transparent;
+  border:3px solid var(--cream-2);
+}
+.swatch:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:15px; margin:22px 0 12px; }
+.step-btn{
+  width:52px; height:52px; flex:none; border:2px solid var(--ink); cursor:pointer;
+  border-radius:14px; background:var(--cream-2); color:var(--ink);
+  box-shadow:2px 3px 0 var(--wood-d); font-family:'Gloock',serif; font-size:1.6rem;
+  display:grid; place-items:center;
+  transition:transform .14s, box-shadow .14s, color .2s, background .2s;
+}
+.step-btn:hover{ color:var(--cream-2); background:var(--sage); }
+.step-btn:active{ transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d); }
+.step-btn:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+.step-val{
+  min-width:88px; padding:13px 0; border-radius:14px;
+  background:var(--cream-deep); border:2px solid var(--ink);
+  box-shadow:inset 1px 2px 0 rgba(74,67,52,.14);
+  font-family:'Gloock',serif; font-size:1.85rem; font-variant-numeric:tabular-nums;
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:9px; margin:22px 0 12px; }
+.star{
+  width:48px; height:48px; border:2px solid var(--ink); cursor:pointer;
+  border-radius:13px; background:var(--cream-2); color:var(--ink-soft);
+  box-shadow:2px 3px 0 var(--wood-d);
+  display:grid; place-items:center;
+  transition:transform .14s, box-shadow .14s, color .15s, background .2s;
+}
+.star svg{ width:22px; height:22px; transition:fill .15s; }
+.star:hover{ transform:translate(-1px,-2px); box-shadow:3px 5px 0 var(--wood-d); }
+.star.lit{ color:#fbf7e8; background:var(--butter); }
+.star.lit svg{ fill:var(--barn); stroke:var(--barn); }
+.star:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:13px; }
+.acc-item{
+  border-radius:14px; background:var(--cream);
+  border:2px solid var(--ink); box-shadow:2px 3px 0 var(--wood-d);
+  transition:box-shadow .26s, background .2s;
+}
+.acc-item.open{ background:var(--cream-deep); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Fraunces',serif; font-weight:600; font-size:1rem;
+  color:var(--ink); text-align:left; padding:15px 17px;
+  display:flex; align-items:center; gap:13px;
+}
+.acc-head .leaf{ flex:none; color:var(--sage-d); }
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--ink-soft); transition:transform .3s, color .3s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); color:var(--barn); }
+.acc-head:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:-4px; border-radius:14px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 17px 16px 44px; color:var(--ink-soft); font-size:.94rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:2px solid var(--ink); cursor:pointer;
+  font-family:'Fraunces',serif; font-weight:600; color:var(--ink);
+  background:var(--cream-2); box-shadow:2px 3px 0 var(--wood-d);
+  padding:14px 17px; border-radius:13px;
+  display:flex; align-items:center; gap:10px;
+  transition:transform .14s, box-shadow .14s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--ink-soft); transition:transform .25s; }
+.select.open .select-btn{ transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 12px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:7px; border-radius:14px;
+  background:var(--cream-2); border:2px solid var(--ink);
+  box-shadow:4px 6px 0 var(--wood-d);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 13px; border-radius:9px; cursor:pointer; font-weight:500;
+  display:flex; align-items:center; gap:10px; transition:background .14s, color .14s;
+}
+.select-menu li:hover{ background:rgba(138,154,91,.16); color:var(--barn); }
+.select-menu li[aria-selected="true"]{ background:var(--sage); color:var(--cream-2); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.pin input{
+  width:54px; height:64px; border:2px solid var(--ink); outline:0; text-align:center;
+  font-family:'Gloock',serif; font-size:1.75rem; color:var(--ink);
+  background:var(--cream-deep); border-radius:12px;
+  box-shadow:inset 1px 2px 0 rgba(74,67,52,.16);
+  transition:box-shadow .18s, color .18s, background .2s, transform .14s;
+}
+.pin input.filled{ color:var(--barn); background:var(--cream-2); }
+.pin input:focus{ box-shadow:0 0 0 3px var(--sage-d); transform:translateY(-2px); }
+.pin.done input{ background:var(--butter); color:var(--barn); }
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:54px; height:54px; border:2px solid var(--ink); cursor:pointer;
+  border-radius:13px; background:var(--cream-2); color:var(--ink);
+  box-shadow:2px 3px 0 var(--wood-d);
+  font-family:'Gloock',serif; font-size:1.3rem; display:grid; place-items:center;
+  transition:transform .14s, box-shadow .14s, color .18s, background .2s;
+}
+.tg-btn:hover{ color:var(--barn); }
+.tg-btn.on{
+  background:var(--sage); color:var(--cream-2);
+  transform:translate(2px,3px); box-shadow:0 0 0 var(--wood-d);
+}
+.tg-btn:focus-visible{ outline:2.5px dashed var(--sage-d); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--ink); color:var(--cream-2);
+  font-family:'Caveat',cursive; font-size:.96rem; font-weight:700;
+  padding:3px 11px; border-radius:8px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn::after{
+  content:""; position:absolute; bottom:calc(100% + 3px); left:50%;
+  transform:translateX(-50%) translateY(4px);
+  border:6px solid transparent; border-top-color:var(--ink);
+  opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before, .tg-btn:hover::after{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(48,42,32,.55); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:440px; width:100%; text-align:center; padding:36px 32px;
+  background:var(--cream-2); border-radius:20px;
+  border:2.5px solid var(--ink);
+  box-shadow:9px 12px 0 var(--wood-d);
+  transform:scale(.9) translateY(12px);
+  transition:transform .33s cubic-bezier(.2,1.25,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-icon{
+  width:66px; height:66px; margin:0 auto 16px; border-radius:18px 18px 18px 6px;
+  display:grid; place-items:center; background:var(--sage); color:var(--cream-2);
+  border:2px solid var(--ink); box-shadow:2px 3px 0 var(--sage-d);
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{ font-family:'Gloock',serif; font-weight:400; font-size:1.5rem; }
+.modal p{ color:var(--ink-soft); margin:9px 0 24px; font-style:italic; }
+.modal-actions{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:13px; padding:14px 18px; border-radius:14px;
+  background:var(--cream-2); border:2px solid var(--ink);
+  box-shadow:4px 6px 0 var(--wood-d);
+  transform:translateX(150%); transition:transform .44s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:40px; height:40px; flex:none; border-radius:11px; display:grid; place-items:center;
+  background:var(--barn); color:#fbf7e8; border:2px solid var(--ink);
+}
+.toast .t-ico svg{ width:20px; height:20px; }
+.toast b{ font-family:'Gloock',serif; font-weight:400; font-size:1.04rem; }
+.toast small{ display:block; color:var(--ink-soft); font-size:.86rem; font-style:italic; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:68px 0 54px; color:var(--ink-soft); font-size:.96rem;
+  position:relative;
+}
+.foot .fence{
+  display:block; width:100%; max-width:340px; margin:0 auto 22px; color:var(--wood);
+}
+.foot .brand-mark{ margin:0 auto 16px; }
+.foot a{ color:var(--barn); text-decoration:none; font-weight:600; }
+.foot a:hover{ text-decoration:underline wavy; }
+.foot .signoff{ font-family:'Caveat',cursive; font-weight:700; font-size:1.3rem; color:var(--sage-d); }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .85s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.05s; } .d2{ animation-delay:.16s; }
+.d3{ animation-delay:.27s; } .d4{ animation-delay:.38s; } .d5{ animation-delay:.49s; }
+
+/* gentle sway for hero sprigs */
+@keyframes sway{ 0%,100%{ transform:rotate(-12deg); } 50%{ transform:rotate(-6deg); } }
+.hero .sprig.l{ animation:sway 6s ease-in-out infinite; }
+.hero .sprig.r{ animation:sway 7s ease-in-out infinite reverse; transform-origin:top right; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+  .hero .sprig{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:52px 0 38px; }
+  .card{ padding:22px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22V12M12 12c0-4 3-7 7-7-1 4-3 7-7 7zM12 14c0-3-2.5-6-6-6 1 3.5 3 6 6 6z"/>
+          </svg>
+        </div>
+        <div class="brand-name">The Mossy Hollow<small>~ a cottage showcase ~</small></div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">The Pantry</a>
+        <a href="#more">The Workshop</a>
+        <a href="#about">Our Ways</a>
+      </div>
+      <a class="allstyles" href="../index.html" aria-label="Back to all styles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle day and dusk">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <svg class="sprig l" viewBox="0 0 60 130" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+    <path d="M30 130V20"/>
+    <path d="M30 96c-12 0-20-8-22-20 14-2 22 6 22 20zM30 70c12 0 20-8 22-20-14-2-22 6-22 20zM30 44c-11 0-18-7-20-17 13-2 20 5 20 17z"/>
+    <circle cx="30" cy="14" r="9" fill="#a84e3d" stroke="#4a4334"/>
+    <circle cx="30" cy="14" r="3" fill="#e9c46a" stroke="none"/>
+  </svg>
+  <svg class="sprig r" viewBox="0 0 60 130" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+    <path d="M30 130V20"/>
+    <path d="M30 96c-12 0-20-8-22-20 14-2 22 6 22 20zM30 70c12 0 20-8 22-20-14-2-22 6-22 20zM30 44c-11 0-18-7-20-17 13-2 20 5 20 17z"/>
+    <circle cx="30" cy="14" r="9" fill="#e9c46a" stroke="#4a4334"/>
+    <circle cx="30" cy="14" r="3" fill="#a84e3d" stroke="none"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow rise d1">
+      <svg class="dot" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-3 8-8 8 5 0 8 3 8 8 0-5 3-8 8-8-5 0-8-3-8-8z"/></svg>
+      A Cottagecore &amp; Farmhouse Showcase
+    </div>
+    <h1 class="rise d2">Gather round —<br/>this kit was made <em>by hand</em>.</h1>
+    <p class="rise d3">A showcase of cottagecore design: warm cream linens, sage-green
+      sprigs, gingham checks and hand-lettered labels. Every control is whittled,
+      stitched and ready to use.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Wander the pantry
+      </a>
+      <a href="#about" class="btn">How we make things</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>3</b><small>fresh-baked colours</small></div>
+      <div class="stat-pill"><b>17</b><small>handmade controls</small></div>
+      <div class="stat-pill"><b>∞</b><small>cups of tea</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">~ welcome inside ~</span>
+      <h2>A pantry of homemade controls</h2>
+      <p>Every control below is live — drag, toggle, slide, and press to your heart's content.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Now Humming
+        </div>
+        <div class="player-art" id="playerArt">
+          <svg class="bloom" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0-6c1.6 0 2.6 1.7 2 4 2.3-.6 4 0 4.6 1.5.6 1.6-.4 3.3-2.6 4 2.2.7 3.2 2.4 2.6 4-.6 1.5-2.3 2.1-4.6 1.5.6 2.3-.4 4-2 4s-2.6-1.7-2-4c-2.3.6-4 0-4.6-1.5-.6-1.6.4-3.3 2.6-4-2.2-.7-3.2-2.4-2.6-4C5.6 6 7.3 5.4 9.6 6 9 3.7 10 2 12 2z"/>
+          </svg>
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Honey on the Windowsill</h3>
+            <p>Wren &amp; Willow · Meadow Mornings</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+          Homestead Settings
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Birdsong alerts</div>
+            <div class="sub">A chirp when something new arrives</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Birdsong alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-preserve</div>
+            <div class="sub">Jar everything across the cottage</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-preserve" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Hearthside audio</div>
+            <div class="sub">Crackliest, warmest sound</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Hearthside audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+          Kettle Volume
+        </div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-ring"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>warmth</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the wooden knob · or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+          Lantern Glow
+        </div>
+        <div class="slider-head">
+          <span class="card-title">Window light</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Lantern glow" />
+        <div class="slider-scale"><span>Candlelit</span><span>Sunlit</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          The Recipe Box
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the recipe cards…" aria-label="Search" />
+        </div>
+        <div class="seg-label">Lay them out as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Garden</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          This Week's Tending
+        </div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>harvest</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M5 10c0 4 3 7 7 7s7-3 7-7M12 17v5"/></svg></div>
+              <div><b>14 mornings</b><small>Watered the window-box in a row</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 13H5L3 6zM3 6L2 2M8 11v4M16 11v4"/></svg></div>
+              <div><b>38 jars</b><small>Preserves put up in the cellar</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share the basket</button>
+            <button class="btn">Tuck into journal</button>
+            <button class="btn" disabled>Resting till spring</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">~ out in the shed ~</span>
+      <h2>More handmade odds &amp; ends</h2>
+      <p>Steppers, ratings, drawers and dialogs — each one whittled from the same cosy timber.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a10 10 0 0 1 0-20c5.5 0 10 4 10 9 0 3-2 5-5 5h-2c-1 0-2 1-2 2 0 .5.2 1 .5 1.5.3.5.5 1 .5 1.5a1 1 0 0 1-1 1z"/></svg>
+          Mix the Paint
+        </div>
+        <h3 class="card-title">Cottage colour</h3>
+        <p class="muted" style="margin-top:6px">Dab a pot to re-paint every control on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#8a9a5b" data-accent="#8a9a5b" aria-label="Sage"></button>
+          <button class="swatch" style="--sw:#a84e3d" data-accent="#a84e3d" aria-label="Barn red"></button>
+          <button class="swatch" style="--sw:#e9c46a" data-accent="#e9c46a" aria-label="Butter"></button>
+          <button class="swatch" style="--sw:#8a6a47" data-accent="#8a6a47" aria-label="Wood"></button>
+          <button class="swatch" style="--sw:#7d92a8" data-accent="#7d92a8" aria-label="Cornflower"></button>
+          <button class="swatch" style="--sw:#b07ba0" data-accent="#b07ba0" aria-label="Lavender"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4zM6 1v3M10 1v3M14 1v3"/></svg>
+          By the Dozen
+        </div>
+        <h3 class="card-title">Jam jar order</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Jars of "Wild Bramble"</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg>
+          A Kind Word
+        </div>
+        <h3 class="card-title">Rate this little kit</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap a star to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+          Tidy the Shelf
+        </div>
+        <h3 class="card-title" style="margin-bottom:16px">Sort order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Freshest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Freshest first" aria-selected="true">Freshest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Long-kept first" aria-selected="false">Long-kept first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Name A to Z" aria-selected="false">Name A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most beloved" aria-selected="false">Most beloved<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Garden Gate
+        </div>
+        <h3 class="card-title">Latch code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter the 4-digit gate code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          Letterpress
+        </div>
+        <h3 class="card-title">Handwriting style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each button toggles on its own</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Letters from the Porch
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              <svg class="leaf" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-3 8-8 8 5 0 8 3 8 8 0-5 3-8 8-8-5 0-8-3-8-8z"/></svg>
+              What exactly is cottagecore?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A gentle, pastoral aesthetic that romanticises simple rural life — homemade things, pressed flowers, gingham, wood grain and warm earthy colours. It values slowness, craft and cosiness over polish and gloss.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <svg class="leaf" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-3 8-8 8 5 0 8 3 8 8 0-5 3-8 8-8-5 0-8-3-8-8z"/></svg>
+              Can a homespun look still be accessible?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Absolutely. This page leans on dark ink outlines for strong contrast, dashed focus rings you can see from across the room, real semantic HTML and ARIA — warmth and legibility can sit happily side by side.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              <svg class="leaf" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-3 8-8 8 5 0 8 3 8 8 0-5 3-8 8-8-5 0-8-3-8-8z"/></svg>
+              Where does this style feel most at home?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Recipe sites, small handmade shops, journaling apps, gardening tools and slow-living brands — anywhere a calm, friendly, unhurried feeling is more welcome than a sleek corporate one.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Notes &amp; Knocks
+        </div>
+        <h3 class="card-title">Notices &amp; messages</h3>
+        <p class="muted" style="margin-top:6px">Little notes pinned above the page like postcards.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--accent" id="toastBtn">Pin a note</button>
+          <button class="btn" id="modalBtn">Open the dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">~ how we do things ~</span>
+      <h2>Three little ways of ours</h2>
+      <p>Cottagecore is gentleness — charm gathered slowly, by hand.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          Way the First
+        </div>
+        <h3 class="card-title">Made by hand</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Nothing is machine-perfect. Slightly wonky corners, dashed stitches and
+          hand-lettered labels keep everything feeling personal and warm.</p>
+      </section>
+      <section class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12c0-4 3-7 7-7-1 4-3 7-7 7zM12 14c0-3-2.5-6-6-6 1 3.5 3 6 6 6z"/></svg>
+          Way the Second
+        </div>
+        <h3 class="card-title">Grown from nature</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Sage green, butter cream, barn red and warm wood — every colour borrowed
+          straight from a garden, a pantry or a sunlit field.</p>
+      </section>
+      <section class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
+          Way the Third
+        </div>
+        <h3 class="card-title">Cosy &amp; unhurried</h3>
+        <p style="color:var(--ink-soft);margin-top:10px">
+          Soft serifs, gentle sways and gingham checks. Motion is slow and kind —
+          nothing here is ever in a rush.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <svg class="fence" viewBox="0 0 340 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2 38h336M2 28h336"/>
+      <path d="M28 52V14l8-10 8 10v38zM92 52V14l8-10 8 10v38zM156 52V14l8-10 8 10v38zM220 52V14l8-10 8 10v38zM284 52V14l8-10 8 10v38z"/>
+    </svg>
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22V12M12 12c0-4 3-7 7-7-1 4-3 7-7 7zM12 14c0-3-2.5-6-6-6 1 3.5 3 6 6 6z"/>
+      </svg>
+    </div>
+    <p>The Mossy Hollow — a cottagecore &amp; farmhouse design showcase.<br/>
+       Whittled by lamplight. Try the <a href="#" id="footTheme">day &amp; dusk toggle</a>.</p>
+    <p class="signoff">~ with love, from the kitchen table ~</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0-6c1.6 0 2.6 1.7 2 4 2.3-.6 4 0 4.6 1.5.6 1.6-.4 3.3-2.6 4 2.2.7 3.2 2.4 2.6 4-.6 1.5-2.3 2.1-4.6 1.5.6 2.3-.4 4-2 4s-2.6-1.7-2-4c-2.3.6-4 0-4.6-1.5-.6-1.6.4-3.3 2.6-4-2.2-.7-3.2-2.4-2.6-4C5.6 6 7.3 5.4 9.6 6 9 3.7 10 2 12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Pop these changes in the jar?</h3>
+    <p>Your tweaks to the cottage kit will be tucked away safely and synced to every shelf.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not just now</button>
+      <button class="btn btn--accent" id="modalConfirm">Yes, preserve it</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('cottage-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('cottage-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dusk' ? 'day' : 'dusk');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.18 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = 'calc(' + (100/opts.length) + '% - ' + (10/opts.length) + 'px)';
+    thumb.style.transform = 'translateX(calc(' + (i*100) + '% + ' + (i*10/opts.length) + 'px))';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.62; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.44; }));
+      root.style.setProperty('--accent-ink', lum > 0.62 ? '#4a4334' : '#fbf7e8');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap a star to rate','A bit thorny','Pleasant enough','Lovely','Wonderful','Pure honey'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'The gate swings open ✓';
+        showToast('Come on in', 'The kettle is already on.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter the 4-digit gate code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Tucked away safe', 'Your cottage kit is up to date.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Modal focus trap ---------- */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab') return;
+    var f = overlay.querySelectorAll('button');
+    if(!f.length) return;
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Pinned to the board', 'Honey on the Windowsill saved to Meadow Mornings.');
+  });
+})();
+</script>
+</body>
+</html>

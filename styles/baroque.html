@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gilt &amp; Glory — A Baroque Showcase</title>
+<meta name="description" content="A showcase of Baroque interface design — gilded acanthus scrollwork, chiaroscuro shadow, crimson and gold, the energy of a painted palace ceiling." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   BAROQUE — chiaroscuro drama. Deep chocolate-to-black grounds,
+   gilded leaf, crimson velvet. Depth from gold filigree, glow,
+   and heavy theatrical shadow. Maximalist; palace-ceiling energy.
+   ============================================================ */
+:root,
+[data-theme="dark"]{
+  --bg:        #1c1107;   /* near-black chocolate */
+  --bg-2:      #2a1b0e;   /* chocolate */
+  --panel:     #2f1f10;   /* gilded-frame interior */
+  --panel-hi:  #3b2814;
+  --groove:    #0f0904;
+  --ink:       #f4e3c1;   /* warm parchment text */
+  --ink-soft:  #b69b6c;   /* aged gilt text */
+  --ink-dim:   #7a6240;
+  --gold:      #c9a227;   /* leaf gold */
+  --gold-hi:   #f1d878;   /* lit highlight */
+  --gold-deep: #8a6b16;   /* shadowed gilt */
+  --crimson:   #6e1420;   /* deep crimson velvet */
+  --crimson-l: #a8222f;
+  --accent:    #c9a227;   /* re-themeable accent (gold by default) */
+  --accent-l:  #f1d878;
+  --accent-d:  #8a6b16;
+  --accent-ink:#2a1b0e;
+  --line:      rgba(201,162,39,.34);
+  --line-soft: rgba(201,162,39,.16);
+}
+[data-theme="light"]{
+  --bg:        #e7dcc0;   /* aged parchment */
+  --bg-2:      #ddd0ac;
+  --panel:     #f3ead0;
+  --panel-hi:  #fbf4dd;
+  --groove:    #c9b78c;
+  --ink:       #3a2410;
+  --ink-soft:  #6e5226;
+  --ink-dim:   #9a8456;
+  --gold:      #9c7a14;
+  --gold-hi:   #c9a227;
+  --gold-deep: #6b520c;
+  --crimson:   #7c1622;
+  --crimson-l: #a8222f;
+  --accent:    #9c7a14;
+  --accent-l:  #c9a227;
+  --accent-d:  #6b520c;
+  --accent-ink:#fbf4dd;
+  --line:      rgba(110,82,38,.4);
+  --line-soft: rgba(110,82,38,.2);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.12rem;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  transition:background .6s ease, color .6s ease;
+  overflow-x:hidden;
+}
+/* candle-lit chiaroscuro atmosphere */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(58rem 40rem at 50% -6%, rgba(241,216,120,.16), transparent 62%),
+    radial-gradient(50rem 50rem at 92% 18%, rgba(110,20,32,.30), transparent 60%),
+    radial-gradient(46rem 46rem at 4% 78%, rgba(110,20,32,.22), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 42%, var(--bg) 100%);
+}
+[data-theme="light"] body::before{
+  background:
+    radial-gradient(58rem 40rem at 50% -6%, rgba(255,255,255,.5), transparent 62%),
+    radial-gradient(50rem 50rem at 92% 18%, rgba(124,22,34,.12), transparent 60%),
+    radial-gradient(46rem 46rem at 4% 78%, rgba(124,22,34,.1), transparent 60%);
+}
+/* faint damask vignette */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(120% 90% at 50% 30%, transparent 52%, rgba(0,0,0,.55) 100%);
+}
+[data-theme="light"] body::after{ opacity:.25; }
+
+.wrap{ max-width:1200px; margin:0 auto; padding:0 30px; position:relative; z-index:1; }
+::selection{ background:var(--crimson); color:var(--gold-hi); }
+
+/* ---- gilded scrollwork divider, used as a motif ---- */
+.flourish{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  color:var(--gold); margin:0 auto;
+}
+.flourish svg{ display:block; }
+.flourish::before, .flourish::after{
+  content:""; height:1px; width:min(120px, 16vw);
+  background:linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:60; margin-top:16px; }
+.nav-inner{
+  display:flex; align-items:center; gap:22px;
+  padding:12px 16px 12px 22px;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--line);
+  border-radius:6px;
+  box-shadow:
+    0 0 0 1px var(--groove),
+    0 18px 40px -16px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(241,216,120,.18);
+  position:relative;
+}
+/* curling gilt corners on the nav frame */
+.nav-inner::before, .nav-inner::after{
+  content:""; position:absolute; width:26px; height:26px; pointer-events:none;
+  border:1.5px solid var(--gold); opacity:.7;
+}
+.nav-inner::before{ top:5px; left:5px; border-right:0; border-bottom:0; border-radius:6px 0 0 0; }
+.nav-inner::after{ bottom:5px; right:5px; border-left:0; border-top:0; border-radius:0 0 6px 0; }
+
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; display:grid; place-items:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 48%, var(--gold-deep) 100%);
+  box-shadow:
+    0 0 0 1px var(--gold-deep),
+    0 0 18px rgba(201,162,39,.5),
+    inset 0 2px 4px rgba(255,255,255,.5),
+    inset 0 -3px 6px rgba(0,0,0,.5);
+  color:var(--crimson);
+}
+.brand-mark svg{ width:24px; height:24px; }
+.brand-name{
+  font-family:'Cinzel Decorative', serif; font-weight:700;
+  font-size:1.16rem; letter-spacing:.06em; color:var(--gold-hi);
+  text-shadow:0 1px 0 rgba(0,0,0,.6);
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--ink-soft); text-decoration:none;
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.05rem;
+  letter-spacing:.04em; padding:9px 16px; border-radius:4px;
+  transition:color .25s, background .25s, text-shadow .25s;
+}
+.nav-links a:hover{ color:var(--gold-hi); text-shadow:0 0 12px rgba(241,216,120,.6); }
+.nav-back{
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--gold-hi); text-decoration:none;
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.02rem;
+  letter-spacing:.03em; padding:9px 15px; border-radius:4px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(201,162,39,.14), rgba(110,20,32,.12));
+  transition:border-color .25s, box-shadow .25s, color .25s;
+}
+.nav-back:hover{
+  border-color:var(--gold); color:var(--gold-hi);
+  box-shadow:0 0 18px rgba(201,162,39,.35);
+}
+.nav-back svg{ width:15px; height:15px; }
+
+.icon-btn{
+  width:46px; height:46px; flex:none; border:1px solid var(--line); cursor:pointer;
+  border-radius:50%;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  color:var(--gold); display:grid; place-items:center;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.2), 0 6px 14px -6px rgba(0,0,0,.7);
+  transition:color .25s, box-shadow .25s, transform .2s, border-color .25s;
+}
+.icon-btn:hover{ color:var(--gold-hi); border-color:var(--gold); transform:translateY(-2px);
+  box-shadow:0 0 16px rgba(201,162,39,.4); }
+.icon-btn:active{ transform:translateY(0); }
+.icon-btn svg{ width:20px; height:20px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:88px 0 64px; position:relative; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:11px;
+  padding:9px 22px; border-radius:999px; margin-bottom:30px;
+  background:linear-gradient(180deg, rgba(110,20,32,.55), rgba(110,20,32,.3));
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.15), 0 0 22px rgba(110,20,32,.4);
+  font-family:'Cinzel Decorative',serif; font-size:.7rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--gold-hi);
+}
+.eyebrow .dot{
+  width:7px; height:7px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, var(--gold-hi), var(--gold));
+  box-shadow:0 0 10px var(--gold-hi);
+}
+.hero h1{
+  font-family:'Playfair Display', serif; font-weight:800;
+  font-size:clamp(2.9rem, 7.4vw, 5.8rem); line-height:1.03; letter-spacing:-.01em;
+  color:var(--ink);
+  text-shadow:0 2px 0 rgba(0,0,0,.5), 0 12px 40px rgba(0,0,0,.6);
+}
+.hero h1 em{
+  font-style:italic; font-weight:500;
+  background:linear-gradient(180deg, var(--gold-hi) 8%, var(--gold) 52%, var(--gold-deep) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(0 0 18px rgba(201,162,39,.45));
+}
+.hero p.lede{
+  max-width:600px; margin:26px auto 0; font-size:1.32rem; color:var(--ink-soft);
+  font-style:italic; line-height:1.55;
+}
+.hero-flourish{ margin:34px auto 0; }
+.hero-cta{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:52px;
+}
+.stat-pill{
+  padding:18px 30px; border-radius:6px; min-width:150px;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.16), 0 14px 30px -16px rgba(0,0,0,.8);
+  display:flex; flex-direction:column; align-items:center; position:relative;
+}
+.stat-pill::before{
+  content:""; position:absolute; inset:4px; border:1px solid var(--line-soft);
+  border-radius:4px; pointer-events:none;
+}
+.stat-pill b{
+  font-family:'Playfair Display',serif; font-weight:700; font-size:2.1rem; line-height:1;
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-deep));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stat-pill small{
+  font-family:'Cinzel Decorative',serif; font-size:.62rem; color:var(--ink-soft);
+  margin-top:9px; letter-spacing:.16em; text-transform:uppercase;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Cinzel Decorative', serif; font-size:.78rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  color:var(--gold-hi); padding:15px 28px; border-radius:5px;
+  display:inline-flex; align-items:center; gap:10px;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.18), 0 10px 24px -12px rgba(0,0,0,.85);
+  transition:transform .2s ease, box-shadow .25s ease, border-color .25s, color .2s;
+}
+.btn:hover{ transform:translateY(-2px); border-color:var(--gold);
+  box-shadow:0 0 20px rgba(201,162,39,.3), 0 12px 26px -12px rgba(0,0,0,.85); }
+.btn:active{ transform:translateY(0); }
+.btn svg{ width:16px; height:16px; }
+.btn--accent{
+  border-color:var(--accent-d); color:var(--accent-ink);
+  background:linear-gradient(180deg, var(--accent-l) 6%, var(--accent) 52%, var(--accent-d) 100%);
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 6px rgba(0,0,0,.35),
+    0 0 22px rgba(201,162,39,.4), 0 12px 26px -12px rgba(0,0,0,.85);
+}
+.btn--accent:hover{ box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 6px rgba(0,0,0,.35),
+    0 0 32px rgba(201,162,39,.62), 0 12px 26px -12px rgba(0,0,0,.85); }
+.btn--crimson{
+  border-color:#3c0a10; color:var(--gold-hi);
+  background:linear-gradient(180deg, var(--crimson-l) 4%, var(--crimson) 55%, #460c14 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,170,170,.22), inset 0 -3px 6px rgba(0,0,0,.45),
+    0 12px 26px -12px rgba(0,0,0,.85);
+}
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-dim);
+  background:linear-gradient(180deg, var(--panel), var(--groove));
+  border-color:var(--line-soft); box-shadow:none;
+}
+.btn:disabled:hover{ transform:none; box-shadow:none; }
+.btn:focus-visible, .icon-btn:focus-visible, .nav-back:focus-visible{
+  outline:2px solid var(--gold-hi); outline-offset:3px;
+}
+
+/* ============================================================ SECTION HEAD */
+.showcase{ padding:58px 0 34px; }
+.section-head{ text-align:center; margin-bottom:44px; }
+.section-head .kicker{
+  font-family:'Cinzel Decorative',serif; font-size:.66rem; font-weight:700;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gold);
+  display:block; margin-bottom:14px;
+}
+.section-head h2{
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:clamp(2rem,4.2vw,3rem); letter-spacing:-.01em; color:var(--ink);
+  text-shadow:0 2px 8px rgba(0,0,0,.5);
+}
+.section-head h2 em{ font-style:italic; color:var(--gold-hi); }
+.section-head p{ color:var(--ink-soft); margin-top:8px; font-size:1.18rem; font-style:italic; }
+.section-head .flourish{ margin-top:18px; }
+
+/* ============================================================ BENTO / CARDS */
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.card{
+  position:relative; padding:30px;
+  background:
+    linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:
+    0 0 0 1px var(--groove),
+    0 26px 50px -22px rgba(0,0,0,.9),
+    inset 0 1px 0 rgba(241,216,120,.16);
+  opacity:0; transform:translateY(30px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1),
+             background .6s ease, border-color .25s ease;
+}
+.card.in{ opacity:1; transform:none; }
+/* inner gilt frame line */
+.card::before{
+  content:""; position:absolute; inset:7px; border-radius:5px;
+  border:1px solid var(--line-soft); pointer-events:none;
+}
+/* curling gilt corner ornaments */
+.card::after{
+  content:""; position:absolute; top:11px; left:11px;
+  width:30px; height:30px; pointer-events:none;
+  border-top:1.5px solid var(--gold); border-left:1.5px solid var(--gold);
+  border-radius:8px 0 0 0; opacity:.62;
+}
+.card-corner{
+  position:absolute; bottom:11px; right:11px;
+  width:30px; height:30px; pointer-events:none;
+  border-bottom:1.5px solid var(--gold); border-right:1.5px solid var(--gold);
+  border-radius:0 0 8px 0; opacity:.62;
+}
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card--wide{ grid-column:span 2; }
+
+.card-label{
+  font-family:'Cinzel Decorative',serif; font-size:.62rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gold);
+  display:flex; align-items:center; gap:11px; margin-bottom:20px;
+}
+.card-label svg{ width:18px; height:18px; flex:none; color:var(--gold); }
+.card-label::after{
+  content:""; flex:1; height:1px;
+  background:linear-gradient(90deg, var(--line), transparent);
+}
+.card-title{
+  font-family:'Playfair Display',serif; font-weight:600; font-size:1.55rem;
+  letter-spacing:-.005em; color:var(--ink);
+}
+.muted{ color:var(--ink-soft); font-size:1.04rem; font-style:italic; }
+.center{ text-align:center; }
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:6px;
+  background:
+    radial-gradient(80% 70% at 26% 22%, rgba(241,216,120,.55), transparent 64%),
+    radial-gradient(90% 90% at 82% 92%, #3c0a10, transparent 70%),
+    linear-gradient(150deg, var(--crimson-l), var(--crimson) 50%, #3c0a10);
+  border:1px solid var(--line);
+  box-shadow:
+    inset 0 2px 14px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(241,216,120,.14),
+    0 16px 34px -18px rgba(0,0,0,.9);
+  display:grid; place-items:center; margin-bottom:22px; overflow:hidden;
+}
+/* gilded oval medallion frame on the album art */
+.player-art::before{
+  content:""; position:absolute; inset:14px; border-radius:50%;
+  border:2px solid rgba(201,162,39,.5);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.5), 0 0 14px rgba(201,162,39,.25);
+  pointer-events:none;
+}
+.eq{ display:flex; align-items:flex-end; gap:7px; height:52px; position:relative; z-index:1; }
+.eq span{
+  width:9px; height:16px; border-radius:3px 3px 1px 1px;
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-deep));
+  box-shadow:0 0 8px rgba(241,216,120,.5);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:46px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Playfair Display',serif; font-size:1.48rem; font-weight:600;
+  line-height:1.18; color:var(--ink);
+}
+.player-meta p{ color:var(--ink-soft); font-size:1.04rem; font-style:italic; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--crimson-l); border-color:var(--crimson-l); }
+.heart.on svg{ fill:var(--crimson-l); }
+.heart.on{ box-shadow:0 0 16px rgba(168,34,47,.6); }
+
+.player-progress{ margin:22px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:10px; border-radius:999px; position:relative;
+  background:var(--groove);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.7), inset 0 0 0 1px var(--line-soft);
+}
+.track-fill{
+  position:absolute; inset:0; width:34%; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-d), var(--accent) 60%, var(--accent-l));
+  box-shadow:0 0 12px rgba(201,162,39,.6);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 12px rgba(201,162,39,.7),
+    inset 0 1px 2px rgba(255,255,255,.6);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.92rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums; letter-spacing:.04em;
+}
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:20px; margin-top:20px; }
+.play-btn{
+  width:70px; height:70px; border:1px solid var(--accent-d); cursor:pointer;
+  border-radius:50%; color:var(--accent-ink);
+  background:radial-gradient(circle at 38% 30%, var(--accent-l), var(--accent) 52%, var(--accent-d) 100%);
+  display:grid; place-items:center;
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.55), inset 0 -4px 8px rgba(0,0,0,.4),
+    0 0 26px rgba(201,162,39,.5), 0 10px 22px -10px rgba(0,0,0,.9);
+  transition:transform .2s, box-shadow .25s;
+}
+.play-btn:hover{ transform:translateY(-2px) scale(1.03); }
+.play-btn.playing{ transform:none; }
+.play-btn svg{ width:25px; height:25px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:16px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--line-soft); }
+.switch-row .lbl{ font-weight:600; font-size:1.14rem; color:var(--ink); }
+.switch-row .sub{ font-size:.98rem; color:var(--ink-soft); font-style:italic; }
+.switch{ position:relative; width:66px; height:34px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--groove);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.75), inset 0 0 0 1px var(--line-soft);
+  transition:background .35s, box-shadow .35s;
+}
+.switch .s-thumb{
+  position:absolute; top:4px; left:4px; width:26px; height:26px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--ink-soft) 75%);
+  box-shadow:0 0 0 1px var(--gold-deep), 0 2px 5px rgba(0,0,0,.6);
+  transition:transform .36s cubic-bezier(.34,1.4,.5,1), background .3s, box-shadow .3s;
+}
+.switch input:checked ~ .s-track{
+  background:linear-gradient(180deg, var(--crimson-l), var(--crimson));
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.55), inset 0 0 0 1px var(--line),
+    0 0 14px rgba(168,34,47,.4);
+}
+.switch input:checked ~ .s-thumb{
+  transform:translateX(32px);
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 12px rgba(201,162,39,.7);
+}
+.switch input:focus-visible ~ .s-track{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; }
+.dial{
+  position:relative; width:188px; height:188px; border-radius:50%;
+  background:radial-gradient(circle at 50% 42%, var(--bg-2), var(--groove) 90%);
+  box-shadow:
+    inset 0 6px 16px rgba(0,0,0,.85), inset 0 0 0 2px var(--line),
+    0 0 22px rgba(0,0,0,.5);
+  display:grid; place-items:center; touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:13px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      rgba(0,0,0,.5) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+  filter:drop-shadow(0 0 8px rgba(201,162,39,.5));
+}
+.dial-knob{
+  position:relative; width:122px; height:122px; border-radius:50%;
+  background:radial-gradient(circle at 38% 30%, var(--panel-hi), var(--panel) 60%, var(--groove));
+  box-shadow:
+    0 0 0 1px var(--line), inset 0 2px 4px rgba(241,216,120,.18),
+    inset 0 -6px 12px rgba(0,0,0,.6), 0 10px 20px -10px rgba(0,0,0,.9);
+  pointer-events:none;
+}
+.dial-knob::before{
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:10px; height:10px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold));
+  box-shadow:0 0 12px var(--gold-hi);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Playfair Display',serif; font-size:2.2rem; line-height:1;
+  font-variant-numeric:tabular-nums; color:var(--gold-hi);
+  text-shadow:0 0 14px rgba(201,162,39,.5);
+}
+.dial-readout small{
+  display:block; font-family:'Cinzel Decorative',serif; font-size:.56rem;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-top:5px;
+}
+.dial-hint{ font-size:.98rem; color:var(--ink-soft); font-style:italic; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.slider-head .v{
+  font-family:'Playfair Display',serif; font-size:1.9rem; color:var(--gold-hi);
+  font-variant-numeric:tabular-nums; text-shadow:0 0 14px rgba(201,162,39,.45);
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:32px;
+  background:transparent; cursor:pointer; margin:8px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:12px; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--groove) var(--val,55%) 100%);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.7), inset 0 0 0 1px var(--line-soft);
+}
+.range::-moz-range-track{ height:12px; border-radius:999px; background:var(--groove);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.7); }
+.range::-moz-range-progress{ height:12px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:28px; height:28px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 12px rgba(201,162,39,.65),
+    inset 0 1px 2px rgba(255,255,255,.6);
+  margin-top:-8px;
+}
+.range::-moz-range-thumb{
+  width:28px; height:28px; border:0; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 12px rgba(201,162,39,.65);
+}
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{
+  box-shadow:0 0 0 3px var(--gold-hi), 0 0 14px rgba(201,162,39,.7);
+}
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.84rem;
+  color:var(--ink-soft); margin-top:4px; font-style:italic; letter-spacing:.05em;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:5px;
+  background:var(--groove);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.7), inset 0 0 0 1px var(--line-soft);
+  margin-bottom:24px;
+}
+.search svg{ width:18px; height:18px; color:var(--gold); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; color:var(--ink); width:100%;
+  font-family:'Cormorant Garamond',serif; font-size:1.12rem;
+}
+.search input::placeholder{ color:var(--ink-dim); font-style:italic; }
+
+.seg-label{
+  font-family:'Cinzel Decorative',serif; font-size:.6rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px;
+}
+.segmented{
+  position:relative; display:flex; padding:6px; border-radius:6px;
+  background:var(--groove);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.7), inset 0 0 0 1px var(--line-soft);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:4px;
+  background:linear-gradient(180deg, var(--accent-l) 6%, var(--accent) 52%, var(--accent-d));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 16px rgba(201,162,39,.45);
+  transition:transform .34s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Cinzel Decorative',serif; font-weight:700; font-size:.66rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+  padding:12px 6px; transition:color .25s;
+}
+.seg-opt.active{ color:var(--accent-ink); text-shadow:0 1px 0 rgba(255,255,255,.3); }
+.seg-opt:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:2px; border-radius:4px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:36px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:158px; height:158px; border-radius:50%;
+  background:radial-gradient(circle at 50% 42%, var(--bg-2), var(--groove));
+  box-shadow:inset 0 5px 14px rgba(0,0,0,.8), inset 0 0 0 2px var(--line);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:12px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), rgba(0,0,0,.55) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  filter:drop-shadow(0 0 8px rgba(201,162,39,.55));
+  transition:--p 1.5s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{
+  font-family:'Playfair Display',serif; font-size:2.2rem; line-height:1;
+  color:var(--gold-hi); text-shadow:0 0 14px rgba(201,162,39,.5);
+}
+.ring-core small{
+  font-family:'Cinzel Decorative',serif; font-size:.58rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:16px 20px; border-radius:6px;
+  background:var(--groove);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.65), inset 0 0 0 1px var(--line-soft);
+  display:flex; align-items:center; gap:15px;
+}
+.chip .ci{
+  width:42px; height:42px; border-radius:50%; flex:none; display:grid; place-items:center;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 12px rgba(201,162,39,.5);
+  color:var(--crimson);
+}
+.chip .ci svg{ width:19px; height:19px; }
+.chip b{ font-family:'Playfair Display',serif; font-size:1.32rem; color:var(--ink); }
+.chip small{ display:block; font-size:.96rem; color:var(--ink-soft); font-style:italic; }
+.btn-stack{ display:flex; flex-direction:column; gap:14px; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.swatch{
+  width:50px; height:50px; border:1px solid var(--line); cursor:pointer; border-radius:50%;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  display:grid; place-items:center;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.15), 0 6px 14px -8px rgba(0,0,0,.8);
+  transition:transform .2s, box-shadow .25s, border-color .25s;
+}
+.swatch:hover{ transform:translateY(-3px); border-color:var(--gold); }
+.swatch::after{
+  content:""; width:26px; height:26px; border-radius:50%; background:var(--sw);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.3),
+    0 0 10px var(--sw); transition:.22s;
+}
+.swatch.is-active{ border-color:var(--gold-hi); box-shadow:0 0 18px rgba(201,162,39,.45); }
+.swatch.is-active::after{
+  width:20px; height:20px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.5),
+    0 0 0 3px var(--panel), 0 0 0 5px var(--sw), 0 0 12px var(--sw);
+}
+.swatch:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:16px; margin:26px 0 14px; }
+.step-btn{
+  width:56px; height:56px; flex:none; border:1px solid var(--line); cursor:pointer;
+  border-radius:50%; color:var(--gold-hi);
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  font-family:'Playfair Display',serif; font-size:1.7rem;
+  display:grid; place-items:center;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.18), 0 6px 14px -8px rgba(0,0,0,.8);
+  transition:color .2s, border-color .25s, box-shadow .25s, transform .15s;
+}
+.step-btn:hover{ color:var(--gold-hi); border-color:var(--gold);
+  box-shadow:0 0 16px rgba(201,162,39,.4); }
+.step-btn:active{ transform:scale(.93); }
+.step-btn:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+.step-val{
+  min-width:96px; padding:14px 0; border-radius:6px;
+  background:var(--groove);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.7), inset 0 0 0 1px var(--line-soft);
+  font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold-hi);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:10px; margin:26px 0 14px; }
+.star{
+  width:50px; height:50px; border:1px solid var(--line); cursor:pointer; border-radius:6px;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  color:var(--ink-dim); display:grid; place-items:center;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.14), 0 6px 12px -8px rgba(0,0,0,.8);
+  transition:color .18s, transform .18s, box-shadow .25s, border-color .2s;
+}
+.star svg{ width:24px; height:24px; transition:fill .18s, filter .18s; }
+.star:hover{ transform:translateY(-3px); }
+.star.lit{
+  color:var(--gold-hi); border-color:var(--gold);
+  box-shadow:0 0 18px rgba(201,162,39,.5);
+}
+.star.lit svg{ fill:var(--gold-hi); filter:drop-shadow(0 0 6px rgba(241,216,120,.8)); }
+.star:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:14px; }
+.acc-item{
+  border-radius:6px; border:1px solid var(--line-soft);
+  background:linear-gradient(180deg, rgba(59,40,20,.5), rgba(47,31,16,.5));
+  transition:box-shadow .28s, border-color .28s;
+}
+.acc-item.open{
+  border-color:var(--line);
+  box-shadow:0 0 22px rgba(201,162,39,.18), inset 0 1px 0 rgba(241,216,120,.12);
+}
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Playfair Display',serif; font-weight:600; font-size:1.2rem;
+  color:var(--ink); text-align:left; padding:18px 20px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--gold); transition:transform .32s, color .3s; }
+.acc-item.open .acc-head{ color:var(--gold-hi); }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); color:var(--gold-hi); }
+.acc-head:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:-3px; border-radius:6px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .34s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 20px 18px; color:var(--ink-soft); font-size:1.05rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:1px solid var(--line); cursor:pointer; color:var(--ink);
+  font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.1rem;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  padding:15px 19px; border-radius:6px;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.16), 0 6px 14px -8px rgba(0,0,0,.8);
+  display:flex; align-items:center; gap:10px;
+  transition:border-color .22s, box-shadow .22s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--gold); transition:transform .26s; }
+.select.open .select-btn{ border-color:var(--gold); box-shadow:0 0 18px rgba(201,162,39,.3); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:30;
+  list-style:none; margin:0; padding:8px; border-radius:8px;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--line);
+  box-shadow:0 24px 44px -18px rgba(0,0,0,.92), inset 0 1px 0 rgba(241,216,120,.14);
+  opacity:0; transform:translateY(-10px); pointer-events:none;
+  transition:opacity .22s, transform .22s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:12px 14px; border-radius:4px; cursor:pointer;
+  font-weight:600; font-size:1.06rem; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+  transition:background .16s, color .16s;
+}
+.select-menu li:hover{ background:rgba(201,162,39,.14); color:var(--gold-hi); }
+.select-menu li[aria-selected="true"]{
+  background:linear-gradient(90deg, rgba(110,20,32,.5), rgba(110,20,32,.2));
+  color:var(--gold-hi);
+}
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; color:var(--gold-hi); }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:13px; margin:26px 0 14px; }
+.pin input{
+  width:56px; height:68px; border:1px solid var(--line); outline:0; text-align:center;
+  font-family:'Playfair Display',serif; font-size:1.9rem; color:var(--ink);
+  background:var(--groove); border-radius:6px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.7);
+  transition:box-shadow .2s, color .2s, border-color .2s;
+}
+.pin input.filled{ color:var(--gold-hi); }
+.pin input:focus{
+  border-color:var(--gold-hi);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.7), 0 0 16px rgba(201,162,39,.45);
+}
+.pin.done input{
+  color:var(--gold-hi); border-color:var(--gold);
+  box-shadow:0 0 16px rgba(201,162,39,.4);
+}
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:26px 0 14px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; border:1px solid var(--line); cursor:pointer;
+  border-radius:6px; color:var(--ink-soft);
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  font-family:'Playfair Display',serif; font-size:1.35rem;
+  display:grid; place-items:center;
+  box-shadow:inset 0 1px 0 rgba(241,216,120,.14), 0 6px 12px -8px rgba(0,0,0,.8);
+  transition:color .2s, border-color .22s, box-shadow .22s, transform .15s;
+}
+.tg-btn:hover{ color:var(--gold-hi); transform:translateY(-2px); }
+.tg-btn.on{
+  color:var(--accent-ink); border-color:var(--accent-d);
+  background:linear-gradient(180deg, var(--accent-l) 6%, var(--accent) 55%, var(--accent-d));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 18px rgba(201,162,39,.45);
+}
+.tg-btn:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 10px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--bg-2); border:1px solid var(--line); color:var(--gold-hi);
+  font-family:'Cinzel Decorative',serif; font-size:.56rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:6px 11px; border-radius:4px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:200; display:grid; place-items:center; padding:24px;
+  background:rgba(8,5,2,.78); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  opacity:0; transition:opacity .26s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:460px; width:100%; text-align:center; padding:42px 38px;
+  position:relative;
+  background:
+    radial-gradient(80% 60% at 50% 0%, rgba(241,216,120,.1), transparent 70%),
+    linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--gold);
+  border-radius:10px;
+  box-shadow:
+    0 0 0 1px var(--groove),
+    0 36px 70px -16px rgba(0,0,0,.9),
+    0 0 50px rgba(201,162,39,.2),
+    inset 0 1px 0 rgba(241,216,120,.2);
+  transform:scale(.9) translateY(14px);
+  transition:transform .35s cubic-bezier(.2,1.25,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal::before{
+  content:""; position:absolute; inset:9px; border:1px solid var(--line);
+  border-radius:7px; pointer-events:none;
+}
+.modal-icon{
+  width:70px; height:70px; margin:0 auto 18px; border-radius:50%; display:grid;
+  place-items:center; color:var(--crimson);
+  background:radial-gradient(circle at 36% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 26px rgba(201,162,39,.55),
+    inset 0 2px 4px rgba(255,255,255,.5);
+}
+.modal-icon svg{ width:30px; height:30px; }
+.modal h3{
+  font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--ink);
+  letter-spacing:-.005em;
+}
+.modal p{ color:var(--ink-soft); margin:10px 0 26px; font-size:1.1rem; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:26px; bottom:26px; z-index:240;
+  display:flex; flex-direction:column; gap:13px; max-width:calc(100vw - 52px);
+}
+.toast{
+  display:flex; align-items:center; gap:15px; padding:16px 22px; border-radius:8px;
+  background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border:1px solid var(--gold);
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.9), 0 0 30px rgba(201,162,39,.22),
+    inset 0 1px 0 rgba(241,216,120,.18);
+  transform:translateX(150%); transition:transform .46s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:42px; height:42px; flex:none; border-radius:50%; display:grid; place-items:center;
+  color:var(--crimson);
+  background:radial-gradient(circle at 36% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-deep));
+  box-shadow:0 0 0 1px var(--gold-deep), 0 0 14px rgba(201,162,39,.5);
+}
+.toast .t-ico svg{ width:20px; height:20px; }
+.toast b{ font-family:'Playfair Display',serif; font-size:1.16rem; color:var(--ink); }
+.toast small{ display:block; color:var(--ink-soft); font-size:.96rem; font-style:italic; }
+
+/* ============================================================ ABOUT */
+.about-card{ text-align:left; }
+.about-card .roman{
+  font-family:'Cinzel Decorative',serif; font-weight:900; font-size:2.4rem;
+  color:transparent; -webkit-background-clip:text; background-clip:text;
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-deep));
+  line-height:1; margin-bottom:10px; display:block;
+}
+.about-card p{ color:var(--ink-soft); margin-top:10px; font-size:1.08rem; }
+.about-card p em{ color:var(--gold-hi); font-style:italic; }
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:72px 0 60px; color:var(--ink-soft); font-size:1.04rem;
+  position:relative;
+}
+.foot .brand-mark{ margin:0 auto 20px; }
+.foot .flourish{ margin-bottom:22px; }
+.foot a{ color:var(--gold-hi); text-decoration:none; border-bottom:1px solid var(--line); }
+.foot a:hover{ color:var(--gold-hi); text-shadow:0 0 10px rgba(241,216,120,.6); }
+.foot .foot-name{
+  font-family:'Cinzel Decorative',serif; font-size:1rem; letter-spacing:.08em;
+  color:var(--gold-hi); display:block; margin-bottom:8px;
+}
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(30px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .9s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.18s; }
+.d3{ animation-delay:.3s; } .d4{ animation-delay:.42s; } .d5{ animation-delay:.54s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:960px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:26px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:620px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:56px 0 44px; }
+  .card{ padding:24px; }
+  .wrap{ padding:0 18px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c-3 2-3 6 0 8 3-2 3-6 0-8z"/>
+            <path d="M12 11c-4 0-7 3-7 7 4 0 7-3 7-7zM12 11c4 0 7 3 7 7-4 0-7-3-7-7z"/>
+          </svg>
+        </div>
+        <div class="brand-name">Gilt &amp; Glory</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Cabinet</a>
+        <a href="#more">Apparatus</a>
+        <a href="#about">Doctrine</a>
+      </div>
+      <a class="nav-back" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rise d1"><span class="dot"></span>Baroque Interface Design</div>
+    <h1 class="rise d2">A showcase dressed<br/>in <em>gilt &amp; glory</em>.</h1>
+    <p class="lede rise d3">Every control below is a chamber in a palace of interface —
+      gilded acanthus, crimson velvet, and chiaroscuro shadow staged for pure
+      theatrical excess.</p>
+    <div class="hero-flourish rise d3">
+      <div class="flourish" aria-hidden="true">
+        <svg width="64" height="20" viewBox="0 0 64 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M32 10c-6-8-14-8-18-2-3 4 0 9 5 8 6-1 7-9 1-11"/>
+          <path d="M32 10c6-8 14-8 18-2 3 4 0 9-5 8-6-1-7-9-1-11"/>
+          <circle cx="32" cy="10" r="2.4" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Enter the gallery
+      </a>
+      <a href="#about" class="btn">The doctrine</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>24kt</b><small>Leaf Gilding</small></div>
+      <div class="stat-pill"><b>1600s</b><small>Theatrical Era</small></div>
+      <div class="stat-pill"><b>∞</b><small>Ornament Density</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The Cabinet of Controls</span>
+      <h2>A gilded <em>component</em> set</h2>
+      <p>Every control is live — drag it, press it, let it gleam.</p>
+      <div class="flourish" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
+      </div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Now Performing
+        </div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Aria of the Gilded Hall</h3>
+            <p>Il Cortegiano &middot; Sonata in Or</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 0 1-4 0v-.1A1.7 1.7 0 0 0 7 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 2.6 14H2a2 2 0 0 1 0-4h.1A1.7 1.7 0 0 0 4 7.4l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 2.6V2a2 2 0 0 1 4 0v.1A1.7 1.7 0 0 0 17 4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9H22a2 2 0 0 1 0 4z"/></svg>
+          Decrees
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Court alerts</div>
+            <div class="sub">Heralds announce new works</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Court alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-gilding</div>
+            <div class="sub">Across every chamber</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-gilding" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Lossless concerto</div>
+            <div class="sub">Richer, weightier sound</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Lossless concerto" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+          Volume
+        </div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>Forte</small>
+            </div>
+          </div>
+          <div class="dial-hint">Turn the knob &middot; or use the arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+          Candlelight
+        </div>
+        <div class="slider-head">
+          <span class="card-title">Chandelier</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Candlelight brightness" />
+        <div class="slider-scale"><span>Dim</span><span>Radiant</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Enquiry
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the gallery&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">Arrange as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Salon</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Plates</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+          The Week's Chronicle
+        </div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Toward Goal</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>An unbroken listening streak</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 works</b><small>Sealed into your collection</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Share recital</button>
+            <button class="btn">Export ledger</button>
+            <button class="btn" disabled>Sync at rest</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The Apparatus</span>
+      <h2>Further <em>instruments</em> of control</h2>
+      <p>Steppers, ratings, menus and dialogs — each one carved and gilt.</p>
+      <div class="flourish" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
+      </div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="13" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="13.5" r="2.5"/><path d="M12 22a10 10 0 0 1 0-20c5 0 8 3 8 7 0 3-2 4-4 4h-2c-1.5 0-2 1-2 2s.5 2 0 3-1.5 2-0 2z"/></svg>
+          Living Palette
+        </div>
+        <h3 class="card-title">Gilding hue</h3>
+        <p class="muted" style="margin-top:6px">Choose a leaf, and every control is re-cast in it.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#c9a227" data-accent="#c9a227" aria-label="Leaf Gold"></button>
+          <button class="swatch" style="--sw:#a8222f" data-accent="#a8222f" aria-label="Crimson"></button>
+          <button class="swatch" style="--sw:#3f6f4e" data-accent="#3f6f4e" aria-label="Verdigris"></button>
+          <button class="swatch" style="--sw:#2f5d8a" data-accent="#2f5d8a" aria-label="Royal Sapphire"></button>
+          <button class="swatch" style="--sw:#6a3d7a" data-accent="#6a3d7a" aria-label="Imperial Purple"></button>
+          <button class="swatch" style="--sw:#b06a1f" data-accent="#b06a1f" aria-label="Burnished Copper"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/></svg>
+          Tally
+        </div>
+        <h3 class="card-title">Engraving order</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Folios of &ldquo;Sonata in Or&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg>
+          Acclaim
+        </div>
+        <h3 class="card-title">Rate this cabinet</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Bestow your verdict</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+          Order
+        </div>
+        <h3 class="card-title" style="margin-bottom:18px">Arrangement</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most played" aria-selected="false">Most played<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          The Seal
+        </div>
+        <h3 class="card-title">Cipher of entry</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Inscribe your four-digit cipher</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          Calligraphy
+        </div>
+        <h3 class="card-title">Quill style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each ornament toggles on its own</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          The Catechism
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What exactly is the Baroque style?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A 17th-century aesthetic of grandeur and drama — gilded scrollwork, swirling acanthus, deep chiaroscuro shadow and rich crimson. It rejects restraint entirely: every surface is an opportunity for ornament and theatre.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Can interfaces really be this ornate?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>With discipline, yes. This page keeps a strict hierarchy: gold leads the eye, crimson signals action, and parchment text stays legible. The maximalism is staged, not chaotic — and focus rings keep every control operable.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does this drama belong?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Showcases, luxury brands, cultural and music products, and any moment that wants to feel ceremonial. It is the architecture of a palace — best where occasion and grandeur are the point.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <span class="card-corner" aria-hidden="true"></span>
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 21h11a2 2 0 0 0 2-2V8"/></svg>
+          Proclamations
+        </div>
+        <h3 class="card-title">Dialogs &amp; heralds</h3>
+        <p class="muted" style="margin-top:6px">Gilded panels that rise above the page.</p>
+        <div class="btn-stack" style="margin-top:20px">
+          <button class="btn btn--accent" id="toastBtn">Sound a herald</button>
+          <button class="btn btn--crimson" id="modalBtn">Open the decree</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The Doctrine</span>
+      <h2>Three tenets of <em>theatrical</em> excess</h2>
+      <p>Baroque is grandeur with intent — drama composed, not scattered.</p>
+      <div class="flourish" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
+      </div>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <span class="card-corner" aria-hidden="true"></span>
+        <span class="roman">I</span>
+        <h3 class="card-title">Gild without mercy</h3>
+        <p>Acanthus scrolls, curling frames and leaf-gold filigree crown every edge.
+          Ornament is not decoration laid on top — it <em>is</em> the structure.</p>
+      </section>
+      <section class="card about-card">
+        <span class="card-corner" aria-hidden="true"></span>
+        <span class="roman">II</span>
+        <h3 class="card-title">Stage the shadow</h3>
+        <p>Chiaroscuro rules the page: deep chocolate dark, a single dramatic
+          light, and gold that <em>glows</em> as if struck by a candle.</p>
+      </section>
+      <section class="card about-card">
+        <span class="card-corner" aria-hidden="true"></span>
+        <span class="roman">III</span>
+        <h3 class="card-title">Compose the excess</h3>
+        <p>Maximalism only works with hierarchy. Gold leads, crimson commands,
+          parchment speaks — every flourish placed for <em>effect</em>.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="flourish" aria-hidden="true">
+      <svg width="64" height="20" viewBox="0 0 64 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <path d="M32 10c-6-8-14-8-18-2-3 4 0 9 5 8 6-1 7-9 1-11"/>
+        <path d="M32 10c6-8 14-8 18-2 3 4 0 9-5 8-6-1-7-9-1-11"/>
+        <circle cx="32" cy="10" r="2.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3c-3 2-3 6 0 8 3-2 3-6 0-8z"/>
+        <path d="M12 11c-4 0-7 3-7 7 4 0 7-3 7-7zM12 11c4 0 7 3 7 7-4 0-7-3-7-7z"/>
+      </svg>
+    </div>
+    <span class="foot-name">Gilt &amp; Glory</span>
+    <p>A Baroque interface showcase — gilded, theatrical, unrepentant.<br/>
+       Lit by candle and leaf gold. Try the <a href="#" id="footTheme">theme toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Ratify these changes?</h3>
+    <p>Your alterations to the gilded cabinet will be sealed and proclaimed across every chamber of your account.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not yet</button>
+      <button class="btn btn--accent" id="modalConfirm">Seal the decree</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('baroque-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('baroque-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1500);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 500);
+    }, 3600);
+  }
+
+  /* ---------- Accent picker ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.55; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.5; }));
+      root.style.setProperty('--accent-ink', lum > 0.55 ? '#2a1b0e' : '#f4e3c1');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Bestow your verdict','Tolerable','Worthy','Admirable','Magnificent','Sublime'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Cipher accepted ✦';
+        showToast('The gate is opened', 'Welcome back to Gilt & Glory.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Inscribe your four-digit cipher';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('The decree is sealed', 'Your gilded cabinet is up to date.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Modal focus trap ---------- */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab') return;
+    var f = overlay.querySelectorAll('button');
+    if(!f.length) return;
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Sealed to the collection', 'Aria of the Gilded Hall was added.');
+  });
+})();
+</script>
+</body>
+</html>

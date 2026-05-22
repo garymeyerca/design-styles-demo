@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Y2KOS — A Year-2000 Tech-Optimism Showcase</title>
+<meta name="description" content="A showcase of Y2K design — chrome gradients, holographic sheen, Aqua-glossy bubbles and pure early-2000s digital optimism." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Varela+Round&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Y2K — chrome, holographic iridescence, Aqua gloss, bright blue.
+   ============================================================ */
+:root,
+[data-theme="day"]{
+  --bg-1:        #2b9bff;   /* sky blue */
+  --bg-2:        #6fd0ff;
+  --bg-3:        #d6f1ff;
+  --panel:       #f4fbff;   /* near-white glossy surface */
+  --panel-2:     #ffffff;
+  --chrome-1:    #ffffff;
+  --chrome-2:    #c3d4e6;
+  --chrome-3:    #8a9bb0;
+  --chrome-4:    #f0f5fb;
+  --text:        #16344f;
+  --text-soft:   #5b7794;
+  --ink-on-acc:  #ffffff;
+  --accent:      #2b9bff;   /* sky blue */
+  --accent-d:    #0a63c4;
+  --accent-l:    #9fd6ff;
+  --lime:        #b6ff3d;
+  --pink:        #ff61d8;
+  --line:        rgba(43,155,255,.18);
+}
+[data-theme="night"]{
+  --bg-1:        #0a1733;
+  --bg-2:        #15235a;
+  --bg-3:        #243a7a;
+  --panel:       #16244d;
+  --panel-2:     #1d2f5e;
+  --chrome-1:    #aab8d8;
+  --chrome-2:    #46557e;
+  --chrome-3:    #2a3556;
+  --chrome-4:    #20305c;
+  --text:        #dcecff;
+  --text-soft:   #8da3c9;
+  --ink-on-acc:  #07142e;
+  --accent:      #4fb4ff;
+  --accent-d:    #1d7fe0;
+  --accent-l:    #2c4a85;
+  --lime:        #b6ff3d;
+  --pink:        #ff61d8;
+  --line:        rgba(120,170,255,.22);
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Varela Round', sans-serif;
+  background:
+    radial-gradient(60rem 38rem at 12% -6%, var(--bg-3), transparent 60%),
+    radial-gradient(50rem 44rem at 92% 8%, var(--bg-2), transparent 62%),
+    linear-gradient(175deg, var(--bg-2), var(--bg-1) 55%, var(--bg-3));
+  background-attachment:fixed;
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:color .4s ease;
+}
+
+/* ---- floating bubbles + sparkles background ---- */
+.bubbles{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.bubble{
+  position:absolute; border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.95), rgba(255,255,255,.15) 38%, transparent 60%),
+    radial-gradient(circle at 70% 78%, rgba(255,97,216,.35), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(182,255,61,.22), transparent 70%);
+  box-shadow:inset 0 0 22px rgba(255,255,255,.6), 0 6px 22px rgba(10,60,140,.22);
+  opacity:.55;
+  animation:float 18s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{ transform:translateY(0) translateX(0) scale(1); }
+  50%{ transform:translateY(-46px) translateX(24px) scale(1.08); }
+}
+.spark{
+  position:absolute; color:#fff;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.9));
+  animation:twinkle 3.4s ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{ opacity:.25; transform:scale(.6) rotate(0deg); }
+  50%{ opacity:1; transform:scale(1.15) rotate(45deg); }
+}
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+::selection{ background:var(--pink); color:#fff; }
+
+/* ============================================================
+   Shared chrome / glossy surface treatments
+   ============================================================ */
+.chrome{
+  background:linear-gradient(180deg,
+    var(--chrome-1) 0%, var(--chrome-4) 18%,
+    var(--chrome-2) 50%, var(--chrome-3) 72%,
+    var(--chrome-2) 86%, var(--chrome-1) 100%);
+}
+/* iridescent shifting border */
+@property --hue { syntax:'<angle>'; inherits:false; initial-value:0deg; }
+.irid{
+  position:relative;
+}
+.irid::before{
+  content:""; position:absolute; inset:-3px; border-radius:inherit; z-index:-1;
+  background:conic-gradient(from var(--hue),
+    #ff61d8, #2b9bff, #b6ff3d, #ffd84f, #ff61d8);
+  animation:huespin 6s linear infinite;
+  filter:saturate(1.25);
+}
+@keyframes huespin{ to{ --hue:360deg; } }
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:16px; z-index:50; margin-top:16px; }
+.nav-inner{
+  display:flex; align-items:center; gap:20px;
+  padding:10px 12px 10px 16px; border-radius:999px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel) 60%, #dcebf8);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.95),
+    inset 0 -3px 8px rgba(43,99,196,.18),
+    0 10px 28px rgba(10,50,120,.32);
+}
+.brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+.brand-mark{
+  width:42px; height:42px; border-radius:50%; flex:none;
+  display:grid; place-items:center;
+  background:
+    radial-gradient(circle at 34% 26%, #fff, transparent 42%),
+    conic-gradient(from 200deg, #ff61d8, #2b9bff, #b6ff3d, #ff61d8);
+  box-shadow:inset 0 2px 4px rgba(255,255,255,.85), 0 4px 12px rgba(10,50,120,.4);
+}
+.brand-mark span{
+  width:16px; height:16px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, #2b9bff 70%);
+  box-shadow:inset 0 -2px 3px rgba(10,50,120,.5);
+}
+.brand-name{
+  font-family:'Orbitron', sans-serif; font-weight:800; font-size:1.2rem;
+  letter-spacing:.04em; color:var(--accent-d);
+  text-shadow:0 1px 0 #fff;
+}
+[data-theme="night"] .brand-name{ color:var(--accent); text-shadow:0 1px 0 rgba(0,0,0,.4); }
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  color:var(--text-soft); text-decoration:none; font-weight:400; font-size:.92rem;
+  padding:9px 16px; border-radius:999px; transition:.2s;
+}
+.nav-links a:hover{
+  color:var(--accent-d); background:rgba(43,155,255,.12);
+  text-shadow:0 0 8px rgba(43,155,255,.4);
+}
+.nav-allstyles{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Orbitron',sans-serif; font-weight:600; font-size:.78rem;
+  text-decoration:none; color:var(--ink-on-acc);
+  padding:10px 16px; border-radius:999px; letter-spacing:.03em;
+  background:linear-gradient(180deg, #ff8fe4, var(--pink) 55%, #d62fae);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.8),
+    inset 0 -4px 8px rgba(150,20,110,.5),
+    0 5px 14px rgba(255,97,216,.5);
+  transition:transform .16s, filter .16s;
+}
+.nav-allstyles:hover{ transform:translateY(-2px); filter:brightness(1.08); }
+.nav-allstyles:active{ transform:translateY(1px); }
+
+.icon-btn{
+  width:44px; height:44px; flex:none; border:0; cursor:pointer;
+  border-radius:50%; color:var(--accent-d);
+  background:linear-gradient(180deg, #fff, var(--chrome-4) 45%, var(--chrome-2) 90%);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.95),
+    inset 0 -4px 8px rgba(43,99,196,.28),
+    0 5px 13px rgba(10,50,120,.3);
+  display:grid; place-items:center;
+  transition:transform .16s, filter .16s;
+}
+.icon-btn:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+.icon-btn:active{ transform:translateY(1px); }
+.icon-btn svg{ width:19px; height:19px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="night"] .theme-toggle .sun{ display:none; }
+[data-theme="night"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:74px 0 54px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:8px 18px 8px 12px; border-radius:999px; margin-bottom:28px;
+  font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:#fff;
+  background:linear-gradient(180deg, #3ea6ff, var(--accent) 55%, var(--accent-d));
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.7),
+    inset 0 -4px 8px rgba(8,50,130,.6),
+    0 6px 16px rgba(10,60,160,.45);
+}
+.eyebrow .star{
+  width:18px; height:18px; display:grid; place-items:center; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--lime) 75%);
+  box-shadow:0 0 8px rgba(182,255,61,.9);
+}
+.eyebrow .star svg{ width:11px; height:11px; color:#1a5e00; }
+
+.hero h1{
+  font-family:'Orbitron', sans-serif; font-weight:900;
+  font-size:clamp(2.5rem, 7.4vw, 5.6rem); line-height:1.02;
+  letter-spacing:.005em; text-transform:uppercase;
+  /* chrome bevel text */
+  background:linear-gradient(180deg,
+    #ffffff 0%, #e7f2ff 26%, #8fb6dd 48%, #cfe4f7 52%,
+    #5d86b4 70%, #ffffff 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(10,50,120,.55);
+  filter:drop-shadow(0 3px 1px rgba(8,40,100,.45))
+         drop-shadow(0 1px 0 rgba(255,255,255,.9));
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(180deg, #ffd2f3 0%, var(--pink) 45%, #c52ba5 78%, #ffe1f7 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-text-stroke:1.5px rgba(140,20,100,.55);
+}
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.1rem;
+  color:#06365f;
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+  padding:12px 22px; border-radius:18px; display:inline-block;
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 4px 14px rgba(10,50,120,.2);
+}
+[data-theme="night"] .hero p{ color:var(--text); background:rgba(255,255,255,.08); }
+.hero-cta{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:46px; }
+.stat-pill{
+  padding:16px 26px; border-radius:999px; min-width:138px;
+  display:flex; flex-direction:column; align-items:center;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel) 55%, #dcecf9);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.95),
+    inset 0 -4px 9px rgba(43,99,196,.22),
+    0 8px 20px rgba(10,50,120,.3);
+}
+.stat-pill b{
+  font-family:'Orbitron',sans-serif; font-weight:800; font-size:1.7rem; line-height:1;
+  background:linear-gradient(180deg, var(--accent), var(--accent-d));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stat-pill small{
+  font-family:'Orbitron',sans-serif; font-size:.6rem; color:var(--text-soft);
+  margin-top:7px; letter-spacing:.16em; font-weight:600;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Orbitron',sans-serif; font-size:.82rem; font-weight:700; cursor:pointer;
+  border:0; letter-spacing:.04em; text-decoration:none;
+  color:var(--accent-d); padding:14px 26px; border-radius:999px;
+  background:linear-gradient(180deg, #ffffff, var(--chrome-4) 42%, var(--chrome-2) 92%);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.95),
+    inset 0 -5px 9px rgba(43,99,196,.25),
+    0 7px 16px rgba(10,50,120,.3);
+  display:inline-flex; align-items:center; gap:9px;
+  transition:transform .16s ease, filter .16s ease;
+}
+.btn:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+.btn:active{ transform:translateY(1px); filter:brightness(.96); }
+.btn svg{ width:16px; height:16px; }
+.btn--accent{
+  color:#fff;
+  background:linear-gradient(180deg, #66b9ff 0%, var(--accent) 48%, var(--accent-d) 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,.7),
+    inset 0 -6px 11px rgba(6,46,120,.6),
+    0 8px 20px rgba(20,110,220,.55);
+  text-shadow:0 1px 1px rgba(6,40,100,.5);
+}
+.btn--pink{
+  color:#fff;
+  background:linear-gradient(180deg, #ff9ce8 0%, var(--pink) 48%, #c52ba5 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,.7),
+    inset 0 -6px 11px rgba(140,20,100,.6),
+    0 8px 20px rgba(255,97,216,.5);
+  text-shadow:0 1px 1px rgba(120,20,90,.5);
+}
+.btn--lime{
+  color:#1a4d00;
+  background:linear-gradient(180deg, #e0ffa6 0%, var(--lime) 48%, #79c500 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,.8),
+    inset 0 -6px 11px rgba(70,110,0,.5),
+    0 8px 20px rgba(182,255,61,.55);
+  text-shadow:0 1px 0 rgba(255,255,255,.6);
+}
+.btn:disabled{
+  cursor:not-allowed; color:var(--text-soft); filter:grayscale(.7) brightness(.95);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.6), inset 0 -4px 8px rgba(43,99,196,.18);
+}
+.btn:disabled:hover{ transform:none; filter:grayscale(.7) brightness(.95); }
+.btn:focus-visible, .icon-btn:focus-visible, .nav-allstyles:focus-visible{
+  outline:3px solid var(--lime); outline-offset:2px;
+}
+
+/* gloss highlight shared by glossy elements */
+.gloss::after{
+  content:""; position:absolute; left:6%; right:6%; top:5px; height:42%;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+  pointer-events:none;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:42px 0 26px; }
+.section-head{ margin-bottom:32px; text-align:center; }
+.section-head h2{
+  font-family:'Orbitron',sans-serif; font-weight:800;
+  font-size:clamp(1.7rem,3.8vw,2.7rem); letter-spacing:.02em; text-transform:uppercase;
+  background:linear-gradient(180deg, #ffffff 0%, #cfe4f7 44%, #6d96c4 60%, #ffffff 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-text-stroke:1px rgba(10,50,120,.5);
+  filter:drop-shadow(0 2px 1px rgba(8,40,100,.4));
+}
+.section-head p{ color:#06365f; margin-top:8px; font-size:1.02rem; }
+[data-theme="night"] .section-head p{ color:var(--text-soft); }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.card{
+  position:relative; border-radius:26px; padding:28px;
+  background:linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 46%, #d9eafa 100%);
+  box-shadow:
+    inset 0 3px 5px rgba(255,255,255,.95),
+    inset 0 -6px 14px rgba(43,99,196,.2),
+    0 16px 34px rgba(10,46,120,.32);
+  opacity:0; transform:translateY(26px) scale(.97);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.25,1);
+}
+.card.in{ opacity:1; transform:none; }
+/* top sheen strip on every card */
+.card::before{
+  content:""; position:absolute; left:14px; right:14px; top:8px; height:34%;
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0));
+  pointer-events:none;
+}
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card-label{
+  font-family:'Orbitron',sans-serif;
+  font-size:.62rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:#fff; display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
+  padding:6px 14px; border-radius:999px;
+  background:linear-gradient(180deg, #5cb2ff, var(--accent) 60%, var(--accent-d));
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.6), 0 3px 9px rgba(10,60,160,.4);
+}
+.card-label::before{
+  content:""; width:9px; height:9px; border-radius:50%; flex:none;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--lime) 75%);
+  box-shadow:0 0 7px rgba(182,255,61,.95);
+}
+.card-title{
+  font-family:'Orbitron',sans-serif; font-weight:700; font-size:1.16rem;
+  letter-spacing:.02em; color:var(--accent-d);
+}
+[data-theme="night"] .card-title{ color:var(--text); }
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:22px;
+  overflow:hidden; display:grid; place-items:center; margin-bottom:22px;
+  background:
+    radial-gradient(70% 55% at 26% 22%, rgba(255,255,255,.9), transparent 60%),
+    conic-gradient(from 140deg, var(--pink), var(--accent), var(--lime), #ffd84f, var(--pink));
+  box-shadow:inset 0 3px 8px rgba(255,255,255,.6), inset 0 -10px 24px rgba(10,40,100,.45),
+    0 8px 20px rgba(10,50,120,.35);
+}
+.player-art::after{
+  content:""; position:absolute; left:8%; right:8%; top:6%; height:34%;
+  border-radius:50%;
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+}
+.eq{ display:flex; align-items:flex-end; gap:6px; height:52px; position:relative; z-index:1; }
+.eq span{
+  width:9px; height:16px; border-radius:5px;
+  background:linear-gradient(180deg, #fff, var(--lime) 50%, #79c500);
+  box-shadow:0 0 8px rgba(182,255,61,.85), inset 0 1px 2px rgba(255,255,255,.9);
+  animation:eq 880ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; background:linear-gradient(180deg,#fff,var(--pink) 50%,#c52ba5); box-shadow:0 0 8px rgba(255,97,216,.85),inset 0 1px 2px rgba(255,255,255,.9); }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; background:linear-gradient(180deg,#fff,var(--pink) 50%,#c52ba5); box-shadow:0 0 8px rgba(255,97,216,.85),inset 0 1px 2px rgba(255,255,255,.9); }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:46px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:700;
+  line-height:1.2; color:var(--accent-d); letter-spacing:.02em;
+}
+[data-theme="night"] .player-meta h3{ color:var(--text); }
+.player-meta p{ color:var(--text-soft); font-size:.9rem; }
+.heart{ margin-left:auto; }
+.heart.on{ color:var(--pink); }
+.heart.on svg{ fill:var(--pink); filter:drop-shadow(0 0 6px rgba(255,97,216,.8)); }
+
+.player-progress{ margin:20px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:13px; border-radius:999px; position:relative;
+  background:linear-gradient(180deg, #c2d4e6, #e9f2fa);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.4), inset 0 -2px 3px rgba(255,255,255,.8);
+}
+.track-fill{
+  position:absolute; inset:0; width:34%; border-radius:999px;
+  background:linear-gradient(180deg, #7cc3ff, var(--accent) 55%, var(--accent-d));
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.6), 0 0 10px rgba(43,155,255,.6);
+}
+.track-fill::after{
+  content:""; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:22px; height:22px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--chrome-2) 80%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 3px 7px rgba(10,50,120,.5);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.78rem;
+  color:var(--text-soft); font-family:'Orbitron',sans-serif; font-variant-numeric:tabular-nums;
+}
+.player-controls{ display:flex; align-items:center; justify-content:center; gap:18px; margin-top:18px; }
+.play-btn{
+  position:relative; width:70px; height:70px; border:0; cursor:pointer; border-radius:50%;
+  color:#fff; display:grid; place-items:center;
+  background:linear-gradient(180deg, #66b9ff 0%, var(--accent) 48%, var(--accent-d) 100%);
+  box-shadow:
+    inset 0 3px 5px rgba(255,255,255,.8),
+    inset 0 -8px 14px rgba(6,46,120,.65),
+    0 9px 22px rgba(20,110,220,.6);
+  transition:transform .16s, filter .16s;
+}
+.play-btn::after{
+  content:""; position:absolute; left:14%; right:14%; top:9%; height:36%;
+  border-radius:50%;
+  background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0));
+}
+.play-btn:hover{ transform:translateY(-2px); filter:brightness(1.08); }
+.play-btn:active{ transform:translateY(1px); }
+.play-btn svg{ width:25px; height:25px; position:relative; z-index:1;
+  filter:drop-shadow(0 1px 1px rgba(6,40,100,.6)); }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:14px 0; }
+.switch-row + .switch-row{ border-top:1px solid var(--line); }
+.switch-row .lbl{ font-weight:400; font-size:1rem; color:var(--text); }
+.switch-row .sub{ font-size:.82rem; color:var(--text-soft); }
+.switch{ position:relative; width:66px; height:34px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:linear-gradient(180deg, #b9cce0, #e2eef8);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.45), inset 0 -2px 3px rgba(255,255,255,.7);
+  transition:background .3s;
+}
+.switch input:checked ~ .s-track{
+  background:linear-gradient(180deg, #6fd49a, var(--lime) 55%, #79c500);
+  box-shadow:inset 0 2px 5px rgba(60,110,0,.4), inset 0 -2px 3px rgba(255,255,255,.7),
+    0 0 12px rgba(182,255,61,.6);
+}
+.switch .s-thumb{
+  position:absolute; top:4px; left:4px; width:26px; height:26px; border-radius:50%;
+  background:radial-gradient(circle at 35% 28%, #fff, var(--chrome-2) 82%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 3px 6px rgba(10,50,120,.5);
+  transition:transform .32s cubic-bezier(.34,1.45,.5,1);
+}
+.switch input:checked ~ .s-thumb{ transform:translateX(32px); }
+.switch input:focus-visible ~ .s-track{ outline:3px solid var(--accent); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:184px; height:184px; border-radius:50%;
+  display:grid; place-items:center; touch-action:none; cursor:grab;
+  background:radial-gradient(circle at 50% 36%, #e9f3fc, #b6c9dd 78%);
+  box-shadow:inset 0 6px 14px rgba(10,50,120,.4), inset 0 -4px 8px rgba(255,255,255,.7),
+    0 8px 20px rgba(10,50,120,.3);
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:12px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--pink) 0, var(--accent) calc(var(--v,40) * 1.35deg),
+      var(--lime) calc(var(--v,40) * 2.7deg),
+      rgba(160,180,200,.5) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+          mask:radial-gradient(closest-side, transparent 78%, #000 79%);
+  filter:drop-shadow(0 0 5px rgba(43,155,255,.5));
+}
+.dial-knob{
+  position:relative; width:122px; height:122px; border-radius:50%; pointer-events:none;
+  background:
+    radial-gradient(circle at 38% 26%, #fff, transparent 44%),
+    linear-gradient(180deg, var(--chrome-1), var(--chrome-4) 30%, var(--chrome-2) 70%, var(--chrome-3));
+  box-shadow:inset 0 3px 4px rgba(255,255,255,.9), inset 0 -6px 12px rgba(43,99,196,.3),
+    0 6px 14px rgba(10,50,120,.45);
+}
+.dial-knob::before{
+  content:""; position:absolute; top:12px; left:50%; transform:translateX(-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--pink) 70%);
+  box-shadow:0 0 10px rgba(255,97,216,.95);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Orbitron',sans-serif; font-size:1.9rem; line-height:1; font-weight:800;
+  font-variant-numeric:tabular-nums; color:var(--accent-d);
+}
+[data-theme="night"] .dial-readout b{ color:var(--text); }
+.dial-readout small{
+  display:block; font-family:'Orbitron',sans-serif; font-size:.56rem;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--text-soft); margin-top:4px;
+}
+.dial-hint{ font-size:.82rem; color:var(--text-soft); }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.slider-head .v{
+  font-family:'Orbitron',sans-serif; font-size:1.6rem; font-weight:800;
+  background:linear-gradient(180deg, var(--accent), var(--accent-d));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:36px;
+  background:transparent; cursor:pointer; margin:6px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:16px; border-radius:999px;
+  background:
+    linear-gradient(180deg, #7cc3ff, var(--accent) 55%, var(--accent-d)) 0 0 / var(--val,55%) 100% no-repeat,
+    linear-gradient(180deg, #c2d4e6, #e9f2fa);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.4), inset 0 -2px 3px rgba(255,255,255,.7);
+}
+.range::-moz-range-track{
+  height:16px; border-radius:999px;
+  background:linear-gradient(180deg, #c2d4e6, #e9f2fa);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.4);
+}
+.range::-moz-range-progress{
+  height:16px; border-radius:999px;
+  background:linear-gradient(180deg, #7cc3ff, var(--accent) 55%, var(--accent-d));
+}
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:30px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 35% 28%, #fff, var(--chrome-2) 82%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 3px 8px rgba(10,50,120,.55);
+  margin-top:-7px;
+}
+.range::-moz-range-thumb{
+  width:30px; height:30px; border:0; border-radius:50%;
+  background:radial-gradient(circle at 35% 28%, #fff, var(--chrome-2) 82%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 3px 8px rgba(10,50,120,.55);
+}
+.range:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 4px var(--lime), 0 3px 8px rgba(10,50,120,.5); }
+.range:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 4px var(--lime); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.68rem;
+  font-family:'Orbitron',sans-serif; color:var(--text-soft); margin-top:4px;
+  letter-spacing:.08em;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:999px;
+  margin-bottom:22px;
+  background:linear-gradient(180deg, #e6f1fa, #fff);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.35), inset 0 -2px 3px rgba(255,255,255,.9);
+}
+.search svg{ width:18px; height:18px; color:var(--accent); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; font:inherit; font-size:.96rem;
+  color:var(--text); width:100%;
+}
+.search input::placeholder{ color:var(--text-soft); }
+.seg-label{
+  font-family:'Orbitron',sans-serif; font-size:.62rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--text-soft); margin-bottom:9px; font-weight:600;
+}
+.segmented{
+  position:relative; display:flex; padding:6px; border-radius:999px;
+  background:linear-gradient(180deg, #c8d8e8, #e8f1fa);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.4), inset 0 -2px 3px rgba(255,255,255,.7);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:999px;
+  background:linear-gradient(180deg, #fff, var(--chrome-4) 45%, var(--chrome-2));
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.95), 0 3px 8px rgba(10,50,120,.4);
+  transition:transform .32s cubic-bezier(.3,1.2,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Orbitron',sans-serif; font-weight:600; font-size:.74rem;
+  color:var(--text-soft); padding:11px 6px; transition:color .25s; letter-spacing:.04em;
+}
+.seg-opt.active{ color:var(--accent-d); }
+.seg-opt:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; border-radius:999px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:32px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:152px; height:152px; border-radius:50%;
+  display:grid; place-items:center; flex:none;
+  background:radial-gradient(circle at 50% 36%, #e9f3fc, #c0d0e0 80%);
+  box-shadow:inset 0 5px 12px rgba(10,50,120,.4), inset 0 -3px 6px rgba(255,255,255,.7);
+}
+.ring::before{
+  content:""; position:absolute; inset:12px; border-radius:50%;
+  background:conic-gradient(from 0deg,
+    var(--pink) 0, var(--accent) calc(var(--p)*.5%),
+    var(--lime) calc(var(--p)*1%),
+    rgba(160,180,200,.55) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+  filter:drop-shadow(0 0 6px rgba(43,155,255,.55));
+}
+.ring-core{ text-align:center; }
+.ring-core b{
+  font-family:'Orbitron',sans-serif; font-size:1.85rem; line-height:1; font-weight:800;
+  color:var(--accent-d);
+}
+[data-theme="night"] .ring-core b{ color:var(--text); }
+.ring-core small{
+  font-family:'Orbitron',sans-serif; font-size:.56rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--text-soft);
+}
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:15px 18px; border-radius:18px; display:flex; align-items:center; gap:14px;
+  background:linear-gradient(180deg, #fff, #e3eefa);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 4px 12px rgba(10,50,120,.2);
+}
+.chip .ci{
+  width:40px; height:40px; border-radius:50%; flex:none; display:grid; place-items:center;
+  color:#fff;
+  background:linear-gradient(180deg, #66b9ff, var(--accent) 55%, var(--accent-d));
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.6), 0 3px 8px rgba(10,60,160,.45);
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Orbitron',sans-serif; font-size:1.05rem; font-weight:700; color:var(--accent-d); }
+[data-theme="night"] .chip b{ color:var(--text); }
+.chip small{ display:block; font-size:.8rem; color:var(--text-soft); }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--text-soft); font-size:.9rem; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:14px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:50px; height:50px; border:0; cursor:pointer; border-radius:50%;
+  display:grid; place-items:center; position:relative;
+  background:linear-gradient(180deg, #fff, var(--chrome-2));
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 4px 10px rgba(10,50,120,.35);
+  transition:transform .16s;
+}
+.swatch:hover{ transform:translateY(-3px) scale(1.05); }
+.swatch:active{ transform:translateY(0); }
+.swatch::after{
+  content:""; width:30px; height:30px; border-radius:50%; background:var(--sw);
+  box-shadow:inset 0 3px 5px rgba(255,255,255,.7), inset 0 -4px 7px rgba(0,0,0,.35);
+  transition:.2s;
+}
+.swatch.is-active{ box-shadow:inset 0 1px 2px rgba(255,255,255,.9), 0 0 0 3px var(--lime), 0 5px 12px rgba(10,50,120,.4); }
+.swatch.is-active::after{ width:22px; height:22px; }
+.swatch:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:14px; margin:22px 0 12px; }
+.step-btn{
+  width:56px; height:56px; flex:none; border:0; cursor:pointer; border-radius:50%;
+  color:#fff; font-family:'Orbitron',sans-serif; font-size:1.5rem; font-weight:800;
+  display:grid; place-items:center; position:relative;
+  background:linear-gradient(180deg, #66b9ff, var(--accent) 50%, var(--accent-d));
+  box-shadow:inset 0 2px 4px rgba(255,255,255,.7), inset 0 -6px 11px rgba(6,46,120,.6),
+    0 6px 15px rgba(20,110,220,.5);
+  text-shadow:0 1px 1px rgba(6,40,100,.5);
+  transition:transform .15s, filter .15s;
+}
+.step-btn:hover{ transform:translateY(-2px); filter:brightness(1.08); }
+.step-btn:active{ transform:translateY(1px); }
+.step-btn:focus-visible{ outline:3px solid var(--lime); outline-offset:3px; }
+.step-val{
+  min-width:92px; padding:14px 0; border-radius:18px;
+  font-family:'Orbitron',sans-serif; font-size:1.7rem; font-weight:800;
+  font-variant-numeric:tabular-nums; color:var(--accent-d);
+  background:linear-gradient(180deg, #e6f1fa, #fff);
+  box-shadow:inset 0 2px 5px rgba(10,50,120,.35), inset 0 -2px 3px rgba(255,255,255,.9);
+}
+[data-theme="night"] .step-val{ color:var(--text); }
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:9px; margin:22px 0 12px; }
+.star{
+  width:50px; height:50px; border:0; cursor:pointer; border-radius:50%;
+  color:var(--text-soft); display:grid; place-items:center;
+  background:linear-gradient(180deg, #fff, var(--chrome-4) 45%, var(--chrome-2));
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 4px 10px rgba(10,50,120,.3);
+  transition:transform .15s, color .15s;
+}
+.star svg{ width:23px; height:23px; transition:fill .15s, filter .15s; }
+.star:hover{ transform:translateY(-3px) scale(1.06); }
+.star.lit{ color:#ffb400; }
+.star.lit svg{ fill:#ffd84f; filter:drop-shadow(0 0 6px rgba(255,200,40,.9)); }
+.star:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:13px; }
+.acc-item{
+  border-radius:18px; overflow:hidden;
+  background:linear-gradient(180deg, #fff, #e6f1fa);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 5px 13px rgba(10,50,120,.2);
+  transition:box-shadow .26s;
+}
+.acc-item.open{
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 0 0 2px var(--accent),
+    0 7px 18px rgba(20,110,220,.35);
+}
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Orbitron',sans-serif; font-size:.86rem; font-weight:600;
+  color:var(--accent-d); text-align:left; padding:16px 18px;
+  display:flex; align-items:center; gap:14px;
+}
+[data-theme="night"] .acc-head{ color:var(--text); }
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .3s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:3px solid var(--accent); outline-offset:-3px; border-radius:18px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 18px 17px; color:var(--text-soft); font-size:.9rem; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; border:0; cursor:pointer; font-family:'Varela Round',sans-serif;
+  font-size:.96rem; color:var(--text);
+  background:linear-gradient(180deg, #fff, var(--chrome-4) 50%, #d8e7f6);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.95), inset 0 -4px 9px rgba(43,99,196,.22),
+    0 5px 13px rgba(10,50,120,.28);
+  padding:15px 18px; border-radius:16px;
+  display:flex; align-items:center; gap:10px; transition:filter .15s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .25s; }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 12px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:8px; border-radius:18px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel) 60%, #d9eafa);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 16px 32px rgba(10,46,120,.4);
+  opacity:0; transform:translateY(-8px) scale(.97); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:12px 14px; border-radius:12px; cursor:pointer; font-weight:400;
+  color:var(--text); display:flex; align-items:center; gap:10px; transition:.14s;
+}
+.select-menu li:hover{
+  color:#fff; background:linear-gradient(180deg, #5cb2ff, var(--accent) 70%, var(--accent-d));
+}
+.select-menu li[aria-selected="true"]{
+  color:#fff;
+  background:linear-gradient(180deg, #5cb2ff, var(--accent) 70%, var(--accent-d));
+}
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.pin input{
+  width:56px; height:66px; border:0; outline:0; text-align:center;
+  font-family:'Orbitron',sans-serif; font-size:1.7rem; font-weight:800; color:var(--accent-d);
+  background:linear-gradient(180deg, #e6f1fa, #fff);
+  border-radius:15px;
+  box-shadow:inset 0 3px 6px rgba(10,50,120,.4), inset 0 -2px 3px rgba(255,255,255,.9);
+  transition:box-shadow .18s, color .18s;
+}
+[data-theme="night"] .pin input{ color:var(--text); }
+.pin input.filled{ color:var(--pink); }
+.pin input:focus{ box-shadow:inset 0 3px 6px rgba(10,50,120,.4), 0 0 0 3px var(--accent); }
+.pin.done input{
+  color:#79c500;
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.9), 0 0 0 2px var(--lime),
+    0 4px 10px rgba(182,255,61,.5);
+}
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; border:0; cursor:pointer; border-radius:16px;
+  color:var(--accent-d); font-family:'Orbitron',sans-serif; font-size:1.2rem;
+  display:grid; place-items:center;
+  background:linear-gradient(180deg, #fff, var(--chrome-4) 45%, var(--chrome-2));
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.95), inset 0 -4px 9px rgba(43,99,196,.25),
+    0 5px 12px rgba(10,50,120,.3);
+  transition:transform .15s, filter .15s;
+}
+[data-theme="night"] .tg-btn{ color:var(--text); }
+.tg-btn:hover{ transform:translateY(-2px); }
+.tg-btn.on{
+  color:#fff;
+  background:linear-gradient(180deg, #66b9ff, var(--accent) 50%, var(--accent-d));
+  box-shadow:inset 0 2px 4px rgba(255,255,255,.6), inset 0 -5px 10px rgba(6,46,120,.6),
+    0 5px 14px rgba(20,110,220,.5);
+  text-shadow:0 1px 1px rgba(6,40,100,.5);
+}
+.tg-btn:focus-visible{ outline:3px solid var(--lime); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 10px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--accent-d); color:#fff;
+  font-family:'Varela Round',sans-serif; font-size:.72rem;
+  padding:6px 11px; border-radius:9px; opacity:0; pointer-events:none; transition:.18s;
+  box-shadow:0 4px 10px rgba(10,50,120,.4);
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Overlays card buttons ---- */
+.btn-block{ width:100%; justify-content:center; }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:radial-gradient(circle at 50% 40%, rgba(43,155,255,.45), rgba(8,28,70,.7));
+  -webkit-backdrop-filter:blur(5px); backdrop-filter:blur(5px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  position:relative; max-width:440px; width:100%; text-align:center; padding:36px 32px;
+  border-radius:28px;
+  background:linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 50%, #d4e7f8 100%);
+  box-shadow:inset 0 3px 5px rgba(255,255,255,.95), 0 30px 60px -12px rgba(8,24,60,.7);
+  transform:scale(.88) translateY(14px); transition:transform .33s cubic-bezier(.2,1.3,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal::before{
+  content:""; position:absolute; left:16px; right:16px; top:10px; height:30%;
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0));
+  pointer-events:none;
+}
+.modal-icon{
+  position:relative; width:68px; height:68px; margin:0 auto 16px; border-radius:50%;
+  display:grid; place-items:center; color:#fff;
+  background:
+    radial-gradient(circle at 36% 28%, #fff, transparent 44%),
+    conic-gradient(from 160deg, var(--pink), var(--accent), var(--lime), #ffd84f, var(--pink));
+  box-shadow:inset 0 2px 4px rgba(255,255,255,.7), 0 8px 18px rgba(10,50,120,.45);
+}
+.modal-icon svg{ width:30px; height:30px; filter:drop-shadow(0 1px 2px rgba(6,40,100,.6)); }
+.modal h3{
+  font-family:'Orbitron',sans-serif; font-size:1.3rem; font-weight:800;
+  color:var(--accent-d); letter-spacing:.02em;
+}
+[data-theme="night"] .modal h3{ color:var(--text); }
+.modal p{ color:var(--text-soft); margin:10px 0 24px; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:14px 20px; border-radius:999px;
+  background:linear-gradient(180deg, var(--panel-2), var(--panel) 55%, #d9eafa);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.95), 0 14px 30px rgba(10,46,120,.45);
+  transform:translateX(150%); transition:transform .44s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:40px; height:40px; flex:none; border-radius:50%; display:grid; place-items:center;
+  color:#1a4d00;
+  background:radial-gradient(circle at 35% 28%, #fff, var(--lime) 70%, #79c500);
+  box-shadow:inset 0 1px 3px rgba(255,255,255,.8), 0 0 12px rgba(182,255,61,.7);
+}
+.toast .t-ico svg{ width:19px; height:19px; }
+.toast b{ font-family:'Orbitron',sans-serif; font-size:.84rem; font-weight:700; color:var(--accent-d); }
+[data-theme="night"] .toast b{ color:var(--text); }
+.toast small{ display:block; color:var(--text-soft); font-size:.8rem; }
+
+/* ============================================================ ABOUT */
+.about-card{ position:relative; overflow:hidden; }
+.about-num{
+  font-family:'Orbitron',sans-serif; font-weight:900; font-size:3rem; line-height:1;
+  background:linear-gradient(180deg, var(--lime), #79c500);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-text-stroke:1.5px rgba(60,110,0,.4);
+}
+
+/* ============================================================ FOOTER */
+.foot{ text-align:center; padding:64px 0 52px; color:#06365f; font-size:.9rem; }
+[data-theme="night"] .foot{ color:var(--text-soft); }
+.foot .brand-mark{ margin:0 auto 16px; }
+.foot a{ color:var(--accent-d); text-decoration:none; font-weight:700; }
+[data-theme="night"] .foot a{ color:var(--accent); }
+.foot .foot-name{
+  font-family:'Orbitron',sans-serif; font-weight:800; letter-spacing:.03em;
+  color:var(--accent-d);
+}
+[data-theme="night"] .foot .foot-name{ color:var(--accent); }
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{
+  from{ opacity:0; transform:translateY(30px) scale(.96); }
+  to{ opacity:1; transform:none; }
+}
+.rise{ animation:rise .8s cubic-bezier(.2,.85,.25,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.16s; }
+.d3{ animation-delay:.27s; } .d4{ animation-delay:.38s; } .d5{ animation-delay:.5s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:52px 0 38px; }
+  .card{ padding:22px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+  .bubble, .spark, .irid::before{ animation:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- floating bubbles + sparkles -->
+<div class="bubbles" aria-hidden="true">
+  <div class="bubble" style="width:120px;height:120px;left:6%;top:12%;"></div>
+  <div class="bubble" style="width:78px;height:78px;left:84%;top:22%;animation-delay:-4s;"></div>
+  <div class="bubble" style="width:160px;height:160px;left:78%;top:64%;animation-delay:-9s;"></div>
+  <div class="bubble" style="width:54px;height:54px;left:14%;top:72%;animation-delay:-6s;"></div>
+  <div class="bubble" style="width:92px;height:92px;left:46%;top:88%;animation-delay:-2s;"></div>
+  <div class="bubble" style="width:64px;height:64px;left:92%;top:46%;animation-delay:-11s;"></div>
+  <svg class="spark" style="left:24%;top:8%;width:26px;height:26px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+  <svg class="spark" style="left:70%;top:14%;width:18px;height:18px;animation-delay:-1.5s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+  <svg class="spark" style="left:88%;top:54%;width:22px;height:22px;animation-delay:-2.2s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+  <svg class="spark" style="left:10%;top:44%;width:16px;height:16px;animation-delay:-0.8s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+  <svg class="spark" style="left:56%;top:78%;width:20px;height:20px;animation-delay:-3s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg>
+</div>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"><span></span></div>
+        <div class="brand-name">Y2KOS</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Components</a>
+        <a href="#more">Controls</a>
+        <a href="#about">Principles</a>
+      </div>
+      <a class="nav-allstyles" href="../index.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rise d1">
+      <span class="star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 8.4L23 12l-8.4 3.6L12 24l-2.6-8.4L1 12l8.4-3.6z"/></svg></span>
+      Year-2000 Tech-Optimism
+    </div>
+    <h1 class="rise d2">The Future<br/>Is <em>So</em> Shiny</h1>
+    <p class="rise d3">A showcase of pure Y2K interface design — chrome gradients,
+      holographic sheen, bubbly Aqua gloss and the digital optimism of a brand-new
+      millennium. Drag it, click it, watch it sparkle.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Explore components
+      </a>
+      <a href="#about" class="btn">How it works</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>3D</b><small>AQUA GLOSS</small></div>
+      <div class="stat-pill"><b>∞</b><small>CHROME SHINE</small></div>
+      <div class="stat-pill"><b>Y2K</b><small>CERTIFIED</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A Glossy Component Set</h2>
+      <p>Every control below is live — drag, toggle, slide, and press it.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">Now Playing</div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Cyber Sunrise</h3>
+            <p>DJ Holo &middot; Megabyte Dreams</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Save track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">Preferences</div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Pop-up alerts</div>
+            <div class="sub">Notify on new drops</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Pop-up alerts" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Auto-sync</div>
+            <div class="sub">Across all devices</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Auto-sync" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Turbo audio</div>
+            <div class="sub">Higher bandwidth mode</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Turbo audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">Volume</div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Drag the knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Brightness slider">
+        <div class="card-label">Brightness</div>
+        <div class="slider-head">
+          <span class="card-title">Display</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Brightness" />
+        <div class="slider-scale"><span>DIM</span><span>BRIGHT</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">Inputs</div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the library&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">View as</div>
+        <div class="segmented" id="segmented" role="tablist">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Grid</button>
+          <button class="seg-opt" role="tab" aria-selected="false">List</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Cards</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">This week</div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Goal</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>Current listening streak</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 tracks</b><small>Saved to your collection</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--pink btn-block">Share recap</button>
+            <button class="btn btn-block">Export data</button>
+            <button class="btn btn-block" disabled>Sync paused</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>More Ways To Interact</h2>
+      <p>Steppers, ratings, menus and dialogs — all dipped in chrome.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">Live Theme</div>
+        <h3 class="card-title">Accent colour</h3>
+        <p class="muted" style="margin-top:6px">Tap a swatch to repaint every control on the page.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#2b9bff" data-accent="#2b9bff" aria-label="Sky blue"></button>
+          <button class="swatch" style="--sw:#ff61d8" data-accent="#ff61d8" aria-label="Hot pink"></button>
+          <button class="swatch" style="--sw:#7dd400" data-accent="#7dd400" aria-label="Lime"></button>
+          <button class="swatch" style="--sw:#9b6bff" data-accent="#9b6bff" aria-label="Ultraviolet"></button>
+          <button class="swatch" style="--sw:#ff9d2b" data-accent="#ff9d2b" aria-label="Tangerine"></button>
+          <button class="swatch" style="--sw:#13c4c4" data-accent="#13c4c4" aria-label="Aqua"></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">Stepper</div>
+        <h3 class="card-title">CD-R order</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">Copies of &ldquo;Megabyte Dreams&rdquo;</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">Feedback</div>
+        <h3 class="card-title">Rate this kit</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.9l1.1-6.5L2.6 9.8l6.5-.9z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Tap to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">Dropdown</div>
+        <h3 class="card-title" style="margin-bottom:16px">Sort order</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Newest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox">
+            <li role="option" data-val="Newest first" aria-selected="true">Newest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest first" aria-selected="false">Oldest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Title A to Z" aria-selected="false">Title A &rarr; Z<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most played" aria-selected="false">Most played<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">Verification</div>
+        <h3 class="card-title">Access code</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Enter your 4-digit code</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">Toggle group</div>
+        <h3 class="card-title">Text style</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each button toggles independently</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">FAQ</div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What exactly is Y2K design?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>The bright, optimistic digital aesthetic of around 1998&ndash;2004 — glossy &ldquo;Aqua&rdquo; buttons, chrome gradients, holographic iridescence and a future that felt impossibly shiny.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Why all the gloss and chrome?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>New millennium hardware finally rendered smooth gradients and reflections, so designers leaned all the way in — every surface looked like polished plastic, metal or liquid glass.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does it work best?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Playful, loud, nostalgic products — music apps, launch pages, retro-tech brands — anywhere a burst of unironic early-2000s optimism is the point.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">Overlays</div>
+        <h3 class="card-title">Dialogs &amp; toasts</h3>
+        <p class="muted" style="margin-top:6px">Layered glossy surfaces that pop above the page.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--lime btn-block" id="toastBtn">Show toast</button>
+          <button class="btn btn--accent btn-block" id="modalBtn">Open dialog</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three Rules, One Vibe</h2>
+      <p>Y2K is maximalism with a smile — shine, bubble, repeat.</p>
+    </div>
+    <div class="bento" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card about-card">
+        <div class="about-num">01</div>
+        <h3 class="card-title" style="margin-top:8px">Everything is glossy</h3>
+        <p style="color:var(--text-soft);margin-top:10px">
+          Big top highlights, mirror-bright reflections, pill shapes. Every surface
+          looks dipped in liquid chrome or candy plastic.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-num">02</div>
+        <h3 class="card-title" style="margin-top:8px">Holographic colour</h3>
+        <p style="color:var(--text-soft);margin-top:10px">
+          Iridescent gradients that shift through pink, blue and lime — sky-bright
+          accents and bubbly star sparkles everywhere.</p>
+      </section>
+      <section class="card about-card">
+        <div class="about-num">03</div>
+        <h3 class="card-title" style="margin-top:8px">Unironic optimism</h3>
+        <p style="color:var(--text-soft);margin-top:10px">
+          The future is friendly and the future is now. Loud, playful, nostalgic —
+          a brand-new millennium of pure digital joy.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand-mark"><span></span></div>
+    <p><span class="foot-name">Y2KOS</span> — a year-2000 tech-optimism showcase.<br/>
+       Built with chrome, gloss and holographic dreams. Try the <a href="#" id="footTheme">day / night toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5.1a2 2 0 0 0 1.2 1.2L20 10l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 18l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 10l5.1-1.7a2 2 0 0 0 1.2-1.2L12 2z"/></svg>
+    </div>
+    <h3 id="modalTitle">Apply these changes?</h3>
+    <p>Your tweaks to the Y2KOS kit will sync across every device on your account.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not now</button>
+      <button class="btn btn--accent" id="modalConfirm">Apply changes</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('y2k-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('y2k-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'night' ? 'day' : 'night');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Brightness slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M5 12l5 5 9-11"/></svg></div>' +
+      '<div><b>' + title + '</b><small>' + msg + '</small></div>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent');
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.58; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.55; }));
+      swatchEls.forEach(function(s){ s.classList.remove('is-active'); });
+      sw.classList.add('is-active');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Tap to rate','Poor','Fair','Good','Great','Superb'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Code accepted ✓';
+        showToast('Access granted', 'Welcome back to Y2KOS.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Enter your 4-digit code';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Changes saved', 'Your Y2KOS kit is up to date.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Saved to library', 'Cyber Sunrise added to Megabyte Dreams.');
+  });
+})();
+</script>
+</body>
+</html>

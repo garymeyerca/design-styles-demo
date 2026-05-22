@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fifty-One Design Styles — One Interface, Fifty-One Visual Languages</title>
+<meta name="description" content="One interactive component showcase, rebuilt in 51 distinct design styles." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0c0c0e; --panel:#161619; --panel-2:#1e1e22;
+  --line:#2b2b30; --text:#ecebe8; --soft:#9b9a95; --faint:#6a6a66;
+  --accent:#e7b14c;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Hanken Grotesk',system-ui,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(50rem 32rem at 12% -6%, rgba(231,177,76,.10), transparent 60%),
+    radial-gradient(46rem 30rem at 92% 4%, rgba(123,108,246,.10), transparent 60%);
+}
+.wrap{ max-width:1240px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:#1a1306; }
+a{ color:inherit; }
+
+/* ---- header ---- */
+header{ padding:74px 0 30px; }
+.kicker{
+  display:inline-flex; align-items:center; gap:9px; font-size:.74rem; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
+  border:1px solid var(--line); padding:8px 15px; border-radius:999px;
+}
+.kicker .pip{ width:6px; height:6px; border-radius:50%; background:var(--accent);
+  box-shadow:0 0 10px var(--accent); }
+h1{
+  font-family:'Bricolage Grotesque',sans-serif; font-weight:700;
+  font-size:clamp(2.9rem,7vw,6rem); line-height:1; letter-spacing:-.035em;
+  margin:26px 0 0; max-width:16ch;
+}
+h1 em{ font-style:normal; color:var(--accent); }
+.lede{ margin-top:22px; max-width:60ch; font-size:1.12rem; color:var(--soft); }
+.meta{
+  margin-top:26px; display:flex; gap:26px; flex-wrap:wrap; align-items:center;
+  font-size:.9rem; color:var(--faint);
+}
+.meta a{ color:var(--soft); text-decoration:none; border-bottom:1px solid var(--line);
+  padding-bottom:2px; transition:color .2s, border-color .2s; }
+.meta a:hover{ color:var(--accent); border-color:var(--accent); }
+.meta b{ color:var(--text); font-weight:600; }
+
+/* ---- toolbar ---- */
+.toolbar{
+  position:sticky; top:0; z-index:20; margin-top:40px;
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+  padding:16px 0; background:linear-gradient(var(--bg) 70%, transparent);
+}
+.search{
+  flex:1; min-width:200px; display:flex; align-items:center; gap:10px;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  padding:11px 15px;
+}
+.search svg{ width:17px; height:17px; color:var(--faint); flex:none; }
+.search input{ border:0; outline:0; background:transparent; color:var(--text);
+  font:inherit; width:100%; }
+.search input::placeholder{ color:var(--faint); }
+.seg{ display:flex; background:var(--panel); border:1px solid var(--line);
+  border-radius:12px; padding:4px; }
+.seg button{
+  border:0; background:transparent; color:var(--soft); font:inherit; font-weight:600;
+  font-size:.88rem; padding:8px 16px; border-radius:9px; cursor:pointer;
+  transition:background .2s, color .2s;
+}
+.seg button.on{ background:var(--accent); color:#1a1306; }
+
+/* ---- grid ---- */
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr));
+  gap:20px; padding:14px 0 90px;
+}
+.card{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  text-decoration:none; color:inherit; min-height:208px;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s, box-shadow .22s;
+}
+.card .chip{ height:60px; position:relative; }
+.card .chip::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(120deg, rgba(255,255,255,.18), transparent 60%);
+}
+.card .num{
+  position:absolute; top:10px; left:12px; font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700; font-size:.78rem; color:#fff; mix-blend-mode:difference;
+  letter-spacing:.04em;
+}
+.card .body{ padding:16px 17px 14px; display:flex; flex-direction:column; flex:1; }
+.card .name{
+  font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:1.16rem;
+  letter-spacing:-.015em;
+}
+.card .desc{ margin-top:5px; font-size:.86rem; color:var(--soft); flex:1; }
+.card .status{
+  margin-top:14px; display:flex; align-items:center; gap:7px;
+  font-size:.78rem; font-weight:600; letter-spacing:.03em;
+}
+.card.live .status{ color:var(--accent); }
+.card.soon .status{ color:var(--faint); }
+.card .status .arrow{ transition:transform .22s; }
+
+.card.live{ cursor:pointer; }
+.card.live:hover{
+  transform:translateY(-5px); border-color:var(--accent);
+  box-shadow:0 18px 40px -16px rgba(231,177,76,.4);
+}
+.card.live:hover .status .arrow{ transform:translateX(4px); }
+.card.live:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.card.soon{ opacity:.62; }
+.card.soon .chip{ filter:grayscale(.55) brightness(.7); }
+
+.tag-soon{
+  position:absolute; top:10px; right:11px; font-size:.64rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--faint);
+  background:rgba(0,0,0,.45); border:1px solid var(--line);
+  padding:3px 8px; border-radius:6px;
+}
+.empty{ grid-column:1/-1; text-align:center; color:var(--faint); padding:60px 0; }
+
+footer{
+  border-top:1px solid var(--line); padding:34px 0 56px; color:var(--faint);
+  font-size:.86rem; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+}
+footer a{ color:var(--soft); text-decoration:none; }
+footer a:hover{ color:var(--accent); }
+
+@media (max-width:560px){
+  header{ padding:50px 0 20px; }
+  .toolbar{ flex-direction:column; align-items:stretch; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="kicker"><span class="pip"></span>Design Style Library</span>
+    <h1>One interface,<br/><em>fifty-one</em> visual languages.</h1>
+    <p class="lede">A single interactive component showcase — music player, dials,
+      switches, dialogs, the lot — rebuilt from scratch in 51 distinct design
+      styles. Built to demonstrate how far one product can travel on visual
+      direction alone.</p>
+    <div class="meta">
+      <span><b id="liveCount">51</b> live demos · every style complete</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <label class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="search" placeholder="Search 51 styles…" aria-label="Search styles" />
+    </label>
+    <div class="seg" role="tablist">
+      <button class="on" data-filter="all" role="tab">All 51</button>
+      <button data-filter="live" role="tab">Live 51</button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:100%;padding:0 28px">
+    <span>Fifty-One Design Styles — a build demo.</span>
+    <span>All 51 styles live — one interface, fifty-one visual languages.</span>
+  </div>
+</footer>
+
+<script>
+var STYLES = [
+  {n:1,name:"Neoclassical",slug:"neoclassical",desc:"Serif type, columns, marble, symmetry",live:true,c:["#d8cfc0","#8a7d68"]},
+  {n:2,name:"Baroque",slug:"baroque",desc:"Ornate gold flourishes, theatrical shadow",live:true,c:["#3a2a14","#c9a227"]},
+  {n:3,name:"Aurora",slug:"aurora",desc:"Iridescent gradients, soft glow, blur",live:true,c:["#4be3c4","#7b6cf6"]},
+  {n:4,name:"Ethereal",slug:"ethereal",desc:"Pastel light, gauzy overlays, weightless",live:true,c:["#e9d9f2","#cfe6ff"]},
+  {n:5,name:"Filigree",slug:"filigree",desc:"Delicate metallic linework, lace texture",live:true,c:["#1c1c22","#b9a06a"]},
+  {n:6,name:"Acanthus",slug:"acanthus",desc:"Leaf motifs, flowing vines, greens & gold",live:true,c:["#2f4029","#b89a3e"]},
+  {n:7,name:"Anthropomorphic",slug:"anthropomorphic",desc:"Friendly faces, limbs, rounded shapes",live:true,c:["#ffd166","#ef8a5a"]},
+  {n:8,name:"Pixel Art",slug:"pixel-art",desc:"Visible pixels, low-res grid, tight palette",live:true,c:["#1a1c2c","#41a6f6"]},
+  {n:9,name:"Conceptual Sketch",slug:"conceptual-sketch",desc:"Pencil lines, crosshatch, sketch paper",live:true,c:["#f2efe6","#3a3a3a"]},
+  {n:10,name:"Luxury Typography",slug:"luxury-typography",desc:"Refined serifs, wide tracking, mono palette",live:true,c:["#111111","#e7e3da"]},
+  {n:11,name:"Japandi",slug:"japandi",desc:"Light wood, beige calm, quiet minimalism",live:true,c:["#d8cdbb","#6f7d6a"]},
+  {n:12,name:"Memphis",slug:"memphis",desc:"Clashing primaries, squiggles, block shapes",live:true,c:["#ff4d8d","#25cdd6"]},
+  {n:13,name:"Bohemian",slug:"bohemian",desc:"Jewel tones, mandalas, rich ethnic texture",live:true,c:["#7a3b2e","#c98a3a"]},
+  {n:14,name:"Shabby Chic",slug:"shabby-chic",desc:"Whitewash, faded florals, soft pastels",live:true,c:["#efe6e0","#c98f9c"]},
+  {n:15,name:"Cottagecore",slug:"cottagecore",desc:"Gingham, florals, wood, hand-drawn serif",live:true,c:["#e8e0c8","#8a9a5b"]},
+  {n:16,name:"Victorian",slug:"victorian",desc:"Damask, ornate serifs, deep reds & gilt",live:true,c:["#2a1418","#9c7b3a"]},
+  {n:17,name:"Art Deco",slug:"art-deco",desc:"Gold geometry, sunbursts, jewel symmetry",live:true,c:["#0c3b32","#c8a45c"]},
+  {n:18,name:"Art Nouveau",slug:"art-nouveau",desc:"Curving lines, floral motifs, earthy tones",live:true,c:["#355c4a","#c08a3e"]},
+  {n:19,name:"Mystical Western",slug:"mystical-western",desc:"Tarot symbols, cacti, dusty earth tones",live:true,c:["#3a2e3f","#c98b4a"]},
+  {n:20,name:"Kitsch",slug:"kitsch",desc:"Clashing prints, shiny plastic, retro ads",live:true,c:["#ff6f91","#ffd23f"]},
+  {n:21,name:"Y2K",slug:"y2k",desc:"Chrome, iridescent gloss, metallic futurism",live:true,c:["#b8c6db","#ff61d8"]},
+  {n:22,name:"Bauhaus",slug:"bauhaus",desc:"Grids, primary colour, pure geometry",live:true,c:["#e4002b","#1857c4"]},
+  {n:23,name:"Brutalism",slug:"brutalism",desc:"Monospace, harsh edges, raw structure",live:true,c:["#f2f0eb","#1a1a1a"]},
+  {n:24,name:"Cybercore",slug:"cybercore",desc:"Neon code, glitch, green-on-black",live:true,c:["#02110a","#2dff8b"]},
+  {n:25,name:"Synthwave",slug:"synthwave",desc:"Neon grid horizon, magenta & cyan glow",live:true,c:["#1a0b2e","#ff2d95"]},
+  {n:26,name:"Vaporwave",slug:"vaporwave",desc:"Pastel glitch, Greek busts, VHS haze",live:true,c:["#ff6ad5","#8a6dff"]},
+  {n:27,name:"Pop Art",slug:"pop-art",desc:"Ben-Day dots, bold outlines, primaries",live:true,c:["#ffd400","#e4002b"]},
+  {n:28,name:"Bento Box",slug:"bento-box",desc:"Rounded modular blocks, neutral & calm",live:true,c:["#ececec","#2b2b2b"]},
+  {n:29,name:"Graffiti",slug:"graffiti",desc:"Spray texture, dripping letters, concrete",live:true,c:["#1c1c1c","#ff3d2e"]},
+  {n:30,name:"Tenebrism",slug:"tenebrism",desc:"Dramatic chiaroscuro, oil-paint dark",live:true,c:["#0a0a0a","#b9892f"]},
+  {n:31,name:"Gothic",slug:"gothic",desc:"Blackletter, stained glass, deep purple",live:true,c:["#0d0a0f","#6b0f1a"]},
+  {n:32,name:"Pointillism",slug:"pointillism",desc:"Dot clusters, soft impressionist colour",live:true,c:["#e7e2d0","#6f86b8"]},
+  {n:33,name:"Mixed Media",slug:"mixed-media",desc:"Collage, cutouts, analog-digital blend",live:true,c:["#e8e2d4","#d6562f"]},
+  {n:34,name:"Steampunk",slug:"steampunk",desc:"Copper gears, brass, leather & parchment",live:true,c:["#2a1c0f","#b87333"]},
+  {n:35,name:"Kawaii",slug:"kawaii",desc:"Pastel cute, rounded, faces & sparkles",live:true,c:["#ffd6e8","#a0e7e5"]},
+  {n:36,name:"Coquette",slug:"coquette",desc:"Baby pink, pearls, ribbons, dainty serif",live:true,c:["#ffdce8","#d98aa6"]},
+  {n:37,name:"Surrealism",slug:"surrealism",desc:"Melting forms, odd scale, dream collage",live:true,c:["#2a3a6b","#e6a23c"]},
+  {n:38,name:"Utilitarian",slug:"utilitarian",desc:"Grid, monospace, muted, zero decoration",live:true,c:["#d9d6cd","#4a4a4a"]},
+  {n:39,name:"Mid-Century",slug:"mid-century",desc:"Clean retro lines, boomerang mod shapes",live:true,c:["#e6b800","#d2603a"]},
+  {n:40,name:"Scrapbook",slug:"scrapbook",desc:"Paper, washi tape, Polaroids, stickers",live:true,c:["#f0e7d6","#d98a7a"]},
+  {n:41,name:"Frutiger Aero",slug:"frutiger-aero",desc:"Aqua gloss, bubbles, glassy nature UI",live:true,c:["#38b6ff","#9be15d"]},
+  {n:42,name:"Dark Academia",slug:"dark-academia",desc:"Candlelit etchings, black & gold script",live:true,c:["#1c160f","#b08d3a"]},
+  {n:43,name:"Light Academia",slug:"light-academia",desc:"Creamy neutrals, serif, linen sunlight",live:true,c:["#efe7d6","#b59a6a"]},
+  {n:44,name:"Wabi Sabi",slug:"wabi-sabi",desc:"Earthy, rough pottery, organic imperfection",live:true,c:["#d6cab4","#8a7256"]},
+  {n:45,name:"Wild West",slug:"wild-west",desc:"Terracotta, cacti, denim, cowboy serif",live:true,c:["#b5532e","#d8a44a"]},
+  {n:46,name:"Nautical",slug:"nautical",desc:"Navy & white, anchors, rope, brass stencil",live:true,c:["#14315c","#c9a227"]},
+  {n:47,name:"Rebus",slug:"rebus",desc:"Pictograms, visual puns, clean image-type",live:true,c:["#f4f1e8","#e4572e"]},
+  {n:48,name:"Glassmorphism",slug:"glassmorphism",desc:"Frosted blur, translucency, neon tint",live:true,c:["#7b6cf6","#4be3c4"]},
+  {n:49,name:"Modular Typography",slug:"modular-typography",desc:"Geometric letterforms on a type grid",live:true,c:["#111111","#ff4d2e"]},
+  {n:50,name:"Neo-Brutalism",slug:"neo-brutalism",desc:"Bold colour, big type, blunt asymmetry",live:true,c:["#ffe600","#1a1a1a"]},
+  {n:51,name:"Neumorphic",slug:"neumorphic",desc:"Soft extruded surfaces, dual light & shadow",live:true,c:["#e9e3d5","#c4bdab"]}
+];
+
+var grid = document.getElementById('grid'),
+    search = document.getElementById('search'),
+    segBtns = document.querySelectorAll('.seg button'),
+    filter = 'all', query = '';
+
+document.getElementById('liveCount').textContent = STYLES.filter(function(s){return s.live;}).length;
+
+function arrowSvg(){
+  return '<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+}
+function render(){
+  var list = STYLES.filter(function(s){
+    if(filter === 'live' && !s.live) return false;
+    if(query && s.name.toLowerCase().indexOf(query) < 0
+            && s.desc.toLowerCase().indexOf(query) < 0) return false;
+    return true;
+  });
+  grid.innerHTML = '';
+  if(!list.length){
+    grid.innerHTML = '<p class="empty">No styles match &ldquo;' + query + '&rdquo;.</p>';
+    return;
+  }
+  list.forEach(function(s){
+    var chip = '<div class="chip" style="background:linear-gradient(120deg,'
+      + s.c[0] + ',' + s.c[1] + ')"><span class="num">'
+      + String(s.n).padStart(2,'0') + '</span></div>';
+    var body = '<div class="body"><div class="name">' + s.name + '</div>'
+      + '<div class="desc">' + s.desc + '</div>';
+    var el;
+    if(s.live){
+      el = document.createElement('a');
+      el.className = 'card live'; el.href = 'styles/' + s.slug + '.html';
+      el.innerHTML = chip + body
+        + '<div class="status">View demo ' + arrowSvg() + '</div></div>';
+    } else {
+      el = document.createElement('div');
+      el.className = 'card soon';
+      el.innerHTML = chip + '<span class="tag-soon">Soon</span>' + body
+        + '<div class="status">In progress</div></div>';
+    }
+    grid.appendChild(el);
+  });
+}
+segBtns.forEach(function(b){
+  b.addEventListener('click', function(){
+    segBtns.forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    filter = b.getAttribute('data-filter');
+    render();
+  });
+});
+search.addEventListener('input', function(){
+  query = search.value.trim().toLowerCase();
+  render();
+});
+render();
+</script>
+</body>
+</html>

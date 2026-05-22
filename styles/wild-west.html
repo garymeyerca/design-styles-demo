@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dusty Trail — A Wild West Showcase</title>
+<meta name="description" content="A showcase of Wild West design — weathered kraft, saloon woodgrain, WANTED-poster woodtype, sheriff stars, rope borders, leather and brass." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Smokum&family=Special+Elite&family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   WILD WEST — frontier woodtype poster.
+   Weathered kraft/parchment, saloon woodgrain, leather & brass,
+   sheriff-star + horseshoe motifs, sun-baked dusty palette.
+   ============================================================ */
+:root,
+[data-theme="day"]{
+  --paper:        #e6d2a8;   /* sun-bleached kraft */
+  --paper-2:      #dcc296;   /* deeper parchment */
+  --board:        #c79d62;   /* tan plank */
+  --ink:          #34241a;   /* burnt oak text */
+  --ink-soft:     #6e553c;   /* faded ink */
+  --wood:         #5b3a22;   /* saloon woodgrain */
+  --wood-d:       #3c2616;
+  --leather:      #7a4a26;
+  --brass:        #c08a3e;
+  --rope:         #b58a4e;
+  --accent:       #9e3b22;   /* oxblood / rust */
+  --accent-d:     #6e2613;
+  --accent-l:     #c66a3f;
+  --accent-ink:   #f4e6c5;
+  --sage:         #6b7a4e;   /* sagebrush */
+  --sky:          #a7bdc2;   /* sun-bleached sky */
+  --hairline:     rgba(52,36,26,.30);
+  --shadow:       4px 4px 0 var(--wood-d);
+  --shadow-lg:    8px 8px 0 var(--wood-d);
+}
+[data-theme="dusk"]{
+  --paper:        #2e2117;
+  --paper-2:      #261b13;
+  --board:        #46301d;
+  --ink:          #ecd9b0;
+  --ink-soft:     #b89a72;
+  --wood:         #1c130c;
+  --wood-d:       #100a06;
+  --leather:      #5a3318;
+  --brass:        #d8a14f;
+  --rope:         #9c7440;
+  --accent:       #d2552e;
+  --accent-d:     #8c3318;
+  --accent-l:     #e98951;
+  --accent-ink:   #2e2117;
+  --sage:         #8a9b66;
+  --sky:          #4a5d63;
+  --hairline:     rgba(236,217,176,.26);
+  --shadow:       4px 4px 0 #000;
+  --shadow-lg:    8px 8px 0 #000;
+}
+
+@property --p { syntax:'<number>'; inherits:true; initial-value:0; }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Bitter', serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s ease, color .5s ease;
+  overflow-x:hidden;
+  /* sun-baked paper grain + plank shading */
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(255,255,255,.10), transparent 9%),
+    radial-gradient(circle at 72% 38%, rgba(0,0,0,.06), transparent 11%),
+    radial-gradient(circle at 44% 78%, rgba(0,0,0,.05), transparent 13%),
+    radial-gradient(circle at 88% 88%, rgba(255,255,255,.07), transparent 10%),
+    repeating-linear-gradient(90deg, transparent 0 119px, rgba(60,38,22,.05) 119px 120px);
+}
+body::before{ /* dusty vignette + low desert sun */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(70rem 46rem at 84% -10%, rgba(200,138,62,.22), transparent 62%),
+    radial-gradient(120% 80% at 50% 120%, rgba(60,38,22,.32), transparent 70%);
+}
+
+.wrap{ max-width:1200px; margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+
+/* ============================================================ ROPE divider util */
+.rope{
+  height:11px; border-radius:999px;
+  background:
+    repeating-linear-gradient(115deg,
+      var(--rope) 0 8px, var(--wood-d) 8px 10px,
+      var(--brass) 10px 18px, var(--wood-d) 18px 20px);
+  box-shadow:inset 0 -3px 4px rgba(0,0,0,.4), inset 0 2px 3px rgba(255,255,255,.18);
+}
+
+/* ============================================================ NAV */
+.nav{ position:sticky; top:14px; z-index:50; margin-top:14px; }
+.nav-inner{
+  display:flex; align-items:center; gap:20px;
+  padding:12px 16px 12px 18px;
+  background:var(--wood);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.22) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 7px);
+  border:3px solid var(--wood-d);
+  border-radius:8px;
+  box-shadow:var(--shadow), inset 0 0 0 2px rgba(192,138,62,.3);
+}
+.brand{ display:flex; align-items:center; gap:13px; margin-right:auto; }
+.brand-mark{
+  width:46px; height:46px; flex:none; display:grid; place-items:center;
+  background:var(--brass); border:3px solid var(--wood-d); border-radius:50%;
+  box-shadow:inset 0 0 0 3px var(--paper-2), 2px 2px 0 var(--wood-d);
+  color:var(--accent-d);
+}
+.brand-mark svg{ width:26px; height:26px; }
+.brand-name{
+  font-family:'Rye', serif; font-weight:400; font-size:1.42rem;
+  color:var(--accent-ink); letter-spacing:.01em;
+  text-shadow:2px 2px 0 var(--wood-d);
+}
+.nav-links{ display:flex; gap:4px; }
+.nav-links a{
+  font-family:'Special Elite', serif;
+  color:var(--paper); text-decoration:none; font-size:.92rem;
+  padding:8px 14px; border-radius:5px;
+  border:2px solid transparent;
+  transition:color .18s, background .18s, border-color .18s;
+}
+.nav-links a:hover{ color:var(--accent-ink); background:rgba(192,138,62,.22);
+  border-color:var(--brass); }
+
+.all-styles{
+  font-family:'Special Elite', serif;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 14px; border-radius:6px;
+  background:var(--accent); color:var(--accent-ink);
+  border:2px solid var(--wood-d); text-decoration:none; font-size:.88rem;
+  box-shadow:2px 2px 0 var(--wood-d);
+  transition:transform .14s, box-shadow .14s;
+}
+.all-styles:hover{ transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--wood-d); }
+.all-styles:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--wood-d); }
+
+.icon-btn{
+  width:46px; height:46px; flex:none; cursor:pointer;
+  background:var(--brass); color:var(--wood-d);
+  border:3px solid var(--wood-d); border-radius:6px;
+  display:grid; place-items:center;
+  box-shadow:2px 2px 0 var(--wood-d);
+  transition:transform .14s, box-shadow .14s, background .2s, color .2s;
+}
+.icon-btn:hover{ background:var(--accent-l); }
+.icon-btn:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--wood-d); }
+.icon-btn svg{ width:20px; height:20px; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dusk"] .theme-toggle .sun{ display:none; }
+[data-theme="dusk"] .theme-toggle .moon{ display:block; }
+
+/* ============================================================ HERO */
+.hero{ text-align:center; padding:74px 0 50px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 18px; margin-bottom:26px;
+  background:var(--accent); color:var(--accent-ink);
+  border:3px solid var(--wood-d);
+  font-family:'Special Elite', serif;
+  font-size:.74rem; font-weight:400; letter-spacing:.22em; text-transform:uppercase;
+  box-shadow:3px 3px 0 var(--wood-d);
+  transform:rotate(-1.4deg);
+}
+.eyebrow .star{ width:14px; height:14px; flex:none; }
+.hero h1{
+  font-family:'Smokum', serif; font-weight:400;
+  font-size:clamp(3rem, 9vw, 7rem); line-height:.94; letter-spacing:.005em;
+  color:var(--accent);
+  text-shadow:
+    3px 3px 0 var(--wood-d), 5px 5px 0 var(--brass), 6px 6px 0 var(--wood-d);
+}
+.hero h1 em{
+  display:block; font-family:'Rye', serif; font-style:normal;
+  font-size:.42em; letter-spacing:.02em; color:var(--ink);
+  text-shadow:2px 2px 0 var(--paper-2);
+  margin-top:.18em;
+}
+.hero p{
+  max-width:560px; margin:24px auto 0; font-size:1.1rem; color:var(--ink-soft);
+  font-family:'Special Elite', serif;
+}
+.hero-cta{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+.hero-stats{
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:46px;
+}
+.stat-pill{
+  padding:16px 26px; min-width:138px;
+  background:var(--paper-2); border:3px solid var(--wood-d);
+  border-radius:7px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; align-items:center;
+}
+.stat-pill:nth-child(2){ transform:rotate(1.5deg); }
+.stat-pill:nth-child(3){ transform:rotate(-1.5deg); }
+.stat-pill b{
+  font-family:'Rye', serif; font-size:1.9rem; color:var(--accent); line-height:1;
+}
+.stat-pill small{
+  font-family:'Special Elite', serif;
+  font-size:.7rem; color:var(--ink-soft); margin-top:7px; letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* ============================================================ BUTTONS */
+.btn{
+  font-family:'Rye', serif; font-size:.96rem; font-weight:400; cursor:pointer;
+  background:var(--paper-2); color:var(--ink);
+  border:3px solid var(--wood-d); padding:13px 26px; border-radius:7px;
+  box-shadow:var(--shadow);
+  display:inline-flex; align-items:center; gap:10px;
+  transition:transform .13s ease, box-shadow .13s ease, background .2s;
+}
+.btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--wood-d); }
+.btn:active{ transform:translate(4px,4px); box-shadow:0 0 0 var(--wood-d); }
+.btn svg{ width:17px; height:17px; }
+.btn--accent{
+  background:var(--accent); color:var(--accent-ink);
+}
+.btn--accent:hover{ background:var(--accent-l); }
+.btn:disabled{
+  cursor:not-allowed; color:var(--ink-soft); opacity:.6;
+  background:var(--board);
+}
+.btn:disabled:hover{ transform:none; box-shadow:var(--shadow); }
+.btn:focus-visible, .icon-btn:focus-visible, .all-styles:focus-visible{
+  outline:3px dashed var(--accent); outline-offset:3px;
+}
+
+/* ============================================================ SHOWCASE / BENTO */
+.showcase{ padding:48px 0 28px; }
+.section-head{ margin-bottom:32px; position:relative; }
+.section-head h2{
+  font-family:'Rye', serif; font-weight:400; font-size:clamp(1.9rem,4.4vw,3rem);
+  color:var(--accent); letter-spacing:.01em;
+  text-shadow:2px 2px 0 var(--wood-d);
+}
+.section-head p{
+  color:var(--ink-soft); margin-top:8px; font-family:'Special Elite', serif;
+}
+.section-head .rope{ margin-top:14px; }
+
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.card{
+  position:relative;
+  background:var(--paper-2);
+  background-image:
+    radial-gradient(circle at 20% 14%, rgba(255,255,255,.10), transparent 12%),
+    radial-gradient(circle at 82% 80%, rgba(0,0,0,.07), transparent 14%);
+  border:3px solid var(--wood-d);
+  border-radius:9px;
+  padding:28px;
+  box-shadow:var(--shadow-lg);
+  opacity:0; transform:translateY(26px);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1),
+             background .5s ease;
+}
+.card.in{ opacity:1; transform:none; }
+/* inner stitched/wood frame */
+.card::before{
+  content:""; position:absolute; inset:6px; pointer-events:none;
+  border:2px solid var(--hairline); border-radius:5px;
+}
+/* corner brass tack */
+.card::after{
+  content:""; position:absolute; top:11px; right:11px;
+  width:11px; height:11px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--brass), var(--wood-d));
+  box-shadow:0 0 0 2px var(--wood-d);
+}
+.card--music{ grid-row:span 2; }
+.card--activity{ grid-column:1 / -1; }
+.card-label{
+  font-family:'Special Elite', serif;
+  font-size:.72rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--accent-ink);
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
+  background:var(--accent); padding:5px 12px;
+  border:2px solid var(--wood-d); border-radius:4px;
+  box-shadow:2px 2px 0 var(--wood-d);
+}
+.card-label svg{ width:13px; height:13px; }
+.card-title{
+  font-family:'Rye', serif; font-weight:400; font-size:1.4rem;
+  color:var(--ink); letter-spacing:.005em;
+}
+
+/* ---- Music player ---- */
+.player-art{
+  position:relative; width:100%; aspect-ratio:1; border-radius:7px;
+  border:3px solid var(--wood-d);
+  background:
+    radial-gradient(60% 50% at 30% 24%, var(--accent-l), transparent 72%),
+    radial-gradient(70% 70% at 78% 86%, var(--accent-d), transparent 76%),
+    linear-gradient(160deg, var(--accent), var(--leather));
+  box-shadow:inset 0 0 0 3px rgba(192,138,62,.45), var(--shadow);
+  display:grid; place-items:center; margin-bottom:22px;
+  overflow:hidden;
+}
+.player-art::before{ /* sunburst rays — wanted-poster ornament */
+  content:""; position:absolute; inset:-40%;
+  background:repeating-conic-gradient(from 0deg,
+    rgba(244,230,197,.16) 0 9deg, transparent 9deg 18deg);
+  opacity:.55;
+}
+.eq{ display:flex; align-items:flex-end; gap:7px; height:54px; position:relative; }
+.eq span{
+  width:9px; height:16px;
+  background:var(--accent-ink);
+  border:2px solid var(--wood-d);
+  box-shadow:1px 1px 0 var(--wood-d);
+  animation:eq 900ms ease-in-out infinite; animation-play-state:paused;
+}
+.eq span:nth-child(2){ animation-delay:-680ms; }
+.eq span:nth-child(3){ animation-delay:-320ms; }
+.eq span:nth-child(4){ animation-delay:-510ms; }
+.eq span:nth-child(5){ animation-delay:-150ms; }
+.playing .eq span{ animation-play-state:running; }
+@keyframes eq{ 0%,100%{ height:14px; } 50%{ height:48px; } }
+
+.player-meta{ display:flex; align-items:flex-start; gap:14px; }
+.player-meta h3{
+  font-family:'Rye', serif; font-size:1.32rem; font-weight:400;
+  line-height:1.18; color:var(--ink);
+}
+.player-meta p{
+  color:var(--ink-soft); font-size:.9rem; font-family:'Special Elite', serif;
+}
+.heart{ margin-left:auto; }
+.heart.on{ background:var(--accent); color:var(--accent-ink); }
+.heart.on svg{ fill:var(--accent-ink); }
+
+.player-progress{ margin:20px 0 8px; cursor:pointer; padding:8px 0; }
+.track{
+  height:14px; border-radius:999px; position:relative;
+  background:var(--wood-d);
+  border:2px solid var(--wood-d);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.5);
+}
+.track-fill{
+  position:absolute; top:0; bottom:0; left:0; width:34%; border-radius:999px;
+  background:repeating-linear-gradient(115deg,
+    var(--rope) 0 6px, var(--brass) 6px 12px);
+}
+.track-fill::after{ /* horseshoe-ish brass nub */
+  content:""; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--brass), var(--wood-d));
+  border:2px solid var(--wood-d);
+}
+.player-time{
+  display:flex; justify-content:space-between; font-size:.82rem;
+  color:var(--ink-soft); font-variant-numeric:tabular-nums;
+  font-family:'Special Elite', serif;
+}
+
+.player-controls{ display:flex; align-items:center; justify-content:center;
+  gap:18px; margin-top:18px; }
+.play-btn{
+  width:68px; height:68px; cursor:pointer; border-radius:50%;
+  background:var(--accent); color:var(--accent-ink);
+  border:3px solid var(--wood-d);
+  box-shadow:3px 3px 0 var(--wood-d), inset 0 0 0 3px rgba(192,138,62,.4);
+  display:grid; place-items:center;
+  transition:transform .13s, box-shadow .13s, background .2s;
+}
+.play-btn:hover{ background:var(--accent-l); transform:translate(-2px,-2px);
+  box-shadow:5px 5px 0 var(--wood-d), inset 0 0 0 3px rgba(192,138,62,.4); }
+.play-btn:active, .play-btn.playing{ transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--wood-d), inset 0 0 0 3px rgba(192,138,62,.4); }
+.play-btn svg{ width:25px; height:25px; }
+.play-btn .ico-pause{ display:none; }
+.play-btn.playing .ico-play{ display:none; }
+.play-btn.playing .ico-pause{ display:block; }
+
+/* ---- Switches ---- */
+.switch-row{ display:flex; align-items:center; gap:16px; padding:15px 0; }
+.switch-row + .switch-row{ border-top:2px dashed var(--hairline); }
+.switch-row .lbl{ font-family:'Rye', serif; font-size:1rem; }
+.switch-row .sub{ font-size:.8rem; color:var(--ink-soft);
+  font-family:'Special Elite', serif; }
+.switch{ position:relative; width:70px; height:38px; flex:none; margin-left:auto; }
+.switch input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.switch .s-track{
+  position:absolute; inset:0; border-radius:999px;
+  background:var(--wood-d); border:3px solid var(--wood-d);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.5);
+  transition:background .3s;
+}
+.switch .s-thumb{
+  position:absolute; top:3px; left:3px; width:28px; height:28px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--brass), var(--wood));
+  border:2px solid var(--wood-d);
+  transition:transform .3s cubic-bezier(.34,1.4,.5,1), background .3s;
+}
+.switch input:checked ~ .s-track{ background:var(--sage); }
+.switch input:checked ~ .s-thumb{
+  transform:translateX(32px);
+  background:radial-gradient(circle at 35% 30%, var(--accent-l), var(--accent-d));
+}
+.switch input:focus-visible ~ .s-track{ outline:3px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Dial ---- */
+.dial-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.dial{
+  position:relative; width:188px; height:188px; border-radius:50%;
+  background:var(--wood);
+  border:4px solid var(--wood-d);
+  box-shadow:inset 0 0 18px rgba(0,0,0,.55), var(--shadow);
+  display:grid; place-items:center;
+  touch-action:none; cursor:grab;
+}
+.dial:active{ cursor:grabbing; }
+.dial-arc{
+  position:absolute; inset:13px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 225deg,
+      var(--accent) 0 calc(var(--v,40) * 2.7deg),
+      var(--wood-d) calc(var(--v,40) * 2.7deg) 270deg,
+      transparent 270deg);
+  -webkit-mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+          mask:radial-gradient(closest-side, transparent 75%, #000 76%);
+}
+.dial-knob{
+  position:relative; width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, var(--brass), var(--leather));
+  border:4px solid var(--wood-d);
+  box-shadow:3px 3px 0 var(--wood-d), inset 0 0 0 3px rgba(244,230,197,.25);
+  pointer-events:none;
+}
+.dial-knob::before{ /* the rotation notch — brass rivet */
+  content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--wood-d);
+}
+.dial-readout{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  text-align:center; pointer-events:none;
+}
+.dial-readout b{
+  font-family:'Rye', serif; font-size:1.9rem; line-height:1;
+  font-variant-numeric:tabular-nums; color:var(--accent-ink);
+  text-shadow:2px 2px 0 var(--wood-d);
+}
+.dial-readout small{
+  display:block; font-family:'Special Elite', serif;
+  font-size:.66rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--brass); margin-top:4px;
+}
+.dial-hint{ font-size:.82rem; color:var(--ink-soft); font-family:'Special Elite', serif; }
+
+/* ---- Slider ---- */
+.slider-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.slider-head .v{
+  font-family:'Rye', serif; font-size:1.7rem; color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.range{
+  -webkit-appearance:none; appearance:none; width:100%; height:36px;
+  background:transparent; cursor:pointer; margin:8px 0;
+}
+.range::-webkit-slider-runnable-track{
+  height:16px; border-radius:999px;
+  border:3px solid var(--wood-d);
+  background:linear-gradient(90deg, var(--accent) 0 var(--val,55%),
+    var(--wood-d) var(--val,55%) 100%);
+}
+.range::-moz-range-track{ height:16px; border-radius:999px;
+  border:3px solid var(--wood-d); background:var(--wood-d); }
+.range::-moz-range-progress{ height:16px; border-radius:999px; background:var(--accent); }
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:30px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--brass), var(--leather));
+  border:3px solid var(--wood-d); margin-top:-11px;
+  box-shadow:2px 2px 0 var(--wood-d);
+}
+.range::-moz-range-thumb{ width:28px; height:28px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--brass), var(--leather));
+  border:3px solid var(--wood-d); }
+.range:focus-visible{ outline:none; }
+.range:focus-visible::-webkit-slider-thumb{
+  box-shadow:2px 2px 0 var(--wood-d), 0 0 0 3px var(--accent); }
+.slider-scale{
+  display:flex; justify-content:space-between; font-size:.74rem;
+  color:var(--ink-soft); margin-top:6px; font-family:'Special Elite', serif;
+  text-transform:uppercase; letter-spacing:.1em;
+}
+
+/* ---- Inputs card ---- */
+.search{
+  display:flex; align-items:center; gap:12px; padding:14px 17px; border-radius:7px;
+  background:var(--paper); border:3px solid var(--wood-d);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.25);
+  margin-bottom:22px;
+}
+.search svg{ width:18px; height:18px; color:var(--ink-soft); flex:none; }
+.search input{
+  border:0; background:transparent; outline:0; font:inherit;
+  font-family:'Special Elite', serif;
+  color:var(--ink); width:100%;
+}
+.search input::placeholder{ color:var(--ink-soft); }
+
+.seg-label{
+  font-size:.74rem; color:var(--ink-soft); margin-bottom:9px;
+  font-family:'Special Elite', serif; text-transform:uppercase; letter-spacing:.14em;
+}
+.segmented{
+  position:relative; display:flex; padding:6px; border-radius:7px;
+  background:var(--wood); border:3px solid var(--wood-d);
+}
+.seg-thumb{
+  position:absolute; top:6px; left:6px; height:calc(100% - 12px);
+  border-radius:4px; background:var(--accent);
+  border:2px solid var(--wood-d);
+  box-shadow:1px 1px 0 var(--wood-d);
+  transition:transform .3s cubic-bezier(.3,1.1,.4,1);
+}
+.seg-opt{
+  position:relative; z-index:1; flex:1; border:0; background:transparent; cursor:pointer;
+  font-family:'Special Elite', serif; font-size:.86rem; color:var(--paper);
+  padding:10px 6px; transition:color .25s; letter-spacing:.04em;
+}
+.seg-opt.active{ color:var(--accent-ink); }
+.seg-opt:focus-visible{ outline:3px dashed var(--brass); outline-offset:2px; border-radius:4px; }
+
+/* ---- Activity card ---- */
+.activity-grid{
+  display:grid; grid-template-columns:auto 1fr auto; gap:34px; align-items:center;
+}
+.ring{
+  --p:0; position:relative; width:158px; height:158px; border-radius:50%;
+  background:var(--wood); border:4px solid var(--wood-d);
+  box-shadow:inset 0 0 16px rgba(0,0,0,.55);
+  display:grid; place-items:center; flex:none;
+}
+.ring::before{
+  content:""; position:absolute; inset:13px; border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--wood-d) 0);
+  -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+          mask:radial-gradient(closest-side, transparent 73%, #000 74%);
+  transition:--p 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.ring-core{ text-align:center; }
+.ring-core b{
+  font-family:'Rye', serif; font-size:2rem; line-height:1;
+  color:var(--accent-ink); text-shadow:2px 2px 0 var(--wood-d);
+}
+.ring-core small{
+  font-family:'Special Elite', serif;
+  font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--brass);
+}
+.chips{ display:flex; flex-direction:column; gap:14px; }
+.chip{
+  padding:15px 18px; border-radius:7px;
+  background:var(--paper); border:3px solid var(--wood-d);
+  box-shadow:2px 2px 0 var(--wood-d);
+  display:flex; align-items:center; gap:14px;
+}
+.chip .ci{
+  width:40px; height:40px; border-radius:50%; flex:none; display:grid;
+  place-items:center; background:var(--brass); border:3px solid var(--wood-d);
+  color:var(--wood-d);
+}
+.chip .ci svg{ width:18px; height:18px; }
+.chip b{ font-family:'Rye', serif; font-size:1.16rem; }
+.chip small{ display:block; font-size:.78rem; color:var(--ink-soft);
+  font-family:'Special Elite', serif; }
+.btn-stack{ display:flex; flex-direction:column; gap:13px; }
+
+/* ============================================================ EXTRA CONTROLS */
+.muted{ color:var(--ink-soft); font-size:.88rem; font-family:'Special Elite', serif; }
+.center{ text-align:center; }
+.card--wide{ grid-column:span 2; }
+
+/* ---- Accent swatches ---- */
+.swatches{ display:flex; gap:13px; flex-wrap:wrap; margin-top:20px; }
+.swatch{
+  width:50px; height:50px; cursor:pointer; border-radius:50%;
+  background:var(--sw); border:3px solid var(--wood-d);
+  box-shadow:2px 2px 0 var(--wood-d);
+  display:grid; place-items:center;
+  transition:transform .14s, box-shadow .14s;
+}
+.swatch:hover{ transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--wood-d); }
+.swatch:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--wood-d); }
+.swatch svg{ width:22px; height:22px; color:var(--accent-ink);
+  opacity:0; transition:opacity .15s; filter:drop-shadow(1px 1px 0 var(--wood-d)); }
+.swatch.is-active{ box-shadow:inset 0 0 0 3px var(--paper-2), 2px 2px 0 var(--wood-d); }
+.swatch.is-active svg{ opacity:1; }
+.swatch:focus-visible{ outline:3px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Stepper ---- */
+.stepper{ display:flex; align-items:center; justify-content:center; gap:14px; margin:22px 0 12px; }
+.step-btn{
+  width:56px; height:56px; flex:none; cursor:pointer; border-radius:7px;
+  background:var(--accent); color:var(--accent-ink);
+  border:3px solid var(--wood-d); box-shadow:3px 3px 0 var(--wood-d);
+  font-family:'Rye', serif; font-size:1.5rem;
+  display:grid; place-items:center;
+  transition:transform .13s, box-shadow .13s, background .2s;
+}
+.step-btn:hover{ background:var(--accent-l); }
+.step-btn:active{ transform:translate(3px,3px); box-shadow:0 0 0 var(--wood-d); }
+.step-btn:focus-visible{ outline:3px dashed var(--accent); outline-offset:3px; }
+.step-val{
+  min-width:90px; padding:12px 0; border-radius:7px;
+  background:var(--wood); border:3px solid var(--wood-d);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.5);
+  font-family:'Rye', serif; font-size:1.7rem; font-variant-numeric:tabular-nums;
+  color:var(--accent-ink); text-shadow:2px 2px 0 var(--wood-d);
+}
+
+/* ---- Star rating ---- */
+.stars{ display:flex; justify-content:center; gap:8px; margin:22px 0 12px; }
+.star{
+  width:50px; height:50px; cursor:pointer; border-radius:7px;
+  background:var(--paper); color:var(--ink-soft);
+  border:3px solid var(--wood-d); box-shadow:2px 2px 0 var(--wood-d);
+  display:grid; place-items:center;
+  transition:transform .13s, box-shadow .13s, color .15s, background .15s;
+}
+.star svg{ width:23px; height:23px; transition:fill .15s; }
+.star:hover{ transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--wood-d); }
+.star.lit{ color:var(--accent-ink); background:var(--accent); }
+.star.lit svg{ fill:var(--accent-ink); }
+.star:focus-visible{ outline:3px dashed var(--accent); outline-offset:3px; }
+
+/* ---- Accordion ---- */
+.accordion{ display:flex; flex-direction:column; gap:13px; }
+.acc-item{
+  border-radius:7px; background:var(--paper);
+  border:3px solid var(--wood-d); box-shadow:2px 2px 0 var(--wood-d);
+  transition:box-shadow .2s;
+}
+.acc-item.open{ box-shadow:4px 4px 0 var(--wood-d); }
+.acc-head{
+  width:100%; border:0; background:transparent; cursor:pointer;
+  font-family:'Rye', serif; font-size:.98rem;
+  color:var(--ink); text-align:left; padding:16px 18px;
+  display:flex; align-items:center; gap:14px;
+}
+.acc-head .chev{ margin-left:auto; flex:none; color:var(--accent);
+  transition:transform .3s; }
+.acc-item.open .acc-head .chev{ transform:rotate(180deg); }
+.acc-head:focus-visible{ outline:3px dashed var(--accent); outline-offset:-4px; border-radius:7px; }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .33s ease; }
+.acc-item.open .acc-panel{ grid-template-rows:1fr; }
+.acc-inner{ overflow:hidden; }
+.acc-inner p{ padding:0 18px 17px; color:var(--ink-soft); font-size:.9rem;
+  font-family:'Special Elite', serif; }
+
+/* ---- Custom select ---- */
+.select{ position:relative; }
+.select-btn{
+  width:100%; cursor:pointer;
+  font-family:'Rye', serif; font-size:.95rem; color:var(--ink);
+  background:var(--paper); border:3px solid var(--wood-d);
+  box-shadow:2px 2px 0 var(--wood-d);
+  padding:14px 17px; border-radius:7px;
+  display:flex; align-items:center; gap:10px;
+  transition:box-shadow .14s, transform .14s;
+}
+.select-btn .chev{ margin-left:auto; flex:none; color:var(--accent); transition:transform .25s; }
+.select.open .select-btn{ transform:translate(2px,2px); box-shadow:0 0 0 var(--wood-d); }
+.select.open .select-btn .chev{ transform:rotate(180deg); }
+.select-btn:focus-visible{ outline:3px dashed var(--accent); outline-offset:3px; }
+.select-menu{
+  position:absolute; top:calc(100% + 10px); left:0; right:0; z-index:20;
+  list-style:none; margin:0; padding:7px; border-radius:7px;
+  background:var(--paper-2); border:3px solid var(--wood-d);
+  box-shadow:var(--shadow-lg);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.select.open .select-menu{ opacity:1; transform:none; pointer-events:auto; }
+.select-menu li{
+  padding:11px 13px; border-radius:5px; cursor:pointer;
+  font-family:'Special Elite', serif; font-size:.92rem;
+  display:flex; align-items:center; gap:10px;
+  transition:background .14s, color .14s;
+}
+.select-menu li:hover{ background:rgba(158,59,34,.16); }
+.select-menu li[aria-selected="true"]{ background:var(--accent); color:var(--accent-ink); }
+.select-menu .tick{ margin-left:auto; width:16px; height:16px; opacity:0; }
+.select-menu li[aria-selected="true"] .tick{ opacity:1; }
+
+/* ---- PIN input ---- */
+.pin{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.pin input{
+  width:56px; height:66px; border:3px solid var(--wood-d); outline:0; text-align:center;
+  font-family:'Rye', serif; font-size:1.7rem; color:var(--ink);
+  background:var(--paper); border-radius:7px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.3);
+  transition:box-shadow .18s, color .18s, transform .14s;
+}
+.pin input.filled{ color:var(--accent); background:var(--paper-2); }
+.pin input:focus{ box-shadow:inset 0 2px 5px rgba(0,0,0,.3), 0 0 0 3px var(--accent);
+  transform:translateY(-2px); }
+.pin.done input{
+  background:var(--sage); color:var(--accent-ink);
+  box-shadow:2px 2px 0 var(--wood-d);
+}
+
+/* ---- Toggle button group ---- */
+.toggle-group{ display:flex; justify-content:center; gap:12px; margin:22px 0 12px; }
+.tg-btn{
+  position:relative; width:56px; height:56px; cursor:pointer; border-radius:7px;
+  background:var(--paper); color:var(--ink);
+  border:3px solid var(--wood-d); box-shadow:2px 2px 0 var(--wood-d);
+  font-family:'Rye', serif; font-size:1.3rem;
+  display:grid; place-items:center;
+  transition:transform .13s, box-shadow .13s, color .18s, background .18s;
+}
+.tg-btn:hover{ transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--wood-d); }
+.tg-btn.on{ background:var(--accent); color:var(--accent-ink);
+  transform:translate(2px,2px); box-shadow:0 0 0 var(--wood-d); }
+.tg-btn:focus-visible{ outline:3px dashed var(--accent); outline-offset:3px; }
+.tg-btn::before{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); white-space:nowrap;
+  background:var(--wood); color:var(--paper);
+  border:2px solid var(--wood-d);
+  font-family:'Special Elite', serif; font-size:.72rem;
+  padding:5px 10px; border-radius:4px; opacity:0; pointer-events:none; transition:.18s;
+}
+.tg-btn:hover::before{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---- Modal dialog ---- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:rgba(28,19,12,.66); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
+  opacity:0; transition:opacity .25s;
+}
+.modal-overlay.show{ opacity:1; }
+.modal-overlay[hidden]{ display:none; }
+.modal{
+  max-width:440px; width:100%; text-align:center; padding:36px 32px;
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 16% 12%, rgba(255,255,255,.12), transparent 14%),
+    radial-gradient(circle at 86% 84%, rgba(0,0,0,.08), transparent 16%);
+  border:4px solid var(--wood-d);
+  border-radius:9px;
+  box-shadow:14px 14px 0 rgba(0,0,0,.5), inset 0 0 0 3px var(--accent);
+  transform:scale(.9) translateY(12px) rotate(-1deg);
+  transition:transform .3s cubic-bezier(.2,1.25,.4,1);
+}
+.modal-overlay.show .modal{ transform:none; }
+.modal-icon{
+  width:70px; height:70px; margin:0 auto 16px; border-radius:50%; display:grid;
+  place-items:center; background:var(--brass); border:4px solid var(--wood-d);
+  box-shadow:inset 0 0 0 3px var(--paper), 3px 3px 0 var(--wood-d);
+  color:var(--accent-d);
+}
+.modal-icon svg{ width:32px; height:32px; }
+.modal h3{
+  font-family:'Smokum', serif; font-size:2rem; color:var(--accent);
+  letter-spacing:.01em; line-height:1; text-shadow:2px 2px 0 var(--wood-d);
+}
+.modal p{ color:var(--ink-soft); margin:12px 0 24px; font-family:'Special Elite', serif; }
+.modal-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* ---- Toast ---- */
+.toast-wrap{
+  position:fixed; right:24px; bottom:24px; z-index:120;
+  display:flex; flex-direction:column; gap:12px; max-width:calc(100vw - 48px);
+}
+.toast{
+  display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:8px;
+  background:var(--paper); border:3px solid var(--wood-d);
+  box-shadow:var(--shadow-lg);
+  transform:translateX(150%); transition:transform .44s cubic-bezier(.2,1,.3,1);
+}
+.toast.show{ transform:none; }
+.toast .t-ico{
+  width:42px; height:42px; flex:none; border-radius:50%; display:grid; place-items:center;
+  background:var(--accent); color:var(--accent-ink);
+  border:3px solid var(--wood-d);
+}
+.toast .t-ico svg{ width:19px; height:19px; }
+.toast b{ font-family:'Rye', serif; font-size:1rem; }
+.toast small{ display:block; color:var(--ink-soft); font-size:.8rem;
+  font-family:'Special Elite', serif; }
+
+/* ============================================================ ABOUT */
+.about-grid .card{ text-align:left; }
+.about-num{
+  font-family:'Smokum', serif; font-size:3.2rem; color:var(--accent);
+  line-height:.9; text-shadow:2px 2px 0 var(--wood-d);
+}
+
+/* ============================================================ FOOTER */
+.foot{
+  text-align:center; padding:58px 0 50px; color:var(--ink-soft);
+  font-size:.9rem; font-family:'Special Elite', serif;
+}
+.foot .rope{ max-width:520px; margin:0 auto 26px; }
+.foot .brand-mark{ margin:0 auto 16px; }
+.foot a{ color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+.foot .foot-title{
+  font-family:'Rye', serif; font-size:1.2rem; color:var(--ink); margin-bottom:6px;
+}
+
+/* ============================================================ ENTRANCE */
+@keyframes rise{ from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:none; } }
+.rise{ animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
+.d1{ animation-delay:.06s; } .d2{ animation-delay:.16s; }
+.d3{ animation-delay:.27s; } .d4{ animation-delay:.38s; } .d5{ animation-delay:.49s; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:920px){
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .card--music{ grid-row:auto; grid-column:1 / -1; }
+  .card--wide{ grid-column:1 / -1; }
+  .activity-grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
+  .activity-grid .ring{ margin:0 auto; }
+  .nav-links{ display:none; }
+}
+@media (max-width:600px){
+  .bento{ grid-template-columns:1fr; }
+  .card--activity, .card--music, .card--wide{ grid-column:auto; }
+  .hero{ padding:50px 0 36px; }
+  .card{ padding:22px; }
+  .brand-name{ font-size:1.16rem; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; animation-delay:0 !important;
+     transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================== NAVIGATION -->
+<nav class="nav rise">
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/>
+          </svg>
+        </div>
+        <div class="brand-name">Dusty Trail</div>
+      </div>
+      <div class="nav-links">
+        <a href="#showcase">Outfit</a>
+        <a href="#more">Gear</a>
+        <a href="#about">The Code</a>
+      </div>
+      <a href="../index.html" class="all-styles">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        All styles
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle day / dusk">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow rise d1">
+      <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg>
+      Wanted &mdash; Frontier Interface
+    </div>
+    <h1 class="rise d2">Wild West
+      <em>A showcase forged on the frontier</em>
+    </h1>
+    <p class="rise d3">Weathered kraft and saloon woodgrain. Sheriff stars, rope
+      borders, leather and brass. Every control built tougher than a two-dollar
+      steak &mdash; and twice as honest.</p>
+    <div class="hero-cta rise d4">
+      <a href="#showcase" class="btn btn--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Mosey on in
+      </a>
+      <a href="#about" class="btn">Read the code</a>
+    </div>
+    <div class="hero-stats rise d5">
+      <div class="stat-pill"><b>1849</b><small>Trails Blazed</small></div>
+      <div class="stat-pill"><b>5</b><small>Star Sheriff</small></div>
+      <div class="stat-pill"><b>0</b><small>Tin-Star Slop</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================== SHOWCASE -->
+<main class="showcase" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The whole outfit</h2>
+      <p>Every control on this here page is loaded &mdash; drag it, toggle it, give it a holler.</p>
+      <div class="rope" aria-hidden="true"></div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Music player ---- -->
+      <section class="card card--music" aria-label="Music player">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Now Playin'
+        </div>
+        <div class="player-art" id="playerArt">
+          <div class="eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>Tumbleweed Waltz</h3>
+            <p>Cactus Jack &middot; Saloon Sessions</p>
+          </div>
+          <button class="icon-btn heart" id="heartBtn" aria-label="Brand this track" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.3 4.5 6 4.5c2.3 0 3.8 1.5 6 4 2.2-2.5 3.7-4 6-4 3.7 0 5.4 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress" id="seek" role="slider" aria-label="Seek"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="34" tabindex="0">
+          <div class="track"><div class="track-fill" id="seekFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeNow">1:09</span><span id="timeTotal">3:24</span>
+        </div>
+        <div class="player-controls">
+          <button class="icon-btn" aria-label="Previous track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="play-btn" id="playBtn" aria-label="Play">
+            <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="Next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6L5 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---- Switches ---- -->
+      <section class="card" aria-label="Preferences">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1l-.4-2.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6c.1-.3.1-.7.1-1z"/></svg>
+          Trail Settin's
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Smoke signals</div>
+            <div class="sub">Holler on new tunes</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Smoke signals" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Pony express</div>
+            <div class="sub">Sync across every saddlebag</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" aria-label="Pony express" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <div class="lbl">Pure gold audio</div>
+            <div class="sub">Heavier on the dust</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked aria-label="Pure gold audio" />
+            <span class="s-track"></span><span class="s-thumb"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ---- Dial ---- -->
+      <section class="card" aria-label="Volume dial">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4zM19 5a9 9 0 0 1 0 14M15.5 8.5a4 4 0 0 1 0 7"/></svg>
+          Holler Level
+        </div>
+        <div class="dial-wrap">
+          <div class="dial" id="dial" role="slider" aria-label="Volume"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" tabindex="0"
+               style="--v:40">
+            <div class="dial-arc"></div>
+            <div class="dial-knob" id="dialKnob"></div>
+            <div class="dial-readout">
+              <b id="dialVal">40</b>
+              <small>level</small>
+            </div>
+          </div>
+          <div class="dial-hint">Twist the brass knob &middot; or use arrow keys</div>
+        </div>
+      </section>
+
+      <!-- ---- Slider ---- -->
+      <section class="card" aria-label="Lantern slider">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+          Lantern Wick
+        </div>
+        <div class="slider-head">
+          <span class="card-title">Oil lamp</span>
+          <span class="v" id="sliderVal">55%</span>
+        </div>
+        <input type="range" class="range" id="range" min="0" max="100" value="55"
+               aria-label="Lantern brightness" />
+        <div class="slider-scale"><span>Low</span><span>Blazin'</span></div>
+      </section>
+
+      <!-- ---- Inputs ---- -->
+      <section class="card" aria-label="Inputs and controls">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Bounty Hunt
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Search the territory&hellip;" aria-label="Search" />
+        </div>
+        <div class="seg-label">Survey the land as</div>
+        <div class="segmented" id="segmented" role="tablist" aria-label="View mode">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-opt active" role="tab" aria-selected="true">Map</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Trail</button>
+          <button class="seg-opt" role="tab" aria-selected="false">Camp</button>
+        </div>
+      </section>
+
+      <!-- ---- Activity ---- -->
+      <section class="card card--activity" aria-label="Activity">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          This Week's Ride
+        </div>
+        <div class="activity-grid">
+          <div class="ring" id="ring">
+            <div class="ring-core"><b id="ringVal">0%</b><small>Bounty</small></div>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+              <div><b>14 days</b><small>On the dusty trail</small></div>
+            </div>
+            <div class="chip">
+              <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div><b>38 tracks</b><small>Wrangled into your stash</small></div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn--accent">Post a notice</button>
+            <button class="btn">Load the wagon</button>
+            <button class="btn" disabled>Pony express resting</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ===================================================== MORE CONTROLS -->
+<section class="showcase" id="more">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>More gear for the saddlebag</h2>
+      <p>Steppers, ratings, ballot boxes and dialogs &mdash; all carved from honest oak.</p>
+      <div class="rope" aria-hidden="true"></div>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---- Accent picker ---- -->
+      <section class="card" aria-label="Accent colour picker">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="12" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="13" r="2.5"/><path d="M12 22a8 8 0 0 1 0-16"/></svg>
+          Brandin' Iron
+        </div>
+        <h3 class="card-title">Pick your brand</h3>
+        <p class="muted" style="margin-top:6px">Stamp a swatch to re-brand every control on the homestead.</p>
+        <div class="swatches" id="swatches">
+          <button class="swatch is-active" style="--sw:#9e3b22" data-accent="#9e3b22" aria-label="Oxblood" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+          <button class="swatch" style="--sw:#6b7a4e" data-accent="#6b7a4e" aria-label="Sagebrush" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+          <button class="swatch" style="--sw:#b5732a" data-accent="#b5732a" aria-label="Rust" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+          <button class="swatch" style="--sw:#4f6b73" data-accent="#4f6b73" aria-label="Dusty teal" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+          <button class="swatch" style="--sw:#c08a3e" data-accent="#c08a3e" aria-label="Brass" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+          <button class="swatch" style="--sw:#7a4a26" data-accent="#7a4a26" aria-label="Leather" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></button>
+        </div>
+      </section>
+
+      <!-- ---- Stepper ---- -->
+      <section class="card center" aria-label="Quantity stepper">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Stepper
+        </div>
+        <h3 class="card-title">Boxes of shells</h3>
+        <div class="stepper">
+          <button class="step-btn" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <div class="step-val" id="stepVal" aria-live="polite">2</div>
+          <button class="step-btn" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <p class="muted">.45 caliber, for the long ride</p>
+      </section>
+
+      <!-- ---- Star rating ---- -->
+      <section class="card center" aria-label="Star rating">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg>
+          Sheriff's Word
+        </div>
+        <h3 class="card-title">Pin the badge</h3>
+        <div class="stars" id="stars">
+          <button class="star" aria-label="1 star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg></button>
+          <button class="star" aria-label="2 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg></button>
+          <button class="star" aria-label="3 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg></button>
+          <button class="star" aria-label="4 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg></button>
+          <button class="star" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg></button>
+        </div>
+        <p class="muted" id="ratingText">Pin a star to rate</p>
+      </section>
+
+      <!-- ---- Custom select ---- -->
+      <section class="card" aria-label="Sort dropdown">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          Wanted Board
+        </div>
+        <h3 class="card-title" style="margin-bottom:16px">Sort the bounties</h3>
+        <div class="select" id="select">
+          <button class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectLabel">Freshest first</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="select-menu" id="selectMenu" role="listbox" aria-label="Sort order">
+            <li role="option" data-val="Freshest first" aria-selected="true">Freshest first<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Oldest notice" aria-selected="false">Oldest notice<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Highest bounty" aria-selected="false">Highest bounty<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+            <li role="option" data-val="Most wanted" aria-selected="false">Most wanted<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- PIN input ---- -->
+      <section class="card center" aria-label="PIN code input">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Strongbox
+        </div>
+        <h3 class="card-title">Vault combination</h3>
+        <div class="pin" id="pin">
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 1" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 2" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 3" />
+          <input type="text" maxlength="1" inputmode="numeric" aria-label="Digit 4" />
+        </div>
+        <p class="muted" id="pinMsg">Punch in your 4-digit combination</p>
+      </section>
+
+      <!-- ---- Toggle button group ---- -->
+      <section class="card center" aria-label="Text style toggles">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          Branding Marks
+        </div>
+        <h3 class="card-title">Poster type</h3>
+        <div class="toggle-group" id="toggleGroup">
+          <button class="tg-btn" data-tip="Bold" aria-pressed="false" aria-label="Bold"><b>B</b></button>
+          <button class="tg-btn" data-tip="Italic" aria-pressed="false" aria-label="Italic"><i>I</i></button>
+          <button class="tg-btn" data-tip="Underline" aria-pressed="false" aria-label="Underline"><u>U</u></button>
+          <button class="tg-btn" data-tip="Strikethrough" aria-pressed="false" aria-label="Strikethrough"><s>S</s></button>
+        </div>
+        <p class="muted">Each brand fires independent</p>
+      </section>
+
+      <!-- ---- Accordion ---- -->
+      <section class="card card--wide" aria-label="Frequently asked questions">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2.5-2.5 4"/><path d="M12 17h.01"/></svg>
+          Around the Campfire
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="acc-item open">
+            <button class="acc-head" aria-expanded="true">
+              What in tarnation is the Wild West style?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>A frontier aesthetic built on weathered kraft and parchment, saloon woodgrain, ornate woodtype straight off a WANTED poster, sheriff stars, rope borders, and the leather-and-brass hardware of the American Old West.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Is this poster type easy on the eyes?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>The big slab woodtype shines on headlines and labels. For body copy this page leans on a sturdy slab serif and a typewriter face, plus high-contrast oxblood ink, dashed focus rings, and honest labels &mdash; readable as a saloon menu.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" aria-expanded="false">
+              Where does this style ride best?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-panel"><div class="acc-inner">
+              <p>Anywhere that wants rugged character &mdash; event posters, distilleries and breweries, games, festivals, and brands that trade on grit, craft, and a tall tale told well.</p>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Overlays ---- -->
+      <section class="card" aria-label="Overlays">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="14" rx="2"/><path d="M21 8v10a3 3 0 0 1-3 3H8"/></svg>
+          Overlays
+        </div>
+        <h3 class="card-title">Notices &amp; hollers</h3>
+        <p class="muted" style="margin-top:6px">Layered notices that float clean above the page.</p>
+        <div class="btn-stack" style="margin-top:18px">
+          <button class="btn btn--accent" id="toastBtn">Send a holler</button>
+          <button class="btn" id="modalBtn">Post a notice</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ABOUT -->
+<section class="showcase" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three rules of the trail</h2>
+      <p>The Wild West runs on grit &mdash; character carved from honest materials.</p>
+      <div class="rope" aria-hidden="true"></div>
+    </div>
+    <div class="bento about-grid" style="grid-template-columns:repeat(3,1fr)">
+      <section class="card">
+        <div class="about-num">01</div>
+        <h3 class="card-title" style="margin-top:8px">Honest materials</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-family:'Special Elite',serif">
+          Weathered kraft, sawn oak plank, hammered brass and tanned leather.
+          Nothin' slick &mdash; every surface looks worked by hand.</p>
+      </section>
+      <section class="card">
+        <div class="about-num">02</div>
+        <h3 class="card-title" style="margin-top:8px">Woodtype hollers loud</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-family:'Special Elite',serif">
+          Big tuscan and slab display fonts, stacked drop-shadows, sunburst rays.
+          Headlines holler like a WANTED poster nailed to the saloon.</p>
+      </section>
+      <section class="card">
+        <div class="about-num">03</div>
+        <h3 class="card-title" style="margin-top:8px">Sun-baked palette</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;font-family:'Special Elite',serif">
+          Tan, rust, oxblood, sagebrush and sun-bleached sky. Hard wood edges,
+          rope trim and brass tacks &mdash; the dust of the frontier.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="rope" aria-hidden="true"></div>
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/>
+      </svg>
+    </div>
+    <div class="foot-title">Dusty Trail &mdash; A Wild West Showcase</div>
+    <p>Built with woodtype, rope and a tin star.<br/>
+       Care to ride into the night? Try the <a href="#" id="footTheme">day / dusk toggle</a>.</p>
+  </div>
+</footer>
+
+<!-- ===================================================== MODAL + TOASTS -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/></svg>
+    </div>
+    <h3 id="modalTitle">Sign the ledger?</h3>
+    <p>Your changes to the Wild West outfit will ride out to every saddlebag on your account, partner.</p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Not just yet</button>
+      <button class="btn btn--accent" id="modalConfirm">Sign &amp; ride</button>
+    </div>
+  </div>
+</div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  function setTheme(t){ root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('ww-theme', t); }catch(e){} }
+  try{
+    var saved = localStorage.getItem('ww-theme');
+    if(saved) setTheme(saved);
+  }catch(e){}
+  function toggleTheme(){
+    setTheme(root.getAttribute('data-theme') === 'dusk' ? 'day' : 'dusk');
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('footTheme').addEventListener('click', function(e){
+    e.preventDefault(); toggleTheme();
+  });
+
+  /* ---------- Card reveal on scroll ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.16 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else { cards.forEach(function(c){ c.classList.add('in'); }); }
+
+  /* ---------- Heart ---------- */
+  var heart = document.getElementById('heartBtn');
+  heart.addEventListener('click', function(){
+    var on = heart.classList.toggle('on');
+    heart.setAttribute('aria-pressed', on);
+  });
+
+  /* ---------- Music player ---------- */
+  var playBtn = document.getElementById('playBtn'),
+      art     = document.getElementById('playerArt'),
+      seek    = document.getElementById('seek'),
+      seekFill= document.getElementById('seekFill'),
+      timeNow = document.getElementById('timeNow'),
+      DURATION= 204, current = 69, playing = false, raf = null, last = 0;
+
+  function fmt(s){ s = Math.max(0, Math.round(s));
+    return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function renderTrack(){
+    var pct = current / DURATION * 100;
+    seekFill.style.width = pct + '%';
+    timeNow.textContent = fmt(current);
+    seek.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  function tick(now){
+    if(!playing) return;
+    if(last){ current += (now - last) / 1000; }
+    last = now;
+    if(current >= DURATION){ current = 0; }
+    renderTrack();
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlaying(state){
+    playing = state;
+    playBtn.classList.toggle('playing', playing);
+    art.classList.toggle('playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    if(playing){ last = 0; raf = requestAnimationFrame(tick); }
+    else if(raf){ cancelAnimationFrame(raf); }
+  }
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+
+  function seekTo(clientX){
+    var r = seek.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    current = ratio * DURATION;
+    renderTrack();
+  }
+  seek.addEventListener('pointerdown', function(e){
+    seek.setPointerCapture(e.pointerId); seekTo(e.clientX);
+    var move = function(ev){ seekTo(ev.clientX); };
+    var up = function(){ seek.removeEventListener('pointermove', move);
+      seek.removeEventListener('pointerup', up); };
+    seek.addEventListener('pointermove', move);
+    seek.addEventListener('pointerup', up);
+  });
+  seek.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ current = Math.min(DURATION, current+5); renderTrack(); }
+    if(e.key === 'ArrowLeft'){ current = Math.max(0, current-5); renderTrack(); }
+  });
+  renderTrack();
+
+  /* ---------- Volume dial ---------- */
+  var dial = document.getElementById('dial'),
+      knob = document.getElementById('dialKnob'),
+      dialVal = document.getElementById('dialVal'),
+      vol = 40, MIN_DEG = -135, SPAN = 270;
+
+  function renderDial(){
+    vol = Math.min(100, Math.max(0, Math.round(vol)));
+    dial.style.setProperty('--v', vol);
+    knob.style.transform = 'rotate(' + (MIN_DEG + vol/100*SPAN) + 'deg)';
+    dialVal.textContent = vol;
+    dial.setAttribute('aria-valuenow', vol);
+  }
+  function dialFromPoint(clientX, clientY){
+    var r = dial.getBoundingClientRect();
+    var ang = Math.atan2(clientY - (r.top+r.height/2),
+                         clientX - (r.left+r.width/2)) * 180/Math.PI;
+    ang += 90;
+    if(ang > 180) ang -= 360;
+    if(ang < MIN_DEG) ang = (ang < -157.5) ? 135 : MIN_DEG;
+    if(ang > 135) ang = 135;
+    vol = (ang - MIN_DEG) / SPAN * 100;
+    renderDial();
+  }
+  dial.addEventListener('pointerdown', function(e){
+    dial.setPointerCapture(e.pointerId); dialFromPoint(e.clientX, e.clientY);
+    var move = function(ev){ dialFromPoint(ev.clientX, ev.clientY); };
+    var up = function(){ dial.removeEventListener('pointermove', move);
+      dial.removeEventListener('pointerup', up); };
+    dial.addEventListener('pointermove', move);
+    dial.addEventListener('pointerup', up);
+  });
+  dial.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowUp' || e.key === 'ArrowRight'){ vol+=2; renderDial(); e.preventDefault(); }
+    if(e.key === 'ArrowDown' || e.key === 'ArrowLeft'){ vol-=2; renderDial(); e.preventDefault(); }
+  });
+  renderDial();
+
+  /* ---------- Lantern slider ---------- */
+  var range = document.getElementById('range'),
+      sliderVal = document.getElementById('sliderVal');
+  function renderRange(){
+    range.style.setProperty('--val', range.value + '%');
+    sliderVal.textContent = range.value + '%';
+  }
+  range.addEventListener('input', renderRange);
+  renderRange();
+
+  /* ---------- Segmented control ---------- */
+  var seg = document.getElementById('segmented'),
+      thumb = document.getElementById('segThumb'),
+      opts = seg.querySelectorAll('.seg-opt');
+  function moveThumb(i){
+    thumb.style.width = (100/opts.length) + '%';
+    thumb.style.transform = 'translateX(' + (i*100) + '%)';
+  }
+  opts.forEach(function(opt, i){
+    opt.addEventListener('click', function(){
+      opts.forEach(function(o){ o.classList.remove('active');
+        o.setAttribute('aria-selected','false'); });
+      opt.classList.add('active'); opt.setAttribute('aria-selected','true');
+      moveThumb(i);
+    });
+  });
+  moveThumb(0);
+
+  /* ---------- Activity ring (animate when revealed) ---------- */
+  var ring = document.getElementById('ring'),
+      ringVal = document.getElementById('ringVal'),
+      GOAL = 72;
+  function fillRing(){
+    ring.style.setProperty('--p', GOAL);
+    var t0 = null;
+    function count(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0)/1400);
+      ringVal.textContent = Math.round(GOAL * (1 - Math.pow(1-k,3))) + '%';
+      if(k < 1) requestAnimationFrame(count);
+    }
+    requestAnimationFrame(count);
+  }
+  if('IntersectionObserver' in window){
+    var ringIO = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting){ fillRing(); ringIO.disconnect(); }
+    }, { threshold:.4 });
+    ringIO.observe(ring);
+  } else { fillRing(); }
+
+  /* ---------- Toast ---------- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(title, msg){
+    var t = document.createElement('div');
+    t.className = 'toast'; t.setAttribute('role','status');
+    t.innerHTML =
+      '<div class="t-ico"><svg viewBox="0 0 24 24" fill="currentColor">' +
+      '<path d="M12 1.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 16.2 6.3 19.8l1.7-6.6L2.8 8.8l6.8-.5z"/>' +
+      '</svg></div>' +
+      '<div><b></b><small></small></div>';
+    t.querySelector('b').textContent = title;
+    t.querySelector('small').textContent = msg;
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+    });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 480);
+    }, 3400);
+  }
+
+  /* ---------- Accent picker (re-themes the whole page) ---------- */
+  var swatchEls = document.querySelectorAll('.swatch');
+  function reChannel(hex, fn){
+    hex = hex.replace('#','');
+    function hx(c){ return Math.round(Math.min(255,Math.max(0,c))).toString(16).padStart(2,'0'); }
+    return '#' + hx(fn(parseInt(hex.substr(0,2),16)))
+               + hx(fn(parseInt(hex.substr(2,2),16)))
+               + hx(fn(parseInt(hex.substr(4,2),16)));
+  }
+  swatchEls.forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var c = sw.getAttribute('data-accent'), h = c.replace('#','');
+      var lum = (0.299*parseInt(h.substr(0,2),16)
+               + 0.587*parseInt(h.substr(2,2),16)
+               + 0.114*parseInt(h.substr(4,2),16)) / 255;
+      root.style.setProperty('--accent', c);
+      root.style.setProperty('--accent-d', reChannel(c, function(x){ return x*0.6; }));
+      root.style.setProperty('--accent-l', reChannel(c, function(x){ return x+(255-x)*0.42; }));
+      root.style.setProperty('--accent-ink', lum > 0.58 ? '#2e2117' : '#f4e6c5');
+      swatchEls.forEach(function(s){ s.classList.remove('is-active');
+        s.setAttribute('aria-pressed','false'); });
+      sw.classList.add('is-active');
+      sw.setAttribute('aria-pressed','true');
+    });
+  });
+
+  /* ---------- Stepper ---------- */
+  var stepVal = document.getElementById('stepVal'), qty = 2;
+  document.querySelectorAll('.step-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      qty = Math.min(20, Math.max(1, qty + parseInt(b.getAttribute('data-step'),10)));
+      stepVal.textContent = qty;
+    });
+  });
+
+  /* ---------- Star rating ---------- */
+  var starEls = document.querySelectorAll('.star'),
+      ratingText = document.getElementById('ratingText'),
+      rating = 0,
+      RATE_LABELS = ['Pin a star to rate','Greenhorn','Fair hand','Steady aim','Sharpshooter','Quick-draw legend'];
+  function paintStars(n){
+    starEls.forEach(function(s,i){ s.classList.toggle('lit', i < n); });
+  }
+  starEls.forEach(function(s,i){
+    s.addEventListener('mouseenter', function(){ paintStars(i+1); });
+    s.addEventListener('focus', function(){ paintStars(i+1); });
+    s.addEventListener('click', function(){
+      rating = i+1; paintStars(rating);
+      ratingText.textContent = RATE_LABELS[rating] + ' · ' + rating + ' of 5';
+    });
+  });
+  document.getElementById('stars').addEventListener('mouseleave', function(){ paintStars(rating); });
+
+  /* ---------- Accordion ---------- */
+  document.querySelectorAll('.acc-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var item = head.parentElement, isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.acc-head').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- Custom select ---------- */
+  var sel = document.getElementById('select'),
+      selBtn = document.getElementById('selectBtn'),
+      selLabel = document.getElementById('selectLabel'),
+      selItems = sel.querySelectorAll('.select-menu li');
+  selBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = sel.classList.toggle('open');
+    selBtn.setAttribute('aria-expanded', open);
+  });
+  selItems.forEach(function(li){
+    li.addEventListener('click', function(){
+      selItems.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      selLabel.textContent = li.getAttribute('data-val');
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!sel.contains(e.target)){
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- PIN input ---------- */
+  var pinWrap = document.getElementById('pin'),
+      pinInputs = pinWrap.querySelectorAll('input'),
+      pinMsg = document.getElementById('pinMsg');
+  pinInputs.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      inp.value = inp.value.replace(/[^0-9]/g,'').slice(0,1);
+      inp.classList.toggle('filled', !!inp.value);
+      if(inp.value && i < pinInputs.length - 1) pinInputs[i+1].focus();
+      var code = '';
+      pinInputs.forEach(function(x){ code += x.value; });
+      if(code.length === 4){
+        pinWrap.classList.add('done');
+        pinMsg.textContent = 'Strongbox open ✓';
+        showToast('Vault unlocked', 'Welcome back to Dusty Trail, partner.');
+      } else {
+        pinWrap.classList.remove('done');
+        pinMsg.textContent = 'Punch in your 4-digit combination';
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && i > 0) pinInputs[i-1].focus();
+    });
+  });
+
+  /* ---------- Toggle button group ---------- */
+  document.querySelectorAll('.tg-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    });
+  });
+
+  /* ---------- Modal dialog ---------- */
+  var overlay = document.getElementById('modalOverlay'),
+      modalLast = null;
+  function openModal(){
+    modalLast = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    document.getElementById('modalConfirm').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(modalLast) modalLast.focus();
+  }
+  document.getElementById('modalBtn').addEventListener('click', openModal);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('modalConfirm').addEventListener('click', function(){
+    closeModal();
+    showToast('Ledger signed', 'Your Wild West outfit is squared away.');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  /* focus trap inside modal */
+  overlay.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab' || overlay.hidden) return;
+    var f = overlay.querySelectorAll('button');
+    var first = f[0], lastEl = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+    else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!overlay.hidden) closeModal();
+      sel.classList.remove('open');
+      selBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* ---------- Toast trigger ---------- */
+  document.getElementById('toastBtn').addEventListener('click', function(){
+    showToast('Wrangled to your stash', 'Tumbleweed Waltz added to Saloon Sessions.');
+  });
+})();
+</script>
+</body>
+</html>
