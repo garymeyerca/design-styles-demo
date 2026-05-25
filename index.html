@@ -86,16 +86,13 @@ h1 em{ font-style:normal; color:var(--accent); }
 .card .chip{ height:170px; position:relative; overflow:hidden;
   background:linear-gradient(120deg, var(--c1, #333), var(--c2, #111)); }
 .card .chip::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:
-    linear-gradient(180deg, transparent 62%, rgba(0,0,0,.32)),
-    linear-gradient(120deg, rgba(255,255,255,.14), transparent 55%);
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,.32));
 }
 .card .preview{
-  position:absolute; top:0; left:0; width:1400px; height:900px;
-  border:0; pointer-events:none; background:#fff;
-  transform:scale(.22); transform-origin:top left;
-  opacity:0; transition:opacity .55s ease;
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:top center;
+  opacity:0; transition:opacity .4s ease;
 }
 .card .preview.loaded{ opacity:1; }
 .card .num{
@@ -263,13 +260,13 @@ function render(){
   }
   list.forEach(function(s){
     var num = '<span class="num">' + String(s.n).padStart(2,'0') + '</span>';
-    var iframe = s.live
-      ? '<iframe class="preview" src="styles/' + s.slug + '.html"'
-        + ' loading="lazy" tabindex="-1" aria-hidden="true"'
-        + ' scrolling="no" title="' + s.name + ' preview"></iframe>'
+    var img = s.live
+      ? '<img class="preview" src="previews/' + s.slug + '.webp"'
+        + ' loading="lazy" decoding="async" alt=""'
+        + ' width="700" height="450">'
       : '';
     var chip = '<div class="chip" style="--c1:' + s.c[0] + ';--c2:' + s.c[1]
-      + '">' + iframe + num + '</div>';
+      + '">' + img + num + '</div>';
     var body = '<div class="body"><div class="name">' + s.name + '</div>'
       + '<div class="desc">' + s.desc + '</div>';
     var el;
@@ -285,7 +282,10 @@ function render(){
         + '<div class="status">In progress</div></div>';
     }
     var pv = el.querySelector('.preview');
-    if(pv){ pv.addEventListener('load', function(){ pv.classList.add('loaded'); }); }
+    if(pv){
+      if(pv.complete){ pv.classList.add('loaded'); }
+      else { pv.addEventListener('load', function(){ pv.classList.add('loaded'); }); }
+    }
     grid.appendChild(el);
   });
 }
