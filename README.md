@@ -1,7 +1,7 @@
-# Fifty-Six Design Styles
+# Fifty-Seven Design Styles
 
-One interactive component showcase, rebuilt from scratch in **56 distinct design
-styles**. Same music player, dials, switches, dialogs, modal, toasts — fifty-six
+One interactive component showcase, rebuilt from scratch in **57 distinct design
+styles**. Same music player, dials, switches, dialogs, modal, toasts — fifty-seven
 visual languages.
 
 Open `index.html` in a browser to browse the gallery, then click any style to
@@ -9,8 +9,8 @@ see its full live, fully-interactive showcase page.
 
 ## What's inside
 
-- `index.html` — the gallery (search + 56 cards linking to each style)
-- `styles/*.html` — 56 self-contained showcase pages, one per style
+- `index.html` — the gallery (search + 57 cards linking to each style)
+- `styles/*.html` — 57 self-contained showcase pages, one per style
 - `previews/*.webp` — homepage card thumbnails (auto-generated)
 - `bin/build-previews.sh` — regenerates `previews/` from `styles/`
 - `_BRIEF.md` — the build brief every style page was built against
@@ -22,7 +22,7 @@ hero, bento grid (music player, switches, dial, slider, segmented control,
 activity ring), more-controls (accent picker, stepper, rating, accordion,
 custom select, PIN, toggle group, modal, toasts), about, footer.
 
-## The 56 styles
+## The 57 styles
 
 Neoclassical · Baroque · Aurora · Ethereal · Filigree · Acanthus ·
 Anthropomorphic · Pixel Art · Conceptual Sketch · Luxury Typography · Japandi ·
@@ -33,4 +33,4 @@ Pointillism · Mixed Media · Steampunk · Kawaii · Coquette · Surrealism ·
 Utilitarian · Mid-Century · Scrapbook · Frutiger Aero · Dark Academia ·
 Light Academia · Wabi-Sabi · Wild West · Nautical · Rebus · Glassmorphism ·
 Modular Typography · Neo-Brutalism · Neumorphic · Grunge · Photorealism ·
-Three-Dimensional · Illustrated · Geometric.
+Three-Dimensional · Illustrated · Geometric · Corporate.
