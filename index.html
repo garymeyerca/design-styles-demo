@@ -88,18 +88,29 @@ h1 em{ font-style:normal; color:var(--accent); }
 .card{
   position:relative; display:flex; flex-direction:column; overflow:hidden;
   background:var(--panel); border:1px solid var(--line); border-radius:16px;
-  text-decoration:none; color:inherit; min-height:208px;
+  text-decoration:none; color:inherit; min-height:328px;
   transition:transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s, box-shadow .22s;
 }
-.card .chip{ height:60px; position:relative; }
+.card .chip{ height:170px; position:relative; overflow:hidden;
+  background:linear-gradient(120deg, var(--c1, #333), var(--c2, #111)); }
 .card .chip::after{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(120deg, rgba(255,255,255,.18), transparent 60%);
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(180deg, transparent 62%, rgba(0,0,0,.32)),
+    linear-gradient(120deg, rgba(255,255,255,.14), transparent 55%);
 }
+.card .preview{
+  position:absolute; top:0; left:0; width:1400px; height:900px;
+  border:0; pointer-events:none; background:#fff;
+  transform:scale(.22); transform-origin:top left;
+  opacity:0; transition:opacity .55s ease;
+}
+.card .preview.loaded{ opacity:1; }
 .card .num{
-  position:absolute; top:10px; left:12px; font-family:'Bricolage Grotesque',sans-serif;
-  font-weight:700; font-size:.78rem; color:#fff; mix-blend-mode:difference;
-  letter-spacing:.04em;
+  position:absolute; top:10px; left:12px; z-index:2;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700; font-size:.78rem; color:#fff;
+  letter-spacing:.04em; text-shadow:0 1px 2px rgba(0,0,0,.55);
 }
 .card .body{ padding:16px 17px 14px; display:flex; flex-direction:column; flex:1; }
 .card .name{
@@ -265,9 +276,14 @@ function render(){
     return;
   }
   list.forEach(function(s){
-    var chip = '<div class="chip" style="background:linear-gradient(120deg,'
-      + s.c[0] + ',' + s.c[1] + ')"><span class="num">'
-      + String(s.n).padStart(2,'0') + '</span></div>';
+    var num = '<span class="num">' + String(s.n).padStart(2,'0') + '</span>';
+    var iframe = s.live
+      ? '<iframe class="preview" src="styles/' + s.slug + '.html"'
+        + ' loading="lazy" tabindex="-1" aria-hidden="true"'
+        + ' scrolling="no" title="' + s.name + ' preview"></iframe>'
+      : '';
+    var chip = '<div class="chip" style="--c1:' + s.c[0] + ';--c2:' + s.c[1]
+      + '">' + iframe + num + '</div>';
     var body = '<div class="body"><div class="name">' + s.name + '</div>'
       + '<div class="desc">' + s.desc + '</div>';
     var el;
@@ -282,6 +298,8 @@ function render(){
       el.innerHTML = chip + '<span class="tag-soon">Soon</span>' + body
         + '<div class="status">In progress</div></div>';
     }
+    var pv = el.querySelector('.preview');
+    if(pv){ pv.addEventListener('load', function(){ pv.classList.add('loaded'); }); }
     grid.appendChild(el);
   });
 }
